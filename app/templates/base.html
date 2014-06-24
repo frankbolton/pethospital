@@ -1,0 +1,31 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{title}} - Tel Aviv University Industrial Engineering</title>
+    {% else %}
+    <title>Tel Aviv University Industrial Engineering</title>
+    {% endif %}
+
+  </head>
+<!--insert the flashing functionality
+        {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                        <ul class=flashes>
+                        {% for message in messages %}
+                                <li>{{ message }}</li>
+                        {% endfor %}
+                        </ul>
+                {% endif %}
+        {% endwith %}
+        end of flashing functionality-->
+
+  <body>
+	<!-- Comment out the navigation after we've got the site figured out..-->	
+	<div>Test navigation (Remove in live app): <a href="/index">index</a> <a href="/agreement">Agreement</a>  <a href="/questions">Questions</a>  
+	<a href="/experiment">Experiment</a>   <a href="/end">end</a>    <a href="/after">after	</a>   <a href="/admin">admin</a>
+	<a href="/results">Results</a>
+    	<hr> 
+	<!-- -->
+	{% block content %}{% endblock %}
+  </body>
+</html>

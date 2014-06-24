@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!--<script src="jquery.js"></script>
+<script src="TextButton.js"></script>-->
+<script src="gameScore.js"></script>
+<script src="myStation.js"></script>
+<script type="text/javascript">
+
+
+var station1 = new myStation(100,1,0,4,"Station1",120,50, gameScore);
+var station2 = new myStation(100,1,0,4,"Station2",120,400, gameScore);
+var station3 = new myStation(100,1,0,4,"Station3",120,750, gameScore);
+//var station4 = new myStation(100,1,0,4,"Station4",600, 500);
+
+loop();
+
+
+const FRAME_RATE =10;
+var intervalTime = 1000/FRAME_RATE;
+var loopCounter=0;
+function loop() {
+    loopCounter +=1;
+    if (loopCounter > FRAME_RATE-1) { //we are in a per-second action
+        gameScore.tick();
+        console.log("inside per-second code");
+        
+        //increment score if all stations have positive health and are hidden.
+        if(station1.OK && station2.OK && station3.OK) {
+            gameScore.inc();
+        }
+        
+        
+        
+        loopCounter =0;
+        
+    }
+    window.setTimeout(loop, intervalTime);
+}
+
+
+</script>
+</head>
+
+<body>
+
+
+
+
+
+</body>
+</html>

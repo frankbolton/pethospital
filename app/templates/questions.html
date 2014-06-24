@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Questions</h1>
+<div><b>please enter the following data to facilitate the experiment</b></div>
+
+<table>
+    <tr><form name="RegisterUser" method="post" action="questions">
+<label><td style="width:50%" >Your Mechanical Turk WorkerId</label> </td><td><input type="string" name="turkNickName"></td></tr>
+<tr><td>Age:</td><td><!--<input type="string" name="age">-->
+<select name="age">
+	<option value="" disabled="disabled" selected="selected">Please select your age</option>
+	<option value="18,20">18-20</option>
+<option value="21,24">21-24</option>
+<option value="25,30">25-30</option>
+<option value="31,40">31-40</option>
+<option value="41,50">41-50</option>
+<option value="51,60">51-60</option>
+<option value="61,70">61-70</option>
+<option value="70,0">\>70</option>
+</select></td></tr>
+<!--<tr><td style="width:50%">Salary:</td><td><input type="string" name="salaryRangefoo"></td></tr>-->
+<tr><td>Country:</td><td><input type="string" name="country"></td></tr>
+<tr><td>Salary per year: </td><td><select name="salaryRange">
+	<option value="" disabled="disabled" selected="selected">Please select your salary range (US dollars per year)</option>
+	<option value="2500">0 to 5,000 USD per year</option>
+	<option value="7500">5,001 to 10,000</option>
+	<option value="12500">10,001 to 15,000</option>
+    <option value="17500">15,001 to 20,000</option>
+    <option value="25000">20,001 to 30,000</option>
+    <option value="40000">30,001 to 50,000</option>
+    <option value="60000">50,001 to 70,000</option>
+    <option value="85000">70,001 to 100,000</option>
+    <option value="125000">100,001 to 150,000</option>
+    <option value="175000">150,001 to 200,000</option>
+    <option value="200000">>200,000</option>
+    </select></td></tr>
+
+<tr><td>Sex:</td>
+<td><input type="radio" name="sex" value=1>Male
+<input type="radio" name="sex" value=0>Female </td></tr>
+</table>	
+
+
+
+
+<br>
+<input type="submit" value="SUBMIT" />
+
+</form>
+{% endblock %}
