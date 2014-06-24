@@ -1,23 +1,36 @@
  var gameScore = function() {
-	var score = 1000;
+	var score = 0;
 	var scoreIncrease = 1;
 	var healCost = 10;
 	var viewCost = 5;
-	var id = "Score";//typeof arguments[3] !== "undefined" ? arguments[3] : "canvas"+MYAPP.newStation();
-	var topOffset = 30;//typeof arguments[4] === 'number' ? arguments[4] : 100;
-	var leftOffset = 100;//typeof arguments[5] === 'number' ? arguments[5] : 100;
+	var id = "Score";
+	var topOffset = 30;
+	var leftOffset = 100;
     var width = 900;
     var height = 50;
 	var canvasHTML = "<div id=\"gameScores\" style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">"
 	canvasHTML +="<canvas id=\""+id+"\"  width=\""+width+"\" height=\""+height+"\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
-	//var canvasHTML = "<canvas id=\""+id+"\" width=\"600\" height=\"50\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas>";
-    document.writeln(canvasHTML);
+	document.writeln(canvasHTML);
 	var theCanvas = document.getElementById(id);
 	var context = theCanvas.getContext("2d"); 
 	var timer = 0;
-	var t_Max = 10; //300: allow five minutes of game play per cycle
+	var t_Max = 30; //300: allow five minutes of game play per cycle
 	var t_remaining = t_Max;
+    theCanvas.addEventListener("click", onMouseClick, false); 
     
+    function onMouseClick(e)
+    {       
+        mouseX=e.clientX-theCanvas.offsetLeft;
+        mouseY=e.clientY-theCanvas.offsetTop;
+        console.log("gameScore mouse: "+mouseX+" , y: "+mouseY);
+        var l = leftOffset+790;
+        var t = topOffset+ 5;
+        if ((mouseX > l)&&(mouseX < l+100)&&(mouseY > t)&&(mouseY < t+40)){ //over the button
+            if (!(t_remaining>0)) { //button is visible. This is the redirect... 
+                window.location.href="/game";
+            }
+        }
+    }
     
     //This is only drawn at the start of the running the function
     function drawScoreScreen() {
@@ -45,7 +58,9 @@
 		getscore: function () {
 			return score;
 		},
-		
+		timeLeft: function () {
+            return t_remaining>0;
+        },
         
         //this seems to be the one called mostly.
         drawScoreScreen: function () {
@@ -80,8 +95,7 @@
             
   			//box
 			context.strokeStyle = "#000000"; 
-			//context.strokeRect(5,  5, 590, 40);
-            context.strokeRect(5,  5, width-10, height-10);
+			context.strokeRect(5,  5, width-10, height-10);
         },
         
         healthViewPenalize: function (cost) {

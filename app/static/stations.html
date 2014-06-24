@@ -24,9 +24,14 @@ function loop() {
     if (loopCounter > FRAME_RATE-1) { //we are in a per-second action
         gameScore.tick();
         console.log("inside per-second code");
+        if (gameScore.timeLeft()) {
+            station1.decrement();
+            station2.decrement();
+            station3.decrement();
+        }
         
         //increment score if all stations have positive health and are hidden.
-        if(station1.OK && station2.OK && station3.OK) {
+        if(station1.OK && station2.OK && station3.OK && !station1.get_vis() && !station2.get_vis() && !station3.get_vis()) {
             gameScore.inc();
         }
         
