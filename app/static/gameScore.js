@@ -45,22 +45,32 @@
   			
 			//time remaining text
 			t_remaining = t_Max - timer;
-			context.fillText ("Time Remaining: "+ t_remaining,600,10);
+			//context.fillText ("Time Remaining: "+ t_remaining,600,10);
 			
   			//box
 			context.strokeStyle = "#000000"; 
             context.strokeRect(5,  5, width-10, height-10);
 			//context.strokeRect(5,  5, width-10, width-10);
         }
+    
     drawScoreScreen();
     
 	return {
+        setDuration: function (intimer) {
+        //var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
+	        t_Max =  typeof intimer === 'number' ? intimer : 30;
+            //t_Max = intimer;
+        },
 		getscore: function () {
 			return score;
 		},
 		timeLeft: function () {
             return t_remaining>0;
         },
+        secondsLeft: function () {
+            return t_remaining;
+        },
+        
         
         //this seems to be the one called mostly.
         drawScoreScreen: function () {
@@ -98,11 +108,16 @@
 			context.strokeRect(5,  5, width-10, height-10);
         },
         
-        healthViewPenalize: function (cost) {
-            console.log("health penalize, score %i, cost %i",score, cost);
-			score = score - cost;
+        healthViewPenalize: function (view_cost) {
+            console.log("health view penalize, score %i, cost %i",score, view_cost);
+			score = score - view_cost;
 			this.drawScoreScreen();
 		},
+        healStationPenalize: function () {
+            console.log("heal penalize, score %i, cost %i",score, healCost);
+			score = score - healCost;
+			this.drawScoreScreen();
+        },
         tick: function () {
             timer +=1;
             this.drawScoreScreen();

@@ -27,8 +27,24 @@ var myStation = function () {
     var that = this;
     //image
 	var helloWorldImage = new Image();
-	helloWorldImage.src = "bakeno.gif";
-			
+	helloWorldImage.src = "static/bakeno.gif";
+	
+    function eventLog(stationNumber, stationEvent) {
+        var LogObject = {};
+
+        LogObject['score']=gameScore.getscore();
+        LogObject['secondsLeft']=gameScore.secondsLeft();
+        LogObject['stationNumber']=stationNumber;
+        LogObject['stationEvent']=stationEvent;
+        for (x in station) {
+           LogObject['station '+x+' health'] = station[x].get_health();
+        }
+        
+        var myjson =JSON.stringify(LogObject, null, 2);
+        console.log(myjson);
+        $.ajax({type: "POST", url:'/eventLog', data:myjson, contentType:'application/json'});
+
+    }    
     
     function draw_station(){
             //console.log("time up? "+ myGameScore.time_up());
@@ -90,14 +106,24 @@ var myStation = function () {
             station_h_visible = true;
             myGameScore.healthViewPenalize(view_cost);
 			draw_station();
+            eventLog(id, "show");
             }
             
     function hide_health() {
             console.log("in hide_health");
 			station_h_visible = false;
 			draw_station();
+            eventLog(id, "hide");
             
 		}
+        
+    function heal_station() {
+            console.log("in hide_health");
+            station_health = 100;
+            myGameScore.healStationPenalize(view_cost);
+            draw_station();
+            eventLog(id, "show");
+    }
          
     function onMouseClick(e)  {
             mouseX=e.clientX-theCanvas.offsetLeft;
@@ -107,21 +133,21 @@ var myStation = function () {
             //showButtonpos
             var l = showButtonpos.x+leftOffset;
             var t = showButtonpos.y+topOffset;
-            if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)){
+            if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(!station_h_visible)){
                 console.log("Show");
                 show_health();
             }
             //hideButtonpos
             l = hideButtonpos.x+leftOffset;
             t = hideButtonpos.y+topOffset;
-            if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)){
+            if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(station_h_visible)){
                 console.log("Hide");
                 hide_health();
             }
             //healButtonpos
             l = healButtonpos.x+leftOffset;
             t = healButtonpos.y+topOffset;
-            if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)){
+            if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(station_h_visible)){
                 console.log("Heal");
                 heal_station();
             }
