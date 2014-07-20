@@ -1,6 +1,6 @@
 #!venv/bin/python
 
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, jsonify
 #from flask.ext.sqlalchemy import SQLAlchemy
 import os.path
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -13,11 +13,17 @@ app = Flask(__name__)
 #db = SQLAlchemy(app)
 
 from tinydb import TinyDB, where
-db = TinyDB(os.path.join(basedir,'db.json'))
-UsersTable = db.table('Users')
-ExperimentsTable = db.table('Experiments')
-EventsTable = db.table('Events')
-PeriodicLogsTable = db.table('Logging')
+dbUsers = TinyDB(os.path.join(basedir,'dbUsers.json'))
+UsersTable = dbUsers.table('Users')
+
+dbExperiments = TinyDB(os.path.join(basedir,'dbExperiments.json'))
+ExperimentsTable = dbExperiments.table('Experiments')
+
+dbEvents = TinyDB(os.path.join(basedir,'dbEvents.json'))
+EventsTable = dbEvents.table('Events')
+
+dbLogs = TinyDB(os.path.join(basedir,'dbLogs.json'))
+PeriodicLogsTable = dbLogs.table('Logging')
 
 
 
@@ -25,10 +31,19 @@ PeriodicLogsTable = db.table('Logging')
 @app.route('/', methods = ['GET','POST'])
 def index():
     if request.method == 'GET':
-	    user_agent = request.headers.get('User-Agent')
+	    #user_agent = request.headers.get('User-Agent')
 	    return render_template('agreement.html')
         #return'<h1>Hello World</h1><p>Your browser is %s</p>' % user_agent
     else:
+        
+        #session['userid'] = myUser.id
+        fullName = request.form['name']
+        idNumber = request.form['idnumber']
+        address = request.form['address']
+        fullName1 = request.form['name1']
+        date1=request.form['date']
+        signature = request.form['agree']
+        print fullName + idNumber + address + fullName1 + date1 + signature
         return redirect('/questions')
     
 @app.route('/questions', methods = ['GET','POST'])
@@ -55,10 +70,10 @@ def stations():
     #config = [{"Station1": 100,100,1,0,4,"Station1",120,50}, {'Station2':100,1,0,4,"Station2",120,400}]
     #need to transfer the station config to the html page. These are the example points:
     
-    stationSetup = 'station=[];station[1] = new myStation(60,1,0,4,"Station1",120,50, gameScore,logging); '
+    stationSetup = 'station[1] = new myStation(60,1,0,4,"Station1",120,50, gameScore,logging); '
     stationSetup += 'station[2] = new myStation(60,1,0,4,"Station2",120,400, gameScore,logging); '
     stationSetup += 'station[3] = new myStation(60,1,0,4,"Station3",120,750, gameScore,logging); '
-    #stationSetup += 'station[4] = new myStation(60,1,0,4,"Station4",550, 50, gameScore,logging); '
+    stationSetup += 'station[4] = new myStation(60,1,0,4,"Station4",550, 50, gameScore,logging); '
        
     
     return render_template('stations.html', gameduration = gameduration, stationSetup=stationSetup)
@@ -99,5 +114,10 @@ def logging():
     return 'This is the log page' 
     
     
+@app.route('/results')
+def results():
+    data = jsonify( PeriodicLogsTable.all())
+    return data
+    
 if __name__ == '__main__':
-	app.run(debug=True)
+	app.run(host= '0.0.0.0', port=4000, debug=True)
