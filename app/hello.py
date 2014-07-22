@@ -1,16 +1,13 @@
 #!venv/bin/python
 
-from flask import Flask, request, render_template, redirect, jsonify
+from flask import Flask, request, render_template, redirect, jsonify, session
 #from flask.ext.sqlalchemy import SQLAlchemy
 import os.path
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,4325'
 
-#app.config['SQLALCHEMY_DATABASE_URI'] =\
-'sqlite:///' + os.path.join(basedir, 'data.sqlite')
-#app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
-#db = SQLAlchemy(app)
 
 from tinydb import TinyDB, where
 dbUsers = TinyDB(os.path.join(basedir,'dbUsers.json'))
@@ -44,6 +41,13 @@ def index():
         date1=request.form['date']
         signature = request.form['agree']
         print fullName + idNumber + address + fullName1 + date1 + signature
+        
+        session['fullName'] = request.form['name']
+        session['idnumber'] = request.form['idnumber']
+        session['address']=request.form['address']
+        session['name1']=request.form['name1']
+        session['date']=request.form['date']
+        session['agree']=request.form['agree']
         return redirect('/questions')
     
 @app.route('/questions', methods = ['GET','POST'])
@@ -57,7 +61,20 @@ def user():
         country = request.form['country']
         sex = request.form['sex']
         salaryRange = request.form['salaryRange']
-        UsersTable.insert({'turkNickName':turkNickName, 'age':age, 'country':country, 'sex':sex, 'salaryRange':salaryRange })
+        
+        
+        session['turkNickName'] = request.form['turkNickName']
+        session['age'] = request.form['age']
+        session['country'] = request.form['country']
+        session['sex'] = request.form['sex']
+        session['salaryRange'] = request.form['salaryRange']
+        
+        
+        
+        UsersTable.insert({'turkNickName':turkNickName, 'age':age, 'country':country, \
+        'sex':sex, 'salaryRange':salaryRange, 'fullName':session['fullName'],\
+         'idnumber':session['idnumber'], 'address':session['address'],\
+          'name1':session['name1'], 'date':session['date'],'agree':session['agree']  })
         return redirect('/stations')
     
 @app.route('/stations')
@@ -107,7 +124,7 @@ def periodicLogging():
 @app.route('/log', methods = ['POST'])
 def logging():
     mydata = request.get_json()
-    print mydata['score']
+    print mydata['fullName']
     print mydata['secondsLeft']
     
     
@@ -118,6 +135,22 @@ def logging():
 def results():
     data = jsonify( PeriodicLogsTable.all())
     return data
+    
+@app.route('/end')
+def end():
+	session.pop('fullName', None)
+	session.pop('idnumber', None)
+	session.pop('address', None)    
+	session.pop('name1', None)
+	session.pop('date', None)
+	session.pop('agree', None)    
+	
+	session.pop('turkNickName', None)
+	session.pop('age', None)
+	session.pop('date', None)    
+	session.pop('sex', None)
+	session.pop('salaryRange', None)
+	return('Experiment complete, thank you')
     
 if __name__ == '__main__':
 	app.run(host= '0.0.0.0', port=4000, debug=True)
