@@ -2,7 +2,7 @@
 
 from flask import Flask, request, render_template, redirect, jsonify, session
 #from flask.ext.sqlalchemy import SQLAlchemy
-import os.path
+import os.path, time
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
@@ -21,6 +21,9 @@ EventsTable = dbEvents.table('Events')
 
 dbLogs = TinyDB(os.path.join(basedir,'dbLogs.json'))
 PeriodicLogsTable = dbLogs.table('Logging')
+
+dbExperimentParameters = TinyDB(os.path.join(basedir,'dbExperimentParameters.json'))
+ParametersTable = dbLogs.table('Parameters')
 
 
 
@@ -68,13 +71,15 @@ def user():
         session['country'] = request.form['country']
         session['sex'] = request.form['sex']
         session['salaryRange'] = request.form['salaryRange']
-        
+        session['stageNumber'] = 1
         
         
         UsersTable.insert({'turkNickName':turkNickName, 'age':age, 'country':country, \
         'sex':sex, 'salaryRange':salaryRange, 'fullName':session['fullName'],\
          'idnumber':session['idnumber'], 'address':session['address'],\
           'name1':session['name1'], 'date':session['date'],'agree':session['agree']  })
+          
+          
         return redirect('/stations')
     
 @app.route('/stations')
@@ -87,15 +92,62 @@ def stations():
     #config = [{"Station1": 100,100,1,0,4,"Station1",120,50}, {'Station2':100,1,0,4,"Station2",120,400}]
     #need to transfer the station config to the html page. These are the example points:
     
-    stationSetup = 'station[1] = new myStation(60,1,0,4,"Station1",120,50, gameScore,logging); '
-    stationSetup += 'station[2] = new myStation(60,1,0,4,"Station2",120,400, gameScore,logging); '
-    stationSetup += 'station[3] = new myStation(60,1,0,4,"Station3",120,750, gameScore,logging); '
-    stationSetup += 'station[4] = new myStation(60,1,0,4,"Station4",550, 50, gameScore,logging); '
-       
+    stationSetup_1 = 'station[1] = new myStation(100,1,0,4,"Station1",120,20, gameScore,logging); '
+            
     
-    return render_template('stations.html', gameduration = gameduration, stationSetup=stationSetup)
+    stationSetup_2 = 'station[1] = new myStation(100,1,0,4,"Station1",120,20, gameScore,logging); '\
+        'station[2] = new myStation(40,1,0,4,"Station2",120,340, gameScore,logging); '
+            
+    
+    stationSetup_3 = 'station[1] = new myStation(100,1,0,4,"Station1",120,20, gameScore,logging); '\
+        'station[2] = new myStation(40,1,0,4,"Station2",120,340, gameScore,logging); '\
+        'station[3] = new myStation(70,1,0,4,"Station3",120,660, gameScore,logging); '
+            
+    stationSetup_4 = 'station[1] = new myStation(100,1,0,4,"Station1",120,20, gameScore,logging); '\
+        'station[2] = new myStation(40,1,0,4,"Station2",120,340, gameScore,logging); '\
+        'station[3] = new myStation(70,1,0,4,"Station3",120,660, gameScore,logging); '\
+        'station[4] = new myStation(20,1,0,4,"Station4",550, 20, gameScore,logging); '
+
+    stationSetup_5 = 'station[1] = new myStation(100,1,0,4,"Station1",120,20, gameScore,logging); '\
+        'station[2] = new myStation(40,1,0,4,"Station2",120,340, gameScore,logging); '\
+        'station[3] = new myStation(70,1,0,4,"Station3",120,660, gameScore,logging); '\
+        'station[4] = new myStation(20,1,0,4,"Station4",550, 20, gameScore,logging); '\
+        'station[5] = new myStation(20,1,0,4,"Station5",550, 340, gameScore,logging); '\
+            
+
+    stationSetup_6 = 'station[1] = new myStation(100,1,0,4,"Station1",120,22, gameScore,logging); '\
+        'station[2] = new myStation(40,1,0,4,"Station2",120,340, gameScore,logging); '\
+        'station[3] = new myStation(70,1,0,4,"Station3",120,660, gameScore,logging); '\
+        'station[4] = new myStation(20,1,0,4,"Station4",550, 20, gameScore,logging); '\
+        'station[5] = new myStation(20,1,0,4,"Station5",550, 340, gameScore,logging); '\
+        'station[6] = new myStation(20,1,0,4,"Station6",550, 660, gameScore,logging); '
+ 
+    if session['stageNumber'] == 1:
+        stationSetup = stationSetup_1
+    elif session['stageNumber'] == 2:
+        stationSetup = stationSetup_2
+    elif session['stageNumber'] == 3:
+        stationSetup = stationSetup_3
+    elif session['stageNumber'] == 4:
+        stationSetup = stationSetup_4
+    elif session['stageNumber'] == 5:
+        stationSetup = stationSetup_5
+    elif session['stageNumber'] == 6:
+        stationSetup = stationSetup_6
+    return render_template('stations.html', gameduration = gameduration, stationSetup = stationSetup)
 
     
+@app.route('/after_questions', methods =['POST', 'GET'])
+def after_questions():
+    if request.method == 'GET':
+        return render_template("after_questions.html")
+    else:
+        #store some results
+        if session['stageNumber']<6:
+            session['stageNumber']+=1
+            return redirect('/stations')
+        else:
+            return redirect('/end')
     #4 sets of logging functions- user, experiment, event and periodic
 @app.route('/userLog', methods = ['POST']) 
 def userLogging():
@@ -112,8 +164,9 @@ def experimentLogging():
 @app.route('/eventLog', methods = ['POST']) 
 def eventLogging():
     logData = request.get_json()
+    logData["serverTime"] = time.asctime()
     EventsTable.insert(logData)
-    return('successful insert?')
+    return('successful insert' + str(logData))
     
 @app.route('/periodicLog', methods = ['POST']) 
 def periodicLogging():
@@ -136,21 +189,26 @@ def results():
     data = jsonify( PeriodicLogsTable.all())
     return data
     
+@app.route('/showsession')
+def showsession(): 
+    return render_template('showSession.html', fullName = session['fullName'],idnumber = session['idnumber'], stageNumber= session['stageNumber'])
+    
 @app.route('/end')
 def end():
-	session.pop('fullName', None)
-	session.pop('idnumber', None)
-	session.pop('address', None)    
-	session.pop('name1', None)
-	session.pop('date', None)
-	session.pop('agree', None)    
+    session.pop('fullName', None)
+    session.pop('idnumber', None)
+    session.pop('address', None)    
+    session.pop('name1', None)
+    session.pop('date', None)
+    session.pop('agree', None)    
 	
-	session.pop('turkNickName', None)
-	session.pop('age', None)
-	session.pop('date', None)    
-	session.pop('sex', None)
-	session.pop('salaryRange', None)
-	return('Experiment complete, thank you')
+    session.pop('turkNickName', None)
+    session.pop('age', None)
+    session.pop('date', None)    
+    session.pop('sex', None)
+    session.pop('salaryRange', None)
+    session.pop('stageNumber', None)
+    return('Experiment complete, thank you')
     
 if __name__ == '__main__':
 	app.run(host= '0.0.0.0', port=4000, debug=True)

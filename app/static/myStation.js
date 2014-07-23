@@ -13,16 +13,16 @@ var myStation = function () {
 	var drawcounter = 0;
     var buttonCounter = 0;
     var canvasHTML = "<div style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">";
-	canvasHTML +="<canvas id=\""+id+"\" width=\"300\" height=\"400\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
+	canvasHTML +="<canvas id=\""+id+"\" width=\"300\" height=\"350\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
 	document.writeln(canvasHTML);
 	console.log("writing CanvasHTML to the page");
     var theCanvas = document.getElementById(id);
 	var context = theCanvas.getContext("2d"); 
 	var station_h_visible = false;
 	var buttonSize = {x:60, y:40};
-    var showButtonpos = { x:40, y:350};
-    var hideButtonpos = { x:120, y:350};
-    var healButtonpos = { x:200, y:350};
+    var showButtonpos = { x:40, y:280};
+    var hideButtonpos = { x:120, y:280};
+    var healButtonpos = { x:200, y:280};
     var myGameScore = arguments[7];
     var that = this;
     //image
@@ -51,28 +51,28 @@ var myStation = function () {
             drawcounter +=1;
 			console.log("Drawing Canvas");
  			//clear canvas
-            context.clearRect(0, 0, 300, 500);
+            context.clearRect(0, 0, 300, 350);
             //background
 			context.fillStyle = "#ffffaa";
-  			context.fillRect(0, 0, 300, 500);
+  			context.fillRect(0, 0, 350, 350);
 			//text
 			context.fillStyle    = "#000000";
 			context.font         = "20px _sans";
 			context.textBaseline = "top";
-			context.fillText  (id, 95, 40 );	
+			context.fillText  (id, 95, 20 );	
 			//Health text
 			if (station_h_visible){
 				context.fillStyle    = "#000000";
 				context.font         = "20px _sans";
 				context.textBaseline = "top";
-				context.fillText ("Health level: " + parseInt(station_health), 60 ,300);
+				context.fillText ("Health level: " + parseInt(station_health), 80 ,250);
 			}
 			//helloWorldImage.onload = function () {
-			context.drawImage(helloWorldImage, 0, 80);
+			context.drawImage(helloWorldImage, 0, 50);
 			//}		
 			//box
 			context.strokeStyle = "#000000"; 
-			context.strokeRect(5,  5, 290, 390);
+			context.strokeRect(5,  5, 290, 340);
     		if (!station_h_visible ){
                 //showButton
                 context.fillStyle = "#ffffee";
@@ -181,7 +181,7 @@ var myStation = function () {
 			var helloWorldImage = new Image();
 			helloWorldImage.src = "bakeno.gif";
 			helloWorldImage.onload = function () {
-			context.drawImage(helloWorldImage, 0, 80);
+			context.drawImage(helloWorldImage, 0, 55);
 			}		
 			//box
 			context.strokeStyle = "#000000"; 

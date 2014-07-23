@@ -27,7 +27,7 @@
         var t = topOffset+ 5;
         if ((mouseX > l)&&(mouseX < l+100)&&(mouseY > t)&&(mouseY < t+40)){ //over the button
             if (!(t_remaining>0)) { //button is visible. This is the redirect... 
-                window.location.href="/game";
+                window.location.href="/after_questions";
             }
         }
     }
