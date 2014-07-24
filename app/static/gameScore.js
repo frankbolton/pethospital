@@ -5,7 +5,7 @@
 	var viewCost = 5;
 	var id = "Score";
 	var topOffset = 30;
-	var leftOffset = 100;
+	var leftOffset = 40;
     var width = 900;
     var height = 50;
 	var canvasHTML = "<div id=\"gameScores\" style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">"

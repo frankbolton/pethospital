@@ -81,12 +81,14 @@ function loop() {
         //increment score if all stations have positive health and are hidden.
         var inc = true;
         for (i=1; i<station.length; i+=1) {
-            if ((station[i].OK) && (!station[i].get_vis())) {
+            if ((station[i].OK()) && (!station[i].get_vis())) {
             }
             else {
             inc = false;
             }
+           
         }
+        console.log("increment?" + inc)
         if (inc) {
             gameScore.inc(); 
         }

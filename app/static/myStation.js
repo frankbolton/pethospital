@@ -215,6 +215,9 @@ var myStation = function () {
         },    
         decrement: function () {
 			station_health -= station_hDelta ;
+            if (station_health < 0){
+                station_health = 0;
+            }
             draw_station();
 		},
 		get_health: function () {
