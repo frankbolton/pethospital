@@ -12,6 +12,7 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,4325'
 from tinydb import TinyDB, where
 dbUsers = TinyDB(os.path.join(basedir,'dbUsers.json'))
 UsersTable = dbUsers.table('Users')
+FeedbackTable = dbUsers.table('TLXQuestions')
 
 dbExperiments = TinyDB(os.path.join(basedir,'dbExperiments.json'))
 ExperimentsTable = dbExperiments.table('Experiments')
@@ -84,7 +85,7 @@ def user():
         session['stageNumber'] = 1
         
         
-        UsersTable.insert({'cubjectID':session['userID'], 'turkNickName':turkNickName, 'age':age, 'country':country, \
+        UsersTable.insert({'userID':session['userID'], 'turkNickName':turkNickName, 'age':age, 'country':country, \
         'gender':gender, 'salaryRange':salaryRange, 'fullName':session['fullName'],\
          'idnumber':session['idnumber'], 'address':session['address'],\
           'name1':session['name1'], 'date':session['date'],'agree':session['agree']  })
@@ -102,20 +103,17 @@ def stations():
     #config = [{"Station1": 100,100,1,0,4,"Station1",120,50}, {'Station2':100,1,0,4,"Station2",120,400}]
     #need to transfer the station config to the html page. These are the example points:
     
-    stationSetup_1 = 'station[1] = new myStation(100,1,2,4,"Station1",120,20, gameScore,logging); ';
+    stationSetup_1 = 'station[1] = new myStation(100,3,2,4,"Station1",120,20, gameScore,logging); ';
+           
+    stationSetup_2 = 'station[1] = new myStation(100,3,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station2",120,340, gameScore,logging); ';
+           
+    stationSetup_3 = 'station[1] = new myStation(100,3,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station3",120,660, gameScore,logging); '
             
-    
-    stationSetup_2 = 'station[1] = new myStation(100,1,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,1,2,4,"Station2",120,340, gameScore,logging); ';
-            
-    
-    stationSetup_3 = 'station[1] = new myStation(100,1,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,1,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,1,2,4,"Station3",120,660, gameScore,logging); '
-            
-    stationSetup_4 = 'station[1] = new myStation(100,1,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,1,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,1,2,4,"Station3",120,660, gameScore,logging); station[4] = new myStation(20,1,2,4,"Station4",550, 20, gameScore,logging); '
+    stationSetup_4 = 'station[1] = new myStation(100,3,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station4",550, 20, gameScore,logging); '
 
-    stationSetup_5 = 'station[1] = new myStation(100,1,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,1,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,1,2,4,"Station3",120,660, gameScore,logging); station[4] = new myStation(20,1,2,4,"Station4",550, 20, gameScore,logging); station[5] = new myStation(20,1,2,4,"Station5",550, 340, gameScore,logging); '
-            
-
-    stationSetup_6 =({'station[1] = new myStation(100,1,2,4,"Station1",120,22, gameScore,logging); station[2] = new myStation(40,1,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,1,2,4,"Station3",120,660, gameScore,logging); station[4] = new myStation(20,1,2,4,"Station4",550, 20, gameScore,logging); station[5] = new myStation(20,1,2,4,"Station5",550, 340, gameScore,logging); station[6] = new myStation(20,1,2,4,"Station6",550, 660, gameScore,logging); '})
+    stationSetup_5 = 'station[1] = new myStation(100,3,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station4",550, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station5",550, 340, gameScore,logging); '
+           
+    stationSetup_6 ='station[1] = new myStation(100,3,2,4,"Station1",120,22, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station4",550, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station5",550, 340, gameScore,logging); station[6] = new myStation(20,3,2,4,"Station6",550, 660, gameScore,logging); '
  
     if session['stageNumber'] == 1:
         stationSetup = stationSetup_1
@@ -133,11 +131,28 @@ def stations():
     return render_template('stations.html', gameduration = gameduration, stationSetup = stationSetup )
 
     
-@app.route('/after_questions', methods =['POST', 'GET'])
+@app.route('/after_questions', methods =['GET', 'POST'])
 def after_questions():
     if request.method == 'GET':
-        return render_template("after_questions.html")
+        return render_template("after.html")
     else:
+        #record the feedback from the user.
+        #FeedbackTable.insert({'Mental Demand':request.form['radio01.value'], 'Temporal Demand':request.form['radio02.value'], 'Performance':request.form['radio03.value'], 'Effort':request.form['radio04.value'], 'Frustration':request.form['radio05.value']})
+        #FeedbackTable.insert(request.form['radio01'])
+        #print request
+        #print request.form
+        radio01 = request.form['radio01']
+        radio02 = request.form['radio02']
+        radio03 = request.form['radio03']
+        radio04 = request.form['radio04']
+        radio05 = request.form['radio05']
+  
+        print radio01
+        print radio02
+        print radio03
+        print radio04
+        print radio05
+        FeedbackTable.insert({'userID':session['userID'], 'turkNickName':session['turkNickName'],'StageNumber':session['stageNumber'],'Mental Demand':radio01, 'Temporal Demand':radio02, 'Performance':radio03, 'Effort':radio04, 'Frustration':radio05})
         #store some results
         if session['stageNumber']<6:
             session['stageNumber']+=1

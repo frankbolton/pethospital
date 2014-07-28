@@ -1,8 +1,8 @@
  var gameScore = function() {
 	var score = 0;
-	var scoreIncrease = 1;
-	var healCost = 10;
-	var viewCost = 5;
+	var scoreIncrease = 3;
+	var healCost = 4;
+	var viewCost = 1;
 	var id = "Score";
 	var topOffset = 30;
 	var leftOffset = 40;
