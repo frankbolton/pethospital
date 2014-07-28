@@ -197,7 +197,12 @@ def logging():
     
 @app.route('/results')
 def results():
-    data = jsonify( PeriodicLogsTable.all())
+    data = str(UsersTable.all())
+    data += str(FeedbackTable.all())
+    data += str(EventsTable.all())
+    data += str(PeriodicLogsTable.all())
+    data += str(ParametersTable.all())
+    data += str(UserTracking.all())
     return data
     
 @app.route('/showsession')
