@@ -4,7 +4,7 @@
 	var healCost = 4;
 	var viewCost = 1;
 	var id = "Score";
-	var topOffset = 30;
+	var topOffset = 50;
 	var leftOffset = 40;
     var width = 900;
     var height = 50;

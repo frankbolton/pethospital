@@ -97,17 +97,17 @@ def stations():
     #config = [{"Station1": 100,100,1,0,4,"Station1",120,50}, {'Station2':100,1,0,4,"Station2",120,400}]
     #need to transfer the station config to the html page. These are the example points:
     
-    stationSetup_1 = 'station[1] = new myStation(100,3,2,4,"Station1",120,20, gameScore,logging); ';
+    stationSetup_1 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); ';
            
-    stationSetup_2 = 'station[1] = new myStation(100,3,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station2",120,340, gameScore,logging); ';
+    stationSetup_2 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); ';
            
-    stationSetup_3 = 'station[1] = new myStation(100,3,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station3",120,660, gameScore,logging); '
+    stationSetup_3 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); '
             
-    stationSetup_4 = 'station[1] = new myStation(100,3,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station4",550, 20, gameScore,logging); '
+    stationSetup_4 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station 4",500, 20, gameScore,logging); '
 
-    stationSetup_5 = 'station[1] = new myStation(100,3,2,4,"Station1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station4",550, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station5",550, 340, gameScore,logging); '
+    stationSetup_5 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station 4",500, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station 5",500, 340, gameScore,logging); '
            
-    stationSetup_6 ='station[1] = new myStation(100,3,2,4,"Station1",120,22, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station4",550, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station5",550, 340, gameScore,logging); station[6] = new myStation(20,3,2,4,"Station6",550, 660, gameScore,logging); '
+    stationSetup_6 ='station[1] = new myStation(100,3,2,4,"Station 1",120,22, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station 4",500, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station 5",500, 340, gameScore,logging); station[6] = new myStation(20,3,2,4,"Station 6",500, 660, gameScore,logging); '
  
     if session['stageNumber'] == 1:
         stationSetup = stationSetup_1
