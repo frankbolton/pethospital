@@ -48,20 +48,6 @@ def index():
             number = record['UserID'] + 1
             UserTracking.update({'UserID': number + 1 }, where('UserID'))
         session['userID'] = number
-        fullName = request.form['name']
-        idNumber = request.form['idnumber']
-        address = request.form['address']
-        fullName1 = request.form['name1']
-        date1=request.form['date']
-        signature = request.form['agree']
-        print fullName + idNumber + address + fullName1 + date1 + signature
-        #session['userID'] = number 
-        session['fullName'] = request.form['name']
-        session['idnumber'] = request.form['idnumber']
-        session['address']=request.form['address']
-        session['name1']=request.form['name1']
-        session['date']=request.form['date']
-        session['agree']=request.form['agree']
         return redirect('/questions')
     
 @app.route('/questions', methods = ['GET','POST'])
@@ -74,21 +60,16 @@ def user():
         age = request.form['age']
         country = request.form['country']
         gender = request.form['gender']
-        salaryRange = request.form['salaryRange']
-        
         
         session['turkNickName'] = request.form['turkNickName']
         session['age'] = request.form['age']
         session['country'] = request.form['country']
         session['gender'] = request.form['gender']
-        session['salaryRange'] = request.form['salaryRange']
         session['stageNumber'] = 1
         
         
         UsersTable.insert({'userID':session['userID'], 'turkNickName':turkNickName, 'age':age, 'country':country, \
-        'gender':gender, 'salaryRange':salaryRange, 'fullName':session['fullName'],\
-         'idnumber':session['idnumber'], 'address':session['address'],\
-          'name1':session['name1'], 'date':session['date'],'agree':session['agree']  })
+        'gender':gender })
           
           
         return redirect('/stations')

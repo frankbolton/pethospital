@@ -3,6 +3,13 @@
 <h1>Questions</h1>
 <div><b>please enter the following data to facilitate the experiment</b></div>
 
+<style type="text/css">
+#submitbutton{
+margin-left: 20px;
+margin-top: 5px;
+width: 90px;
+}
+</style>
 <table>
     <tr><form name="RegisterUser" method="post" action="questions">
 <label><td style="width:50%" >Your Mechanical Turk WorkerId</label> </td><td><input type="string" name="turkNickName"></td></tr>
@@ -20,20 +27,7 @@
 </select></td></tr>
 <!--<tr><td style="width:50%">Salary:</td><td><input type="string" name="salaryRangefoo"></td></tr>-->
 <tr><td>Country:</td><td><input type="string" name="country"></td></tr>
-<tr><td>Salary per year: </td><td><select name="salaryRange">
-	<option value="" disabled="disabled" selected="selected">Please select your salary range (US dollars per year)</option>
-	<option value="2500">0 to 5,000 USD per year</option>
-	<option value="7500">5,001 to 10,000</option>
-	<option value="12500">10,001 to 15,000</option>
-    <option value="17500">15,001 to 20,000</option>
-    <option value="25000">20,001 to 30,000</option>
-    <option value="40000">30,001 to 50,000</option>
-    <option value="60000">50,001 to 70,000</option>
-    <option value="85000">70,001 to 100,000</option>
-    <option value="125000">100,001 to 150,000</option>
-    <option value="175000">150,001 to 200,000</option>
-    <option value="200000">>200,000</option>
-    </select></td></tr>
+
 
 <tr><td>Gender:</td>
 <td><input type="radio" name="gender" value="male">Male
