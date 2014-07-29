@@ -29,7 +29,7 @@ UserTracking = dbExperimentParameters.table('TrackUsers')
 
 
 
-#the index pate is the agreement
+#the index pate is the agreement... It's the first page that the participant encounters
 @app.route('/', methods = ['GET','POST'])
 def index():
     if request.method == 'GET':
@@ -50,6 +50,8 @@ def index():
         session['userID'] = number
         return redirect('/questions')
     
+    
+#the questions page.... The second page that the participant encounters
 @app.route('/questions', methods = ['GET','POST'])
 def user():
     if request.method == 'GET':
@@ -72,8 +74,19 @@ def user():
         'gender':gender })
           
           
-        return redirect('/stations')
+        return redirect('/instructions')
+
+@app.route('/instructions', methods = ['GET', 'POST'])
+def instructions():
+    if request.method =='GET':
+        return render_template("instructions.html")
+        
     
+
+    else:
+        return redirect('/stations')
+
+#the actual experiment.... This is the forth page that the subject encounters.        
 @app.route('/stations')
 def stations():
     time = 180

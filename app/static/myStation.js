@@ -78,6 +78,7 @@ var myStation = function () {
                 context.fillStyle = "#ffffee";
                 context.fillRect(showButtonpos.x, showButtonpos.y, buttonSize.x, buttonSize.y);
                 context.fillStyle    = "#000000";
+                context.strokeRect(showButtonpos.x, showButtonpos.y, buttonSize.x, buttonSize.y);
                 context.font         = "20px _sans";
                 context.textBaseline = "middle";
                 context.fillText  ("Show", showButtonpos.x+7, showButtonpos.y + buttonSize.y/2);	
@@ -87,6 +88,7 @@ var myStation = function () {
                 context.fillStyle = "#ffffee";
                 context.fillRect(hideButtonpos.x, hideButtonpos.y , buttonSize.x, buttonSize.y);
                 context.fillStyle    = "#000000";
+                context.strokeRect(hideButtonpos.x, hideButtonpos.y , buttonSize.x, buttonSize.y);
                 context.font         = "20px _sans";
                 context.textBaseline = "middle";
                 context.fillText  ("Hide", hideButtonpos.x+10, hideButtonpos.y + buttonSize.y/2);	
@@ -94,6 +96,7 @@ var myStation = function () {
                 context.fillStyle = "#ffffee";
                 context.fillRect(healButtonpos.x, healButtonpos.y , buttonSize.x, buttonSize.y);
                 context.fillStyle    = "#000000";
+                context.strokeRect(healButtonpos.x, healButtonpos.y , buttonSize.x, buttonSize.y);
                 context.font         = "20px _sans";
                 context.textBaseline = "middle";
                 context.fillText  ("Heal", healButtonpos.x+10, healButtonpos.y + buttonSize.y/2);	
