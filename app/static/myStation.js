@@ -27,7 +27,7 @@ var myStation = function () {
     var that = this;
     //image
 	var helloWorldImage = new Image();
-	helloWorldImage.src = "static/cutelion.gif";
+	helloWorldImage.src = "static/cuteLion.gif";
 	
     function eventLog(stationNumber, stationEvent) {
         var LogObject = {};
