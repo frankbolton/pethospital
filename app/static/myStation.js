@@ -27,7 +27,7 @@ var myStation = function () {
     var that = this;
     //image
 	var helloWorldImage = new Image();
-	helloWorldImage.src = "static/bakeno.gif";
+	helloWorldImage.src = "static/cutelion.gif";
 	
     function eventLog(stationNumber, stationEvent) {
         var LogObject = {};
@@ -68,7 +68,7 @@ var myStation = function () {
 				context.fillText ("Health level: " + parseInt(station_health), 80 ,250);
 			}
 			//helloWorldImage.onload = function () {
-			context.drawImage(helloWorldImage, 0, 50);
+			context.drawImage(helloWorldImage, 40, 50);
 			//}		
 			//box
 			context.strokeStyle = "#000000"; 
@@ -182,9 +182,9 @@ var myStation = function () {
 			}
 			//image
 			var helloWorldImage = new Image();
-			helloWorldImage.src = "bakeno.gif";
+			//helloWorldImage.src = "cutelion.gif";
 			helloWorldImage.onload = function () {
-			context.drawImage(helloWorldImage, 0, 55);
+			context.drawImage(helloWorldImage, 40, 55);
 			}		
 			//box
 			context.strokeStyle = "#000000"; 
