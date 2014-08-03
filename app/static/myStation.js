@@ -47,114 +47,113 @@ var myStation = function () {
     }    
     
     function draw_station(){
-            //console.log("time up? "+ myGameScore.time_up());
-            drawcounter +=1;
-			console.log("Drawing Canvas");
- 			//clear canvas
-            context.clearRect(0, 0, 300, 350);
-            //background
-			context.fillStyle = "#ffffaa";
-  			context.fillRect(0, 0, 350, 350);
-			//text
-			context.fillStyle    = "#000000";
-			context.font         = "20px _sans";
-			context.textBaseline = "top";
-			context.fillText  (id, 95, 20 );	
-			//Health text
-			if (station_h_visible){
-				context.fillStyle    = "#000000";
-				context.font         = "20px _sans";
-				context.textBaseline = "top";
-				context.fillText ("Health level: " + parseInt(station_health), 80 ,250);
-			}
-			//helloWorldImage.onload = function () {
-			context.drawImage(helloWorldImage, 40, 50);
-			//}		
-			//box
-			context.strokeStyle = "#000000"; 
-			context.strokeRect(5,  5, 290, 340);
-    		if (!station_h_visible ){
-                //showButton
-                context.fillStyle = "#ffffee";
-                context.fillRect(showButtonpos.x, showButtonpos.y, buttonSize.x, buttonSize.y);
-                context.fillStyle    = "#000000";
-                context.strokeRect(showButtonpos.x, showButtonpos.y, buttonSize.x, buttonSize.y);
-                context.font         = "20px _sans";
-                context.textBaseline = "middle";
-                context.fillText  ("Show", showButtonpos.x+7, showButtonpos.y + buttonSize.y/2);	
-            }
-                if (station_h_visible){
-                //hideButton
-                context.fillStyle = "#ffffee";
-                context.fillRect(hideButtonpos.x, hideButtonpos.y , buttonSize.x, buttonSize.y);
-                context.fillStyle    = "#000000";
-                context.strokeRect(hideButtonpos.x, hideButtonpos.y , buttonSize.x, buttonSize.y);
-                context.font         = "20px _sans";
-                context.textBaseline = "middle";
-                context.fillText  ("Hide", hideButtonpos.x+10, hideButtonpos.y + buttonSize.y/2);	
-                //healButton
-                context.fillStyle = "#ffffee";
-                context.fillRect(healButtonpos.x, healButtonpos.y , buttonSize.x, buttonSize.y);
-                context.fillStyle    = "#000000";
-                context.strokeRect(healButtonpos.x, healButtonpos.y , buttonSize.x, buttonSize.y);
-                context.font         = "20px _sans";
-                context.textBaseline = "middle";
-                context.fillText  ("Heal", healButtonpos.x+10, healButtonpos.y + buttonSize.y/2);	
-            }
-           
+        //console.log("time up? "+ myGameScore.time_up());
+        drawcounter +=1;
+        console.log("Drawing Canvas");
+        //clear canvas
+        context.clearRect(0, 0, 300, 350);
+        //background
+        context.fillStyle = "#ffffaa";
+        context.fillRect(0, 0, 350, 350);
+        //text
+        context.fillStyle    = "#000000";
+        context.font         = "20px _sans";
+        context.textBaseline = "top";
+        context.fillText  (id, 95, 20 );	
+        //Health text
+        if (station_h_visible){
+            context.fillStyle    = "#000000";
+            context.font         = "20px _sans";
+            context.textBaseline = "top";
+            context.fillText ("Health level: " + parseInt(station_health), 80 ,250);
         }
+        //helloWorldImage.onload = function () {
+        context.drawImage(helloWorldImage, 40, 50);
+        //}		
+        //box
+        context.strokeStyle = "#000000"; 
+        context.strokeRect(5,  5, 290, 340);
+        if (!station_h_visible ){
+            //showButton
+            context.fillStyle = "#ffffee";
+            context.fillRect(showButtonpos.x, showButtonpos.y, buttonSize.x, buttonSize.y);
+            context.fillStyle    = "#000000";
+            context.strokeRect(showButtonpos.x, showButtonpos.y, buttonSize.x, buttonSize.y);
+            context.font         = "20px _sans";
+            context.textBaseline = "middle";
+            context.fillText  ("Show", showButtonpos.x+7, showButtonpos.y + buttonSize.y/2);	
+        }
+            if (station_h_visible){
+            //hideButton
+            context.fillStyle = "#ffffee";
+            context.fillRect(hideButtonpos.x, hideButtonpos.y , buttonSize.x, buttonSize.y);
+            context.fillStyle    = "#000000";
+            context.strokeRect(hideButtonpos.x, hideButtonpos.y , buttonSize.x, buttonSize.y);
+            context.font         = "20px _sans";
+            context.textBaseline = "middle";
+            context.fillText  ("Hide", hideButtonpos.x+10, hideButtonpos.y + buttonSize.y/2);	
+            //healButton
+            context.fillStyle = "#ffffee";
+            context.fillRect(healButtonpos.x, healButtonpos.y , buttonSize.x, buttonSize.y);
+            context.fillStyle    = "#000000";
+            context.strokeRect(healButtonpos.x, healButtonpos.y , buttonSize.x, buttonSize.y);
+            context.font         = "20px _sans";
+            context.textBaseline = "middle";
+            context.fillText  ("Heal", healButtonpos.x+10, healButtonpos.y + buttonSize.y/2);	
+        }
+    }
     draw_station();
     function show_health () {
-            console.log("in show_health");
-            station_h_visible = true;
-            myGameScore.healthViewPenalize(view_cost);
-			draw_station();
-            eventLog(id, "show");
-            }
+        console.log("in show_health");
+        station_h_visible = true;
+        myGameScore.healthViewPenalize(view_cost);
+        draw_station();
+        eventLog(id, "show");
+        }
             
     function hide_health() {
-            console.log("in hide_health");
-			station_h_visible = false;
-			draw_station();
-            eventLog(id, "hide");
-            
-		}
+        console.log("in hide_health");
+        station_h_visible = false;
+        draw_station();
+        eventLog(id, "hide");
+        
+    }
         
     function heal_station() {
-            console.log("in hide_health");
-            station_health = 100;
-            myGameScore.healStationPenalize(view_cost);
-            draw_station();
-            eventLog(id, "show");
+        console.log("in hide_health");
+        station_health = 100;
+        myGameScore.healStationPenalize(view_cost);
+        draw_station();
+        eventLog(id, "show");
     }
          
     function onMouseClick(e)  {
-            mouseX=e.clientX-theCanvas.offsetLeft;
-            mouseY=e.clientY-theCanvas.offsetTop;
-            //text
-            console.log("mouse: "+mouseX+", "+mouseY);
-            //showButtonpos
-            var l = showButtonpos.x+leftOffset;
-            var t = showButtonpos.y+topOffset;
-            if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(!station_h_visible)){
-                console.log("Show");
-                show_health();
-            }
-            //hideButtonpos
-            l = hideButtonpos.x+leftOffset;
-            t = hideButtonpos.y+topOffset;
-            if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(station_h_visible)){
-                console.log("Hide");
-                hide_health();
-            }
-            //healButtonpos
-            l = healButtonpos.x+leftOffset;
-            t = healButtonpos.y+topOffset;
-            if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(station_h_visible)){
-                console.log("Heal");
-                heal_station();
-            }
+        mouseX=e.clientX-theCanvas.offsetLeft;
+        mouseY=e.clientY-theCanvas.offsetTop;
+        //text
+        console.log("mouse: "+mouseX+", "+mouseY);
+        //showButtonpos
+        var l = showButtonpos.x+leftOffset;
+        var t = showButtonpos.y+topOffset;
+        if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(!station_h_visible)){
+            console.log("Show");
+            show_health();
         }
+        //hideButtonpos
+        l = hideButtonpos.x+leftOffset;
+        t = hideButtonpos.y+topOffset;
+        if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(station_h_visible)){
+            console.log("Hide");
+            hide_health();
+        }
+        //healButtonpos
+        l = healButtonpos.x+leftOffset;
+        t = healButtonpos.y+topOffset;
+        if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(station_h_visible)){
+            console.log("Heal");
+            heal_station();
+        }
+    }
         
     theCanvas.addEventListener("click", onMouseClick, false);   
        
@@ -213,8 +212,7 @@ var myStation = function () {
                 context.font         = "20px _sans";
                 context.textBaseline = "middle";
                 context.fillText  ("Heal", healButtonpos.x+10, healButtonpos.y + buttonSize.y/2);	
-            }
-           
+            }           
         },    
         decrement: function () {
 			station_health -= station_hDelta ;
@@ -230,8 +228,7 @@ var myStation = function () {
             return station_health > 0;
         },
 		get_h_d: function () {
-			
-            return station_hDelta;
+			return station_hDelta;
         },
 		get_noise: function (){
 			return station_noise;

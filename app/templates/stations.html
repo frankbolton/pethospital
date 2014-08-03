@@ -15,8 +15,6 @@ var gameduration = 60;
 {{gameduration|safe}};
 gameScore.setDuration(gameduration);
 
-//var stationconfig = [[100,1,0,4,120,50][100,1,0,4,120,400][100,1,0,4,550,50]];
-//[100,1,0,4,120,750][100,1,0,4,550,50]];
 
 //screen size 1024 x 768
 var canvasHTML = "<div style=\"position: absolute; top: 40px; left: 10px;\">";
@@ -25,8 +23,6 @@ document.writeln(canvasHTML);
 console.log("writing CanvasHTML to the page");
 var theCanvas = document.getElementById("background");
 var context = theCanvas.getContext("2d"); 
-//context.fillStyle = "#00000";
-//context.strokeRect(0, 0, 800, 600);
 
 var station =[];
 var logging = [];

@@ -16,7 +16,7 @@
 	var timer = 0;
 	var t_Max = 30; //300: allow five minutes of game play per cycle
 	var t_remaining = t_Max;
-    theCanvas.addEventListener("click", onMouseClick, false); 
+    var scoreVisible = false;
     
     function onMouseClick(e)
     {       
@@ -31,6 +31,7 @@
             }
         }
     }
+    theCanvas.addEventListener("click", onMouseClick, false); 
     
     //This is only drawn at the start of the running the function
     function drawScoreScreen() {
@@ -78,16 +79,20 @@
  			context.fillStyle = "#ffffaa";
   			context.fillRect(0, 0, width, height);
   			//text
-			context.fillStyle    = "#000000";
-			context.font         = "30px _sans";
-			context.textBaseline = "top";
-			context.fillText  ("Score: "+score, 75, 10 );	
-  			
+            if (scoreVisible){
+                context.fillStyle    = "#000000";
+                context.font         = "30px _sans";
+                context.textBaseline = "top";
+			    context.fillText  ("Score: "+score, 75, 10 );	
+  			}
 			
 			//time remaining text
 			t_remaining = t_Max - timer;
             console.log("foo "+t_remaining);
 			if (t_remaining>0){
+                context.fillStyle    = "#000000";
+                context.font         = "30px _sans";
+                context.textBaseline = "top";
                 context.fillText ("Time Remaining: "+ t_remaining,600,10);
             }
             else {
@@ -120,13 +125,24 @@
         },
         tick: function () {
             timer +=1;
+            seconds = timer % 60;
+            scoreVisible = false;
+            if (seconds > 50){
+                scoreVisible = true;
+            }
             this.drawScoreScreen();
         },
         inc: function() {
             if (t_remaining>0){
                 score += scoreIncrease; 
                 }
-        }
+        }, 
+        //blockScore: function() {
+            
+        //},
+        //unblockScore: function() {
+        
+        //}
 		
 	};
 }();
