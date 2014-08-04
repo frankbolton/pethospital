@@ -47,7 +47,7 @@ loop();
 
 function log () {
     var LogObject = {};
-    LogObject['userID']=
+    
     LogObject['score']=gameScore.getscore();
     LogObject['secondsLeft']=gameScore.secondsLeft();
     
@@ -80,6 +80,7 @@ const FRAME_RATE =10;
 var intervalTime = 1000/FRAME_RATE;
 var loopCounter=0;
 function loop() {
+    log();
     loopCounter +=1;
     if (loopCounter > FRAME_RATE-1) { //we are in a per-second action
         //var stationdata = '';

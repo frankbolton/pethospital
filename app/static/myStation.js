@@ -52,28 +52,19 @@ var myStation = function () {
         console.log("Drawing Canvas");
         //clear canvas
         context.clearRect(0, 0, 300, 350);
-        //background
-        context.fillStyle = "#ffffaa";
-        context.fillRect(0, 0, 350, 350);
-        //text
-        context.fillStyle    = "#000000";
-        context.font         = "20px _sans";
-        context.textBaseline = "top";
-        context.fillText  (id, 95, 20 );	
-        //Health text
-        if (station_h_visible){
+        
+        if (!station_h_visible ){
+            //background
+            context.fillStyle = "#ffeeaa";
+            context.fillRect(0, 0, 350, 350);
+            //text
             context.fillStyle    = "#000000";
             context.font         = "20px _sans";
             context.textBaseline = "top";
-            context.fillText ("Health level: " + parseInt(station_health), 80 ,250);
-        }
-        //helloWorldImage.onload = function () {
-        context.drawImage(helloWorldImage, 40, 50);
-        //}		
-        //box
-        context.strokeStyle = "#000000"; 
-        context.strokeRect(5,  5, 290, 340);
-        if (!station_h_visible ){
+            context.fillText  (id, 95, 20 );	
+            context.drawImage(helloWorldImage, 40, 50);
+            context.strokeStyle = "#000000"; 
+            context.strokeRect(5,  5, 290, 340);
             //showButton
             context.fillStyle = "#ffffee";
             context.fillRect(showButtonpos.x, showButtonpos.y, buttonSize.x, buttonSize.y);
@@ -83,7 +74,20 @@ var myStation = function () {
             context.textBaseline = "middle";
             context.fillText  ("Show", showButtonpos.x+7, showButtonpos.y + buttonSize.y/2);	
         }
-            if (station_h_visible){
+        if (station_h_visible){
+            //background
+            context.fillStyle = "#ffffaa";
+            context.fillRect(0, 0, 350, 350);
+            //text
+            context.fillStyle    = "#000000";
+            context.font         = "20px _sans";
+            context.textBaseline = "top";
+            context.fillText  (id, 95, 20 );	
+            context.drawImage(helloWorldImage, 40, 50);
+            context.strokeStyle = "#000000"; 
+            context.strokeRect(5,  5, 290, 340);
+            //lockingText
+            context.fillText  ("Visible Health Blocks Score", 40, 230 );	
             //hideButton
             context.fillStyle = "#ffffee";
             context.fillRect(hideButtonpos.x, hideButtonpos.y , buttonSize.x, buttonSize.y);
@@ -100,6 +104,11 @@ var myStation = function () {
             context.font         = "20px _sans";
             context.textBaseline = "middle";
             context.fillText  ("Heal", healButtonpos.x+10, healButtonpos.y + buttonSize.y/2);	
+            //healthLevel
+            context.fillStyle    = "#000000";
+            context.font         = "20px _sans";
+            context.textBaseline = "top";
+            context.fillText ("Health level: " + parseInt(station_health), 80 ,255);
         }
     }
     draw_station();

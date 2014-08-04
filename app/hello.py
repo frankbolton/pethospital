@@ -43,13 +43,13 @@ def index():
         #number = -100
         #Check if a user exists, if so increment UserID
         if not UserTracking.search(where('UserID')):
-            number = 1
-            UserTracking.insert({'UserID': 1})
+            number = 0
+            UserTracking.insert({'UserID': 0})
         #if no user's exist yet, initialize one
         else:
             record = UserTracking.get(where('UserID'))
             number = record['UserID'] + 1
-            UserTracking.update({'UserID': number + 1 }, where('UserID'))
+            UserTracking.update({'UserID': number }, where('UserID'))
         session['userID'] = number
         #session['subjectOrder'] = order[number-1]
         return redirect('/questions')
@@ -97,28 +97,28 @@ def stations():
     gameduration = "gameduration = "+ str(time)
     print "test"
     print gameduration
-    #stationSetup =[]
-    #config = [{"Station1": 100,100,1,0,4,"Station1",120,50}, {'Station2':100,1,0,4,"Station2",120,400}]
-    #need to transfer the station config to the html page. These are the example points:
+    
+    #arguments: [0] health level at the start, [1] station decrease rate (%/s),
+	#arguments_cont: [2] noise added, [3], viewing_cost, [4] stationID, [5] topOffset, [6] leftOffset 
     
     #stationSetup_1 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); ';
            
-    stationSetup_2 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); ';
+    stationSetup_2 = 'station[1] = new myStation(50,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(100,5,2,4,"Station 2",120,340, gameScore,logging); ';
            
-    #stationSetup_3 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); '
+    #stationSetup_3 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(100,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(100,3,2,4,"Station 3",120,660, gameScore,logging); '
             
-    stationSetup_4 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station 4",500, 20, gameScore,logging); '
+    stationSetup_4 = 'station[1] = new myStation(100,5,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(50,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(50,5,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(100,3,2,4,"Station 4",500, 20, gameScore,logging); '
 
     #stationSetup_5 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station 4",500, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station 5",500, 340, gameScore,logging); '
            
-    stationSetup_6 ='station[1] = new myStation(100,3,2,4,"Station 1",120,22, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station 4",500, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station 5",500, 340, gameScore,logging); station[6] = new myStation(20,3,2,4,"Station 6",500, 660, gameScore,logging); '
+    stationSetup_6 ='station[1] = new myStation(100,5,2,4,"Station 1",120,22, gameScore,logging); station[2] = new myStation(100,5,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(50,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(100,3,2,4,"Station 4",500, 20, gameScore,logging); station[5] = new myStation(50,5,2,4,"Station 5",500, 340, gameScore,logging); station[6] = new myStation(50,3,2,4,"Station 6",500, 660, gameScore,logging); '
  
     print "userid mod 30 = " + str(session['userID']%3)
     
     presenationOrder = order[session['userID']%3]
     print presenationOrder
     i = session['stageNumber'] 
-    if presenationOrder[i] == 0:
+    if presenationOrder[i] == 0: 
         stationSetup = stationSetup_2
     elif presenationOrder[i] == 1:
         stationSetup = stationSetup_4
@@ -130,6 +130,7 @@ def stations():
     #    stationSetup = stationSetup_5
     #elif session['stageNumber'] == 6:
     #    stationSetup = stationSetup_6
+    session['stationSetup'] = stationSetup
     print session['stageNumber']
     return render_template('stations.html', gameduration = gameduration, stationSetup = stationSetup )
 
@@ -155,9 +156,9 @@ def after_questions():
         print radio03
         print radio04
         print radio05
-        FeedbackTable.insert({'userID':session['userID'], 'turkNickName':session['turkNickName'],'StageNumber':session['stageNumber'],'Mental Demand':radio01, 'Temporal Demand':radio02, 'Performance':radio03, 'Effort':radio04, 'Frustration':radio05})
+        FeedbackTable.insert({'userID':session['userID'], 'turkNickName':session['turkNickName'],'StageNumber':session['stageNumber'],'subjectScore':session['score'], 'Mental Demand':radio01, 'Temporal Demand':radio02, 'Performance':radio03, 'Effort':radio04, 'Frustration':radio05, 'stationSetup':session['stationSetup']})
         #store some results
-        if session['stageNumber']<3:
+        if session['stageNumber']<2:
             session['stageNumber']+=1
             return redirect('/stations')
         else:
@@ -191,8 +192,10 @@ def periodicLogging():
 @app.route('/log', methods = ['POST'])
 def logging():
     mydata = request.get_json()
-    print mydata['fullName']
-    print mydata['secondsLeft']
+    session['score'] = mydata['score']
+    print 'score ' + str(mydata['score'])
+    print 'seconds left ' + str(mydata['secondsLeft'])
+    print 'userID' + str(session['userID'])
     
     
     return 'This is the log page' 
@@ -210,24 +213,26 @@ def results():
     
 @app.route('/showsession')
 def showsession(): 
-    return render_template('showSession.html', fullName = session['fullName'],idnumber = session['idnumber'], stageNumber= session['stageNumber'], userID=session['userID'])
+    return render_template('showSession.html',turkNickName = session['turkNickName'], stageNumber= session['stageNumber'], userID=session['userID'])
     
 @app.route('/end')
 def end():
+
+    endStr = "Experiment complete, thank you. Please enter the code into mechanical turk: \""+session["turkNickName"]+str(session["userID"])+"\""
     session.pop('fullName', None)
     session.pop('idnumber', None)
     session.pop('address', None)    
     session.pop('name1', None)
     session.pop('date', None)
-    session.pop('agree', None)    
-	
+    session.pop('agree', None)
+    session.pop("userID", None)
     session.pop('turkNickName', None)
     session.pop('age', None)
     session.pop('date', None)    
     session.pop('sex', None)
     session.pop('salaryRange', None)
     session.pop('stageNumber', None)
-    return('Experiment complete, thank you')
+    return(endStr)
     
 if __name__ == '__main__':
 	app.run(host= '0.0.0.0', port=4000, debug=True)

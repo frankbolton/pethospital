@@ -1,24 +1,5 @@
 from app import db
 
-
-class User(db.Model):
-    __tablename__ = 'users'
-    #this records the periodic logs from the browser
-    id = db.Column(db.Integer, primary_key = True)
-    turkWorkerID = db.Column(db.String(64), index = True)
-    ageRangeStr = db.Column(db.String(64))
-    ageLowEnd = db.Column(db.SmallInteger)
-    ageHighEnd = db.Column(db.SmallInteger)
-    salaryRangeStr = db.Column(db.String(64))
-    salaryLowEnd = db.Column(db.SmallInteger)
-    salaryHighEnd = db.Column(db.SmallInteger)
-    country = db.Column(db.String(64))
-    sex = db.Column(db.Boolean)
-    
-    def __repr__(self):
-        return '<User %r>' % (self.turkNickName)
-
-        
 class Experiment(db.Model):
     __tablename__ = 'experiments' 
     id = db.Column(db.Integer, primary_key = True)
@@ -28,21 +9,37 @@ class Experiment(db.Model):
     scoreIncrement = db.Column(db.SmallInteger) 
     stationHealth = db.Column(db.SmallInteger)
     stationVisibility = db.Column(db.Boolean)
-   
-   
-   
-   
- class ButtonEvent(db.Model):
-    __tablename__ = 'buttonevents' 
+
+
+class User(db.Model):
+    __tablename__ = 'users'
+    #this records the periodic logs from the browser
+    id = db.Column(db.Integer, primary_key = True)
+    turkNickName = db.Column(db.String(64), index = True)
+    experimentID = db.Column(db.SmallInteger)
+    ageRangeStr = db.Column(db.String(64))
+    ageLowEnd = db.Column(db.SmallInteger)
+    ageHighEnd = db.Column(db.SmallInteger)
+    salaryRangeStr = db.Column(db.String(64))
+    salaryLowEnd = db.Column(db.SmallInteger)
+    salaryHighEnd = db.Column(db.SmallInteger)
+    country = db.Column(db.String(64))
+    gender = db.Column(db.String(64))
+    
+    def __repr__(self):
+        return '<User %r>' % (self.turkNickName)
+
+class UserSession(db.Model):
+    __tablename__ = 'usersession'
     id = db.Column(db.Integer, primary_key = True)
     userId = db.Column(db.Integer, db.ForeignKey('User.id'))
-    experimentID = db.Column(db.Integer)
+    numberOfStations = db.Column(db.SmallInteger)
+
+
     
+   
+   
+   
 
-    timestamp = db.Column(db.DateTime)
-
-    #learn / experiment
-    def __repr__(self):
-        return '<Result %r>' % (self.id
     
    
