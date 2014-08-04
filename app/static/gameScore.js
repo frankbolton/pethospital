@@ -102,13 +102,7 @@
                     context.fillText ("Keep all health measures above zero and hidden to increase your score",20,10);
                 }
             }    
-			if (t_remaining>0){
-                context.fillStyle    = "#000000";
-                context.font         = "30px _sans";
-                context.textBaseline = "top";
-                context.fillText ("Time Remaining: "+ t_remaining,600,10);
-            }
-            
+
             if (t_remaining<0) {
                 //context.fillRect(0, 0, width, height);
                 context.fillText  ("Score: "+score, 75, 10 );	
@@ -142,22 +136,12 @@
             timer +=1;
             seconds = timer % 60;
             scoreVisible = false;
-            if (seconds > 50){
-                scoreVisible = true;
-            }
             this.drawScoreScreen();
         },
         inc: function() {
             if (t_remaining>0){
                 score += scoreIncrease; 
                 }
-        }, 
-        //blockScore: function() {
-            
-        //},
-        //unblockScore: function() {
-        
-        //}
-		
+        }, 	
 	};
 }();
