@@ -17,6 +17,17 @@ gameScore.setDuration(gameduration);
 
 
 //screen size 1024 x 768
+
+///this border code messes up the button handler on the score
+///var canvasHTML = "<div style=\"position: absolute; top: 40px; left: 10px;\">";
+///canvasHTML +="<canvas id=\"background\" width=\"964\" height=\"838\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
+///document.writeln(canvasHTML);
+///console.log("writing CanvasHTML to the page");
+///var theCanvas = document.getElementById("background");
+///var context = theCanvas.getContext("2d"); 
+//context.fillStyle = "#00000";
+//context.strokeRect(0, 0, 800, 600);
+
 var canvasHTML = "<div style=\"position: absolute; top: 40px; left: 10px;\">";
 canvasHTML +="<canvas id=\"background\" width=\"964\" height=\"838\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
 document.writeln(canvasHTML);

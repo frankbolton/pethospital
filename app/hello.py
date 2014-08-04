@@ -28,6 +28,9 @@ ParametersTable = dbExperimentParameters.table('Parameters')
 UserTracking = dbExperimentParameters.table('TrackUsers')
 
 
+order = [[0,1,2],[1,2,0],[2,0,1]]
+
+
 
 #the index pate is the agreement... It's the first page that the participant encounters
 @app.route('/', methods = ['GET','POST'])
@@ -48,6 +51,7 @@ def index():
             number = record['UserID'] + 1
             UserTracking.update({'UserID': number + 1 }, where('UserID'))
         session['userID'] = number
+        #session['subjectOrder'] = order[number-1]
         return redirect('/questions')
     
     
@@ -67,7 +71,7 @@ def user():
         session['age'] = request.form['age']
         session['country'] = request.form['country']
         session['gender'] = request.form['gender']
-        session['stageNumber'] = 1
+        session['stageNumber'] = 0
         
         
         UsersTable.insert({'userID':session['userID'], 'turkNickName':turkNickName, 'age':age, 'country':country, \
@@ -97,30 +101,35 @@ def stations():
     #config = [{"Station1": 100,100,1,0,4,"Station1",120,50}, {'Station2':100,1,0,4,"Station2",120,400}]
     #need to transfer the station config to the html page. These are the example points:
     
-    stationSetup_1 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); ';
+    #stationSetup_1 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); ';
            
     stationSetup_2 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); ';
            
-    stationSetup_3 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); '
+    #stationSetup_3 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); '
             
     stationSetup_4 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station 4",500, 20, gameScore,logging); '
 
-    stationSetup_5 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station 4",500, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station 5",500, 340, gameScore,logging); '
+    #stationSetup_5 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station 4",500, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station 5",500, 340, gameScore,logging); '
            
     stationSetup_6 ='station[1] = new myStation(100,3,2,4,"Station 1",120,22, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station 4",500, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station 5",500, 340, gameScore,logging); station[6] = new myStation(20,3,2,4,"Station 6",500, 660, gameScore,logging); '
  
-    if session['stageNumber'] == 1:
-        stationSetup = stationSetup_1
-    elif session['stageNumber'] == 2:
+    print "userid mod 30 = " + str(session['userID']%3)
+    
+    presenationOrder = order[session['userID']%3]
+    print presenationOrder
+    i = session['stageNumber'] 
+    if presenationOrder[i] == 0:
         stationSetup = stationSetup_2
-    elif session['stageNumber'] == 3:
-        stationSetup = stationSetup_3
-    elif session['stageNumber'] == 4:
+    elif presenationOrder[i] == 1:
         stationSetup = stationSetup_4
-    elif session['stageNumber'] == 5:
-        stationSetup = stationSetup_5
-    elif session['stageNumber'] == 6:
+    elif presenationOrder[i] == 2:
         stationSetup = stationSetup_6
+    #elif session['stageNumber'] == 4:
+    #    stationSetup = stationSetup_4
+    #elif session['stageNumber'] == 5:
+    #    stationSetup = stationSetup_5
+    #elif session['stageNumber'] == 6:
+    #    stationSetup = stationSetup_6
     print session['stageNumber']
     return render_template('stations.html', gameduration = gameduration, stationSetup = stationSetup )
 
@@ -148,7 +157,7 @@ def after_questions():
         print radio05
         FeedbackTable.insert({'userID':session['userID'], 'turkNickName':session['turkNickName'],'StageNumber':session['stageNumber'],'Mental Demand':radio01, 'Temporal Demand':radio02, 'Performance':radio03, 'Effort':radio04, 'Frustration':radio05})
         #store some results
-        if session['stageNumber']<6:
+        if session['stageNumber']<3:
             session['stageNumber']+=1
             return redirect('/stations')
         else:

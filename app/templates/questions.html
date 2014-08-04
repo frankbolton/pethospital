@@ -10,12 +10,39 @@ margin-top: 5px;
 width: 90px;
 }
 </style>
+
+<SCRIPT language=JavaScript>
+<!--
+
+//Accept terms & conditions script (by InsightEye www.insighteye.com)
+//Visit JavaScript Kit (http://javascriptkit.com) for this script & more.
+
+function checkCheckBox(f){
+    if (f.gender.value <1 ){
+        alert('Please enter a gender value.');
+        return false;
+    }
+    if (f.age.value =="-1" ){
+        alert('Please enter an age');
+        return false;
+    }
+    if (f.turkNickName.value.length == 0) {
+        alert('Please enter a subject ID number or Mechanical Turk Nickname');
+        return false;
+    }
+    else
+        return true;
+}
+//-->
+</SCRIPT>
+
+
 <table>
-    <tr><form name="RegisterUser" method="post" action="questions">
+    <tr><form name="RegisterUser" method="post" action="questions"  onsubmit="return checkCheckBox(this)">
 <label><td style="width:50%" >Your Mechanical Turk WorkerId</label> </td><td><input type="string" name="turkNickName"></td></tr>
 <tr><td>Age:</td><td><!--<input type="string" name="age">-->
 <select name="age">
-	<option value="" disabled="disabled" selected="selected">Please select your age</option>
+	<option value="-1" disabled="disabled" selected="selected">Please select your age</option>
 	<option value="18,20">18-20</option>
 <option value="21,24">21-24</option>
 <option value="25,30">25-30</option>
