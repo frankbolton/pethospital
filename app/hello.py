@@ -143,20 +143,23 @@ def after_questions():
         #record the feedback from the user.
         #FeedbackTable.insert({'Mental Demand':request.form['radio01.value'], 'Temporal Demand':request.form['radio02.value'], 'Performance':request.form['radio03.value'], 'Effort':request.form['radio04.value'], 'Frustration':request.form['radio05.value']})
         #FeedbackTable.insert(request.form['radio01'])
-        #print request
-        #print request.form
+        print request
+        print request.form
         radio01 = request.form['radio01']
         radio02 = request.form['radio02']
         radio03 = request.form['radio03']
         radio04 = request.form['radio04']
         radio05 = request.form['radio05']
+        radio06 = request.form['radio06']
+        
   
         print radio01
         print radio02
         print radio03
         print radio04
         print radio05
-        FeedbackTable.insert({'userID':session['userID'], 'turkNickName':session['turkNickName'],'StageNumber':session['stageNumber'],'subjectScore':session['score'], 'Mental Demand':radio01, 'Temporal Demand':radio02, 'Performance':radio03, 'Effort':radio04, 'Frustration':radio05, 'stationSetup':session['stationSetup']})
+        print radio06
+        FeedbackTable.insert({'userID':session['userID'], 'turkNickName':session['turkNickName'],'StageNumber':session['stageNumber'],'subjectScore':session['score'], 'Mental Demand':radio01, 'Physical Demand':radio02,'Temporal Demand':radio03, 'Performance':radio04, 'Effort':radio05, 'Frustration':radio06,  'stationSetup':session['stationSetup']})
         #store some results
         if session['stageNumber']<2:
             session['stageNumber']+=1
@@ -164,6 +167,8 @@ def after_questions():
         else:
             return redirect('/end')
     #4 sets of logging functions- user, experiment, event and periodic
+    
+    
 @app.route('/userLog', methods = ['POST']) 
 def userLogging():
     logData = request.get_json()
@@ -214,6 +219,11 @@ def results():
 @app.route('/showsession')
 def showsession(): 
     return render_template('showSession.html',turkNickName = session['turkNickName'], stageNumber= session['stageNumber'], userID=session['userID'])
+
+@app.route('/tlx')
+def tlx(): 
+    return render_template('NasaTLX_short.html')
+
     
 @app.route('/end')
 def end():
