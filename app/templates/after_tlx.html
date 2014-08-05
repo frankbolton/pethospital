@@ -180,33 +180,27 @@ function buttonPart1()
 
 	// Bye bye part 1, hello part 2
 	
-    console.log("press the button"+results_rating[0]);
-    $.post('/after_questions',{
-    "radio01": results_rating[0],
-    "radio02": results_rating[1],
-    "radio03": results_rating[2],
-    "radio04": results_rating[3],
-    "radio05": results_rating[4],
-    "radio06": results_rating[5]    
-    });
-    window.location.href = '/after_questions';
+    var TLXObject = {};
     
-    //var TLXObject = {};
+    TLXObject[scale[0]]=results_rating[0];
+    TLXObject[scale[1]]=results_rating[1];
+    TLXObject[scale[2]]=results_rating[2];
+    TLXObject[scale[3]]=results_rating[3];
+    TLXObject[scale[4]]=results_rating[4];
+    TLXObject[scale[5]]=results_rating[5];
     
-   // TLXObject['']=results_rating[0];
-   // TLXObject['']=results_rating[1];
-   // TLXObject['']=results_rating[2];
-    //TLXObject['']=results_rating[3];
-    //TLXObject['']=results_rating[4];
-    //TLXObject['']=results_rating[5];
+    $.post('/after_questions',TLXObject);
     
-    
+    console.log(TLXObject);
+   // $('#radio01').val(results_rating[0]);
+    //$('#hiddeninput').val(TLXObject);
     //console.log(LogObject);
     
     //var myjson =JSON.stringify(LogObject, null,2);
     //console.log(myjson);
     //
 	return true;
+    //return false;
 }
 
 // User done reading the part 2 instructions
@@ -288,12 +282,11 @@ input.pair
 <body onLoad="onLoad();">
 
 <div id="div_part1">
-
+<form name="after" method="POST" action="after_questions" onsubmit="return buttonPart1();">
   Task Questionnaire - Part 1 <br/>
   <br/>
   Click on each scale at the point that best indicates your experience of the task <br/>
   <br/>
-
   <div id="scale0"></div>
   <div id="scale1"></div>
   <div id="scale2"></div>
@@ -301,8 +294,14 @@ input.pair
   <div id="scale4"></div>
   <div id="scale5"></div>
 
+   
+   
+  
   <br/>
-  <input class="next" id="next" type="button" value="Continue >>" onClick="buttonPart1();">
+  <input type="submit" value="Continue >>">
+ 
+  </form>
+  
 </div>
 
 

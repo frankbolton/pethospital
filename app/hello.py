@@ -138,29 +138,20 @@ def stations():
 @app.route('/after_questions', methods =['GET', 'POST'])
 def after_questions():
     if request.method == 'GET':
-        return render_template("after.html")
+        return render_template("after_tlx.html")
     else:
         #record the feedback from the user.
-        #FeedbackTable.insert({'Mental Demand':request.form['radio01.value'], 'Temporal Demand':request.form['radio02.value'], 'Performance':request.form['radio03.value'], 'Effort':request.form['radio04.value'], 'Frustration':request.form['radio05.value']})
-        #FeedbackTable.insert(request.form['radio01'])
-        print request
-        print request.form
-        radio01 = request.form['radio01']
-        radio02 = request.form['radio02']
-        radio03 = request.form['radio03']
-        radio04 = request.form['radio04']
-        radio05 = request.form['radio05']
-        radio06 = request.form['radio06']
+        print "request: " + str(request)
+        print "request form: " + str(request.form)
+        #print "request form todict: " + str(request.args.getlist)
+        a = request.form
+        print a
+        if a.get('Mental Demand') == None:
+            print "This is an empty string"
+        else:
+            print "Not an empty string"
+            FeedbackTable.insert({'userID':session['userID'], 'turkNickName':session['turkNickName'] ,'stageNumber':session['stageNumber'], 'Mental Demand':a.get('Mental Demand'), 'Temporal Demand':a.get('Temporal Demand'), 'Performance':a.get('Performance'), 'Effort':a.get('Effort'), 'Frustration':a.get('Frustration'),'Physical Demand':a.get('Physical Demand'), 'score':session['score'] })
         
-  
-        print radio01
-        print radio02
-        print radio03
-        print radio04
-        print radio05
-        print radio06
-        FeedbackTable.insert({'userID':session['userID'], 'turkNickName':session['turkNickName'],'StageNumber':session['stageNumber'],'subjectScore':session['score'], 'Mental Demand':radio01, 'Physical Demand':radio02,'Temporal Demand':radio03, 'Performance':radio04, 'Effort':radio05, 'Frustration':radio06,  'stationSetup':session['stationSetup']})
-        #store some results
         if session['stageNumber']<2:
             session['stageNumber']+=1
             return redirect('/stations')
