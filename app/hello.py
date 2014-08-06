@@ -211,9 +211,9 @@ def results():
 def showsession(): 
     return render_template('showSession.html',turkNickName = session['turkNickName'], stageNumber= session['stageNumber'], userID=session['userID'])
 
-@app.route('/tlx')
-def tlx(): 
-    return render_template('NasaTLX_short.html')
+@app.route('/phone')
+def phone(): 
+    return render_template('phone.html')
 
     
 @app.route('/end')
