@@ -93,7 +93,7 @@ def instructions():
 #the actual experiment.... This is the forth page that the subject encounters.        
 @app.route('/stations')
 def stations():
-    time = 180
+    time = 300
     gameduration = "gameduration = "+ str(time)
     print "test"
     print gameduration
@@ -101,18 +101,14 @@ def stations():
     #arguments: [0] health level at the start, [1] station decrease rate (%/s),
 	#arguments_cont: [2] noise added, [3], viewing_cost, [4] stationID, [5] topOffset, [6] leftOffset 
     
-    #stationSetup_1 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); ';
            
     stationSetup_2 = 'station[1] = new myStation(50,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(100,5,2,4,"Station 2",120,340, gameScore,logging); ';
-           
-    #stationSetup_3 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(100,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(100,3,2,4,"Station 3",120,660, gameScore,logging); '
             
     stationSetup_4 = 'station[1] = new myStation(100,5,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(50,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(50,5,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(100,3,2,4,"Station 4",500, 20, gameScore,logging); '
-
-    #stationSetup_5 = 'station[1] = new myStation(100,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(40,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(70,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(20,3,2,4,"Station 4",500, 20, gameScore,logging); station[5] = new myStation(20,3,2,4,"Station 5",500, 340, gameScore,logging); '
-           
+       
     stationSetup_6 ='station[1] = new myStation(100,5,2,4,"Station 1",120,22, gameScore,logging); station[2] = new myStation(100,5,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(50,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(100,3,2,4,"Station 4",500, 20, gameScore,logging); station[5] = new myStation(50,5,2,4,"Station 5",500, 340, gameScore,logging); station[6] = new myStation(50,3,2,4,"Station 6",500, 660, gameScore,logging); '
- 
+
+    
     print "userid mod 30 = " + str(session['userID']%3)
     
     presenationOrder = order[session['userID']%3]

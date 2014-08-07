@@ -2,11 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UFT-8">
+    <meta name="viewport" content="user-scalable=no, width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0"/>
 <title>BS Bingo</title>
 
 <script src="/static/modernizr-1.6.min.js"></script>
 <script src="/static/TextButton.js"></script>
 <script src="/static/ConsoleLog.js"></script>
+
+
 <script type="text/javascript">
 
 window.addEventListener('load', eventWindowLoaded, false);
@@ -19,7 +22,6 @@ function canvasSupport() {
 }
 
 function canvasApp(){
-
     if (!canvasSupport()) {
         return;
     }else{
@@ -152,8 +154,21 @@ function canvasApp(){
     function onMouseClick(e) {
     //select case through states and then the locations of
     //buttons in those states
-    mouseX - e.clientX-theCanvas.offsetLeft;
-    mouseY - e.clientY-theCanvas.offsetTop;
+    var mouseX;
+    var mouseY;
+    
+    var xFactor = theCanvas.width / window.innerWidth;
+    var yFactor = theCanvas.height / window.innerHeight;
+     
+    //var mouseX1 = e.clientX-theCanvas.offsetLeft;
+    //var mouseY1 = e.clientY-theCanvas.offsetTop;
+    var mouseX1 = e.pageX-theCanvas.offsetLeft;
+    var mouseY1 = e.pageY-theCanvas.offsetTop;
+    
+    mouseX = mouseX1 * xFactor;
+    mouseY = mouseY1 * yFactor;
+
+    
     ConsoleLog.log("click " + mouseX + "," + mouseY);
     
     //find the button clicked
@@ -190,9 +205,38 @@ function canvasApp(){
 }
 
 </script>
-</head>
+<style>
+<style type="text/css">
+        html, body {
+            background-color: #2f9acc;
+            margin: 0px;
+            padding: 0px;
+            color: #fff;
+			height: 100%;
+  			overflow: hidden;
+        }
+
+        #canvas {
+           
+            overflow: hidden;
+            image-rendering: optimizeSpeed;
+            -ms-interpolation-mode: nearest-neighbor;
+            -webkit-optimize-contrast;
+			width:100%;
+			height:100%;
+			
+        }
+
+		:webkit-full-screen {
+            width: 100%;
+            height: 100%;
+        }
+
+
+</style></head>
+
 <body>
-<div style="position: absolute; top: 0px; left: 0px;">
+<div style="top: 0px; left: 0px; height:100%; width:100%">
 <canvas id="canvas" width="570" height="418">
     Your browser does not support HTML5 Canvas.
 </canvas>
