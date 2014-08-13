@@ -1,4 +1,4 @@
-#!home/ubuntu/pethospital/venv/bin/python
+#! home/ubuntu/pethospital/venv/bin/python
 
 from flask import Flask, request, render_template, redirect, jsonify, session
 #from flask.ext.sqlalchemy import SQLAlchemy
