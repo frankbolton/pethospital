@@ -1,4 +1,6 @@
-#! home/ubuntu/pethospital/venv/bin/python
+#! ../venv/bin/python
+
+ # ! home/ubuntu/pethospital/venv/bin/python
 
 from flask import Flask, request, render_template, redirect, jsonify, session
 #from flask.ext.sqlalchemy import SQLAlchemy
@@ -12,20 +14,19 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,4325'
 from tinydb import TinyDB, where
 dbUsers = TinyDB(os.path.join(basedir,'dbUsers.json'))
 UsersTable = dbUsers.table('Users')
-FeedbackTable = dbUsers.table('TLXQuestions')
 
-dbExperiments = TinyDB(os.path.join(basedir,'dbExperiments.json'))
-ExperimentsTable = dbExperiments.table('Experiments')
+dbTLX = TinyDB(os.path.join(basedir,'dbTLX.json'))
+FeedbackTable = dbTLX.table('TLXQuestions')
 
 dbEvents = TinyDB(os.path.join(basedir,'dbEvents.json'))
 EventsTable = dbEvents.table('Events')
 
-dbLogs = TinyDB(os.path.join(basedir,'dbLogs.json'))
-PeriodicLogsTable = dbLogs.table('Logging')
-
+#this database keeps track of the subjects ID that will be allocated next.
+#------DO NOT REMOVE --------------------------------------------------------------
 dbExperimentParameters = TinyDB(os.path.join(basedir,'dbExperimentParameters.json'))
 ParametersTable = dbExperimentParameters.table('Parameters')
 UserTracking = dbExperimentParameters.table('TrackUsers')
+#------DO NOT REMOVE --------------------------------------------------------------
 
 
 order = [[0,1,2],[1,2,0],[2,0,1]]
@@ -84,9 +85,6 @@ def user():
 def instructions():
     if request.method =='GET':
         return render_template("instructions.html")
-        
-    
-
     else:
         return redirect('/stations')
 
@@ -162,11 +160,7 @@ def userLogging():
     UsersTable.insert(logData)
     return('successful user insert?')
 
-@app.route('/experimentLog', methods = ['POST']) 
-def experimentLogging():
-    logData = request.get_json()
-    ExperimentsTable.insert(logData)
-    return('successful insert?')    
+
     
 @app.route('/eventLog', methods = ['POST']) 
 def eventLogging():
@@ -175,23 +169,7 @@ def eventLogging():
     EventsTable.insert(logData)
     return('successful insert' + str(logData))
     
-@app.route('/periodicLog', methods = ['POST']) 
-def periodicLogging():
-    logData = request.get_json()
-    PeriodicLogsTable.insert(logData)
-    return('successful insert?')    
-    
-@app.route('/log', methods = ['POST'])
-def logging():
-    mydata = request.get_json()
-    session['score'] = mydata['score']
-    print 'score ' + str(mydata['score'])
-    print 'seconds left ' + str(mydata['secondsLeft'])
-    print 'userID' + str(session['userID'])
-    
-    
-    return 'This is the log page' 
-    
+
     
 @app.route('/results')
 def results():

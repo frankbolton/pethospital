@@ -45,42 +45,39 @@ var logging = [];
 {{stationSetup|safe}}
 loop();
 
-function log () {
-    var LogObject = {};
-    
-    LogObject['score']=gameScore.getscore();
-    LogObject['secondsLeft']=gameScore.secondsLeft();
-    
-    //console.log(LogObject);
-    
-    var myjson =JSON.stringify(LogObject, null,2);
-    console.log(myjson);
-    $.ajax({type: "POST", url:'/log', data:myjson, contentType:'application/json'});
-}
+//function log () {
+//    var LogObject = {};
+//    
+//    LogObject['score']=gameScore.getscore();
+//    LogObject['secondsLeft']=gameScore.secondsLeft();
+//    
+//    //console.log(LogObject);    
+//    var myjson =JSON.stringify(LogObject, null,2);
+//    console.log(myjson);
+//    $.ajax({type: "POST", url:'/log', data:myjson, contentType:'application/json'});
+//}
 
 
-function eventLog(stationNumber, stationEvent) {
-    var LogObject = {};
-
-    LogObject['score']=gameScore.getscore();
-    LogObject['secondsLeft']=gameScore.secondsLeft();
-    LogObject['stationNumber']=stationNumber;
-    LogObject['stationEvent']=stationEvent;
-    for (x in station) {
-       LogObject['station '+x+' health'] = station[x].get_health();
-    }
-    
-    var myjson =JSON.stringify(LogObject, null, 2);
-    console.log(myjson);
-    $.ajax({type: "POST", url:'/eventLog', data:myjson, contentType:'application/json'});
-
-}
+//function eventLog(stationNumber, stationEvent) {
+//    var LogObject = {};
+//    LogObject['score']=gameScore.getscore();
+//    LogObject['secondsLeft']=gameScore.secondsLeft();
+//    LogObject['stationNumber']=stationNumber;
+//    LogObject['stationEvent']=stationEvent;
+//    for (x in station) {
+//       LogObject['station '+x+' health'] = station[x].get_health();
+//    }
+//    var myjson =JSON.stringify(LogObject, null, 2);
+//    console.log(myjson);
+//    $.ajax({type: "POST", url:'/eventLog', data:myjson, contentType:'application/json'});
+//
+//}
 
 const FRAME_RATE =10;
 var intervalTime = 1000/FRAME_RATE;
 var loopCounter=0;
 function loop() {
-    log();
+	//log();
     loopCounter +=1;
     if (loopCounter > FRAME_RATE-1) { //we are in a per-second action
         //var stationdata = '';

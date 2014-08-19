@@ -133,7 +133,7 @@ var myStation = function () {
         station_health = 100;
         myGameScore.healStationPenalize(view_cost);
         draw_station();
-        eventLog(id, "show");
+        eventLog(id, "heal");
     }
          
     function onMouseClick(e)  {
