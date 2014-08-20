@@ -1,5 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
+
+<style type="text/css">
+input, textarea{
+width: 180px;
+margin-bottom: 5px;
+}
+
+
+</style>
+
 <h1>Instructions to perform the study</h1>
 
 Your objective is to apply yourself to maximise your score in each session. The higher your score- the greater your odds of winning a $5 bonus!
@@ -17,7 +27,7 @@ This makes for an allocated experiment time of 20 minutes.<br><br>
 
 
 <form  method="post" action="instructions">
-<input type="submit" value="SUBMIT" />
+<input type="submit" id="submitbutton" value="SUBMIT" />
 
 </form>
 {% endblock %}

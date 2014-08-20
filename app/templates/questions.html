@@ -4,10 +4,9 @@
 <div><b>please enter the following data to facilitate the experiment</b></div>
 
 <style type="text/css">
-#submitbutton{
-margin-left: 20px;
-margin-top: 5px;
-width: 90px;
+input, textarea{
+width: 180px;
+margin-bottom: 5px;
 }
 
 input[type=radio].css-checkbox {
@@ -39,6 +38,7 @@ input[type=radio].css-checkbox {
 				-ms-user-select: none;
 				user-select: none;
 			}
+
 
 
 </style>
@@ -112,7 +112,7 @@ function checkCheckBox(f){
 <input type="hidden" id="touch" name="touch" value="[return value from product function]">
 
 <br>
-<input type="submit" value="SUBMIT" />
+<input type="submit" id="submitbutton" value="SUBMIT" />
 
 </form>
 {% endblock %}
