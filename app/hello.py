@@ -37,8 +37,8 @@ order = [[0,1,2],[1,2,0],[2,0,1]]
 @app.route('/', methods = ['GET','POST'])
 def index():
     if request.method == 'GET':
-	    #user_agent = request.headers.get('User-Agent')
-	    return render_template('agreement.html')
+        #user_agent = request.headers.get('User-Agent')
+        return render_template('agreement.html')
         #return'<h1>Hello World</h1><p>Your browser is %s</p>' % user_agent
     else:
         #number = -100
@@ -94,24 +94,17 @@ def instructions():
 #the actual experiment.... This is the forth page that the subject encounters.        
 @app.route('/stations')
 def stations():
+    session['score']=-1
     time = 10 #300
     gameduration = "gameduration = "+ str(time)
     print "test"
     print gameduration
-    
     #arguments: [0] health level at the start, [1] station decrease rate (%/s),
-	#arguments_cont: [2] noise added, [3], viewing_cost, [4] stationID, [5] topOffset, [6] leftOffset 
-    
-           
+    #arguments_cont: [2] noise added, [3], viewing_cost, [4] stationID, [5] topOffset, [6] leftOffset          
     stationSetup_2 = 'station[1] = new myStation(50,3,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(100,5,2,4,"Station 2",120,340, gameScore,logging); ';
-            
     stationSetup_4 = 'station[1] = new myStation(100,5,2,4,"Station 1",120,20, gameScore,logging); station[2] = new myStation(50,3,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(50,5,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(100,3,2,4,"Station 4",500, 20, gameScore,logging); '
-       
     stationSetup_6 ='station[1] = new myStation(100,5,2,4,"Station 1",120,22, gameScore,logging); station[2] = new myStation(100,5,2,4,"Station 2",120,340, gameScore,logging); station[3] = new myStation(50,3,2,4,"Station 3",120,660, gameScore,logging); station[4] = new myStation(100,3,2,4,"Station 4",500, 20, gameScore,logging); station[5] = new myStation(50,5,2,4,"Station 5",500, 340, gameScore,logging); station[6] = new myStation(50,3,2,4,"Station 6",500, 660, gameScore,logging); '
-
-    
     print "userid mod 30 = " + str(session['userID']%3)
-    
     presenationOrder = order[session['userID']%3]
     print presenationOrder
     i = session['stageNumber'] 
@@ -135,20 +128,36 @@ def stations():
 @app.route('/after_questions', methods =['GET', 'POST'])
 def after_questions():
     if request.method == 'GET':
+    	session['TLXStartTime'] = time.asctime()
         return render_template("after_tlx.html")
     else:
         #record the feedback from the user.
         print "request: " + str(request)
         print "request form: " + str(request.form)
-        #print "request form todict: " + str(request.args.getlist)
+        print "request form todict: " + str(request.args.getlist)
         a = request.form
+        print "a"
         print a
         if a.get('Mental Demand') == None:
             print "This is an empty string"
+            
+            
         else:
             print "Not an empty string"
-            FeedbackTable.insert({'userID':session['userID'], 'turkNickName':session['turkNickName'] ,'stageNumber':session['stageNumber'], 'Mental Demand':a.get('Mental Demand'), 'Temporal Demand':a.get('Temporal Demand'), 'Performance':a.get('Performance'), 'Effort':a.get('Effort'), 'Frustration':a.get('Frustration'),'Physical Demand':a.get('Physical Demand'), 'score':session['score'] })
-        
+            print a.get('Mental Demand')
+            print "score"
+            print session['score']            
+            FeedbackTable.insert({'userID':session['userID'], 'turkNickName':session['turkNickName'], \
+            'stageNumber':session['stageNumber'], 'score':session['score'], \
+            'Temporal Demand':a.get('Temporal Demand'), 'Performance':a.get('Performance'), \
+            'Effort':a.get('Effort'), 'Frustration':a.get('Frustration'),\
+            'Physical Demand':a.get('Physical Demand'), 'Mental Demand':a.get('Mental Demand'),\
+            'TLXStartTime':session['TLXStartTime'], 'TLXEndTime':time.asctime(),\
+            'stationSetup':session['stationSetup']})
+            
+            print "userID"
+            print session['userID']
+            
         if session['stageNumber']<2:
             session['stageNumber']+=1
             return redirect('/stations')
@@ -168,6 +177,8 @@ def userLogging():
 @app.route('/eventLog', methods = ['POST']) 
 def eventLogging():
     logData = request.get_json()
+    session['score']=logData["score"]
+    print session['score']
     logData["serverTime"] = time.asctime()
     logData["stageNumber"] = session['stageNumber']
     EventsTable.insert(logData)
@@ -188,7 +199,7 @@ def results():
 @app.route('/showsession')
 def showsession(): 
     return render_template('showSession.html',turkNickName = session['turkNickName'], \
-    stageNumber= session['stageNumber'], userID=session['userID'])
+    stageNumber= session['stageNumber'], userID=session['userID'], score=session['score'])
 
 @app.route('/phone')
 def phone(): 
@@ -216,4 +227,4 @@ def end():
     return(endStr)
     
 if __name__ == '__main__':
-	app.run(host= '0.0.0.0', port=4000, debug=True)
+    app.run(host= '0.0.0.0', port=4000, debug=True)

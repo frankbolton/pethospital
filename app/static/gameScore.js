@@ -19,6 +19,22 @@
 	var t_remaining = t_Max;
     var scoreVisible = false;
     
+    function eventLog() {
+        var LogObject = {};
+
+        LogObject['score']=gameScore.getscore();
+        LogObject['secondsLeft']=gameScore.secondsLeft();
+        LogObject['stationNumber']="scoreStation";
+        LogObject['stationEvent']="ProceedToTLX";
+        for (x in station) {
+           LogObject['station '+x+' health'] = station[x].get_health();
+        }
+        
+        var myjson =JSON.stringify(LogObject, null, 2);
+        console.log(myjson);
+        $.ajax({type: "POST", url:'/eventLog', data:myjson, contentType:'application/json'});
+
+    }    
     
     
     function onMouseClick(e)
@@ -30,6 +46,7 @@
         var t = topOffset+ 5;
         if ((mouseX > l)&&(mouseX < l+100)&&(mouseY > t)&&(mouseY < t+40)){ //over the button
             if (!(t_remaining>0)) { //button is visible. This is the redirect... 
+            	eventLog();
                 window.location.href="/after_questions";
             }
         }

@@ -21,6 +21,11 @@
 <script language="JavaScript" type="text/javascript">
 <!--
 
+//JSON string to return
+var datareturn = {};
+var JSONreturn = {};
+
+
 // Create a set of parallel arrays for each of the scales
 var scale      = new Array();
 var left       = new Array();
@@ -166,13 +171,10 @@ function onLoad()
 }
 
 // Users want to proceed after doing the scales
-function buttonPart1()
-{
+function buttonPart1(){
 	// Check to be sure they click on every scale
-	for (var i = 0; i < NUM_SCALES; i++)
-	{
-		if (!results_rating[i])
-		{
+	for (var i = 0; i < NUM_SCALES; i++){
+		if (!results_rating[i]){
 			alert('A value must be selected for every scale!');
 			return false;
 		}
@@ -182,27 +184,31 @@ function buttonPart1()
 	
     var TLXObject = {};
     
-    TLXObject[scale[0]]=results_rating[0];
-    TLXObject[scale[1]]=results_rating[1];
-    TLXObject[scale[2]]=results_rating[2];
-    TLXObject[scale[3]]=results_rating[3];
-    TLXObject[scale[4]]=results_rating[4];
-    TLXObject[scale[5]]=results_rating[5];
     
+    //document.getElementById('TLX').value = TLXObject;
+    
+    
+    for (var i = 0; i < NUM_SCALES; i++) {
+    	TLXObject[scale[i]] = results_rating[i];
+    }
+    //var JSONreturn =JSON.stringify(datareturn, null, 2);
+    //console.log(JSONreturn);
     $.post('/after_questions',TLXObject);
+    ///$.ajax({type: "POST", url:'/after_questions', data:JSONreturn, contentType:'application/json'});
     
-    console.log(TLXObject);
-   // $('#radio01').val(results_rating[0]);
+   
+	
+    return true;
+}
+ //document.getElementById('TLX').value = TLXObject;
+// $('#radio01').val(results_rating[0]);
     //$('#hiddeninput').val(TLXObject);
     //console.log(LogObject);
     
     //var myjson =JSON.stringify(LogObject, null,2);
     //console.log(myjson);
     //
-	return true;
-    //return false;
-}
-
+	//return true;
 // User done reading the part 2 instructions
 
 
@@ -282,6 +288,8 @@ input.pair
 <body onLoad="onLoad();">
 
 <div id="div_part1">
+
+<!--method="POST"-->
 <form name="after" method="POST" action="after_questions" onsubmit="return buttonPart1();">
   Task Questionnaire - Part 1 <br/>
   <br/>
@@ -295,7 +303,7 @@ input.pair
   <div id="scale5"></div>
 
    
-   
+   <!--<input type="hidden" id="TLX" name="TLX" value="[return value from product function]">-->
   
   <br/>
   <input type="submit" value="Continue >>">
