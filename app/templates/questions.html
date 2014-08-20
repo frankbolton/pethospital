@@ -43,6 +43,8 @@ input[type=radio].css-checkbox {
 
 </style>
 
+
+<script src="/static/modernizr-1.6.min.js"></script>
 <SCRIPT language=JavaScript>
 <!--
 
@@ -50,6 +52,11 @@ input[type=radio].css-checkbox {
 //Visit JavaScript Kit (http://javascriptkit.com) for this script & more.
 
 function checkCheckBox(f){
+
+	//load some content into hidden variables
+	document.getElementById('touch').value = Modernizr.touch
+	
+	//now perform the tests.
     if (f.gender.value <1 ){
         alert('Please enter a gender value.');
         return false;
@@ -65,6 +72,8 @@ function checkCheckBox(f){
     else
         return true;
 }
+
+
 //-->
 </SCRIPT>
 
@@ -100,7 +109,7 @@ function checkCheckBox(f){
 
 </td></tr>
 </table>	
-
+<input type="hidden" id="touch" name="touch" value="[return value from product function]">
 
 <br>
 <input type="submit" value="SUBMIT" />

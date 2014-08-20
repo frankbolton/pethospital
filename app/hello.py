@@ -67,6 +67,9 @@ def user():
         age = request.form['age']
         country = request.form['country']
         gender = request.form['gender']
+        touch = request.form['touch']
+        print "touch - "
+        print touch
         
         session['turkNickName'] = request.form['turkNickName']
         session['age'] = request.form['age']
@@ -76,7 +79,7 @@ def user():
         
         
         UsersTable.insert({'userID':session['userID'], 'turkNickName':turkNickName, 'age':age, 'country':country, \
-        'gender':gender })
+        'gender':gender, 'touch':touch, 'serverTime':time.asctime() })
           
           
         return redirect('/instructions')
@@ -91,7 +94,7 @@ def instructions():
 #the actual experiment.... This is the forth page that the subject encounters.        
 @app.route('/stations')
 def stations():
-    time = 300
+    time = 10 #300
     gameduration = "gameduration = "+ str(time)
     print "test"
     print gameduration
@@ -166,6 +169,7 @@ def userLogging():
 def eventLogging():
     logData = request.get_json()
     logData["serverTime"] = time.asctime()
+    logData["stageNumber"] = session['stageNumber']
     EventsTable.insert(logData)
     return('successful insert' + str(logData))
     
@@ -183,7 +187,8 @@ def results():
     
 @app.route('/showsession')
 def showsession(): 
-    return render_template('showSession.html',turkNickName = session['turkNickName'], stageNumber= session['stageNumber'], userID=session['userID'])
+    return render_template('showSession.html',turkNickName = session['turkNickName'], \
+    stageNumber= session['stageNumber'], userID=session['userID'])
 
 @app.route('/phone')
 def phone(): 
@@ -193,7 +198,8 @@ def phone():
 @app.route('/end')
 def end():
 
-    endStr = "Experiment complete, thank you. Please enter the code into mechanical turk: \""+session["turkNickName"]+str(session["userID"])+"\""
+    endStr = "Experiment complete, thank you. Please enter the code into mechanical turk: \""\
+    +session["turkNickName"]+str(session["userID"])+"\""
     session.pop('fullName', None)
     session.pop('idnumber', None)
     session.pop('address', None)    
