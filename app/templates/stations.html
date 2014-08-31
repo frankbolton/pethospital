@@ -16,6 +16,7 @@ var gameduration = 60;
 gameScore.setDuration(gameduration);
 
 
+
 //screen size 1024 x 768
 
 ///this border code messes up the button handler on the score
@@ -43,8 +44,16 @@ var logging = [];
 //station[4] = new myStation(100,1,0,4,"Station4",550, 50, gameScore,logging);
 
 {{stationSetup|safe}}
-loop();
 
+
+var jstrainingMode = false;
+
+var PytrainingMode = {{trainingMode}};
+if (PytrainingMode) {
+    jstrainingMode = true;
+    gameScore.setLearnMode(true);
+}
+loop();
 //function log () {
 //    var LogObject = {};
 //    

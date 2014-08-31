@@ -90,12 +90,45 @@ def instructions():
         return render_template("instructions.html")
     else:
         return redirect('/stations')
+        
+#this is the trial block
+@app.route('/stations_learn')
+def stationsLearn():        
+    if request.method =='GET':
+        session['score']=-1
+        time = 30 #600
+        gameduration = "gameduration = "+ str(time)
+        print "test"
+        print gameduration
+        #arguments: [0] health level at the start, [1] station decrease rate (%/s),
+        #arguments_cont: [2] noise added, [3], viewing_cost, [4] stationID, [5] topOffset, [6] leftOffset          
+        #stationSetup_2 = 'station[1] = new myStation(50,3,2,4,"Station 1",60,35, gameScore,logging); station[2] = new #myStation(100,5,2,4,"Station 2",60,340, gameScore,logging); ';
+        
+        #stationSetup_4 = 'station[1] = new myStation(100,5,2,4,"Station 1",60,35, gameScore,logging); station[2] = new 
+        #myStation(50,3,2,4,"Station 2",60,340, gameScore,logging); station[3] = new myStation(50,5,2,4,"Station 3",60,645, #gameScore,logging); station[4] = new myStation(100,3,2,4,"Station 4",410, 35, gameScore,logging); '
+        stationSetup_6 ='station[1] = new myStation(100,5,2,4,"Station 1",60,35, gameScore,logging); station[2] = new myStation(100,5,2,4,"Station 2",60,340, gameScore,logging); station[3] = new myStation(50,3,2,4,"Station 3",60,645, gameScore,logging); station[4] = new myStation(100,3,2,4,"Station 4",410, 35, gameScore,logging); station[5] = new myStation(50,5,2,4,"Station 5",410, 340, gameScore,logging); station[6] = new myStation(50,3,2,4,"Station 6",410, 645, gameScore,logging); '
+        
+        #print "userid mod 30 = " + str(session['userID']%3)
+        #presenationOrder = order[session['userID']%3]
+        #print presenationOrder
+        #i = session['stageNumber'] 
+        #if presenationOrder[i] == 0: 
+        #    stationSetup = stationSetup_2
+        #elif presenationOrder[i] == 1:
+        #    stationSetup = stationSetup_4
+        #elif presenationOrder[i] == 2:
+        #    stationSetup = stationSetup_6
+        #session['stationSetup'] = stationSetup
+        #print session['stageNumber']
+        return render_template('stations.html', gameduration = gameduration, stationSetup =  stationSetup_6 , trainingMode = 1)
+    else:
+        return redirect('/stations')
 
 #the actual experiment.... This is the forth page that the subject encounters.        
 @app.route('/stations')
 def stations():
     session['score']=-1
-    time = 10 #300
+    time = 60 #300
     gameduration = "gameduration = "+ str(time)
     print "test"
     print gameduration
@@ -123,7 +156,7 @@ def stations():
     #    stationSetup = stationSetup_6
     session['stationSetup'] = stationSetup
     print session['stageNumber']
-    return render_template('stations.html', gameduration = gameduration, stationSetup = stationSetup )
+    return render_template('stations.html', gameduration = gameduration, stationSetup = stationSetup, trainingMode = 0)
 
     
 @app.route('/after_questions', methods =['GET', 'POST'])

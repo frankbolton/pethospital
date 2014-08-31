@@ -8,6 +8,7 @@
 	var leftOffset = 40;
     var width = 900;
     var height = 50;
+    var learnMode = false;
 	var canvasHTML = "<div id=\"gameScores\" style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">"
 	canvasHTML +="<canvas id=\""+id+"\"  width=\""+width+"\" height=\""+height+"\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
 	document.writeln(canvasHTML);
@@ -47,7 +48,12 @@
         if ((mouseX > l)&&(mouseX < l+100)&&(mouseY > t)&&(mouseY < t+40)){ //over the button
             if (!(t_remaining>0)) { //button is visible. This is the redirect... 
             	eventLog();
-                window.location.href="/after_questions";
+                if (!learnMode){
+                    window.location.href="/after_questions";
+                }
+                else{
+                    window.location.href="/stations";
+                }
             }
         }
     }
@@ -77,6 +83,12 @@
         //var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
 	        t_Max =  typeof intimer === 'number' ? intimer : 30;
             //t_Max = intimer;
+        },
+        setLearnMode: function () {
+        //var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
+	        //t_Max =  typeof intimer === 'number' ? intimer : 30;
+            //t_Max = intimer;
+            learnMode = true;
         },
 		getscore: function () {
 			return score;
@@ -110,16 +122,23 @@
 			//time remaining text
 			t_remaining = t_Max - timer;
             console.log("foo "+t_remaining);
-            if (t_remaining>0) {
+            
+            if ((t_remaining>0)&&(!learnMode)) {
                 if (t_remaining % 60 > 55) {
                     context.fillText  ("Score: "+score, 75, 10 );	
+                    context.fillText ("In Experiment Mode",300,10);
                     context.fillText ("Time Remaining: "+ t_remaining,600,10);
                 }
                 else {
                     context.fillText ("Keep all health measures above zero and hidden to increase your score",20,10);
                 }
             }    
-
+            if ((t_remaining>0)&&learnMode){
+                context.fillText  ("Score: "+score, 75, 10 );	
+                context.fillText ("In Training Mode",300,10);
+                context.fillText ("Time Remaining: "+ t_remaining,600,10);
+            }
+            
             if (t_remaining<0) {
                 //context.fillRect(0, 0, width, height);
                 context.fillText  ("Score: "+score, 75, 10 );	
