@@ -7,27 +7,23 @@
 
 <style type="text/css">
 
-label{
-float: right;
-width: 120px;
-font-weight: bold;
-}
+//label{
+//float: right;
+//width: 120px;
+//font-weight: bold;
+//}
 
-input, textarea{
-width: 180px;
-height: 50px;
-margin-bottom: 5px;
-}
 
-textarea{
-width: 300px;
-height: 100px;
-}
+
+//textarea{
+//width: 300px;
+//height: 100px;
+//}
 
 .check {
-	-webkit-appearance:none;
-	width: 25px;
-	height: 25px;
+	//-webkit-appearance:none;
+	width: 20px;
+	height: 20px;
 	border-radius:4px;
     border:2px solid #555;
 }
@@ -36,18 +32,25 @@ height: 100px;
 }
 
 
+//there's a hack where width of input sets the width nd height of .submit sets the height :/
+//input, textarea{
+//width: 160px;
+//height: 40px;
+//margin-bottom: 5px;
+//}
 
-
-#submitbutton{
-margin-left: 20px;
+#submitbutton {
+margin-left: 10px;
 margin-top: 5px;
-//height: 50px; //height control doesnt work :(
-width: 180px;  
+width: 100px;  
+height: 30px; //height control doesnt work :(
+
 }
 
 br{
 clear: left;
 }
+
 
 </style>
 
@@ -69,38 +72,40 @@ return true;
 </SCRIPT>
 <form action="/" method="POST" onsubmit="return checkCheckBox(this)">
 
-<ul>
+<ul style="font-size:18px">
 <li>I agree that I am willing to participate in the study titled "multi-device HCI study".</li>
 <li>I confirm that I am 18 years old or older.</li></ul>
 
 
 <h3>Objectives</h3>
-<p>The experiment objectives are to understand better human factors of intelligent notification systems in the context of performing a process management task.
+<p style="font-size:18px">The experiment objectives are to understand better human factors of intelligent notification systems in the context of performing a process management task.
 </p>
 <h3>Method</h3>
+<p style="font-size:18px">
 I will try to maximise the score, the score increases when all of the pet stations have a positive heath level. <br>
 The pet health levels tend to decrease over time, and sometimes a mobile phone message will give a warning about a problem with one of the stations.<br>
 Looking inside the station, and healing the station costs me some score. <br>
 I will try to learn the behaviour, to keep all the stations healthy, without looking and healing too often.
+</p>
+
 <h3>Experiment particulars</h3>
-The experiment will consist of 5 tasks of 5 minutes each. After each task you have a chance to answer a few questions about your experience.
-This makes for an allocated experiment time of 30 minutes.<br>
+<p style="font-size:18px">There is a 5 minute training block where the score will be visible all of the time, to train on the rates and behaviour of the system.</p>
+
+<p style="font-size:18px">The experiment will consist of 5 tasks of 5 minutes each. After each task you have a chance to answer a few questions about your experience.
+This makes for an allocated experiment time of 30 minutes.</p>
 
 <h3>Benefits and possible risks</h3>
-<p>
+<p style="font-size:18px">
 The main personal benefit from your participation is the payment I will receive for participation.
 A performance bonus will be issued to one player and the chances of winning are based on your score.<br>
-Apart from that, the knowledge received may be of value to humanity and hopefully the development of further mobile phone notification mechanisms.
-</p>
-<p>
-You will be performing a process management task that is quite demanding. You may experience tiredness at the end of the experiment, but no parts of the exam are harmful.
+Apart from that, the knowledge received may be of value to humanity and hopefully the development of further mobile phone notification mechanisms. You will be performing a process management task that is quite demanding. You may experience tiredness at the end of the experiment, but no parts of the exam are harmful.
 </p>
 
 
 
 
 <h3>Rights</h3>
-<p>I am free not to participate in the experiment, or to leave the experiment at any time, without any harm, damages to my rights, and without any sanction carried out against me.<br>
+<p style="font-size:18px">I am free not to participate in the experiment, or to leave the experiment at any time, without any harm, damages to my rights, and without any sanction carried out against me.<br>
 My personal privacy is protected in scientific publications.<br>
 My questions regarding the study will be promptly answered by Frank Bolton, <a href="mailto:frankjbolton@gmail.com">frankjbolton@gmail.com</a></p>
 
@@ -119,11 +124,11 @@ My questions regarding the study will be promptly answered by Frank Bolton, <a h
 <!--<label for="signature"></label>-->
 
 <table><tr><td>
-<input type="checkbox" name="agree" class="check" /></td><td><b>I hereby declare that I gave my free consent and I understood all the above instructions:</b><br />
+<input type="checkbox" name="agree" class="check" /></td><td style="font-size:20px"><b>I hereby declare that I gave my free consent and I understood all the above instructions:</b><br />
 </td></tr></table>
-<p>
-<input type="submit" id="submitbutton" value="SUBMIT" >
-</p></form>
+
+<input type="submit" type="submitbutton" id="submitbutton" value="SUBMIT" >
+</form>
 
 
 {% endblock %}
