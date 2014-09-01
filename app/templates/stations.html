@@ -85,6 +85,7 @@ loop();
 const FRAME_RATE =10;
 var intervalTime = 1000/FRAME_RATE;
 var loopCounter=0;
+var flag = false;
 function loop() {
 	//log();
     loopCounter +=1;
@@ -102,6 +103,12 @@ function loop() {
                 station[i].decrement();
             }
             
+        }
+        else {
+            if (!flag){
+                alert('session over, please close and press the CONTINUE button');
+                flag = true;
+            }
         }
         
         //increment score if all stations have positive health and are hidden.

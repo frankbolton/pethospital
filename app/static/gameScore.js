@@ -1,7 +1,7 @@
  var gameScore = function() {
 	var score = 0;
-	var scoreIncrease = 3;
-	var healCost = 4;
+	var scoreIncrease = 5;
+	var healCost = 3;
 	var viewCost = 1;
 	var id = "Score";
 	var topOffset = 5;
@@ -52,7 +52,7 @@
                     window.location.href="/after_questions";
                 }
                 else{
-                    window.location.href="/stations";
+                    window.location.href="/after_learn";
                 }
             }
         }

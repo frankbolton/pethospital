@@ -20,9 +20,9 @@ var myStation = function () {
 	var context = theCanvas.getContext("2d"); 
 	var station_h_visible = false;
 	var buttonSize = {x:60, y:40};
-    var showButtonpos = { x:40, y:280};
-    var hideButtonpos = { x:120, y:280};
-    var healButtonpos = { x:200, y:280};
+    var showButtonpos = { x:40, y:290};
+    var hideButtonpos = { x:120, y:290};
+    var healButtonpos = { x:200, y:290};
     var myGameScore = arguments[7];
     var that = this;
     //image
@@ -108,7 +108,7 @@ var myStation = function () {
             context.fillStyle    = "#000000";
             context.font         = "20px _sans";
             context.textBaseline = "top";
-            context.fillText ("Health level: " + parseInt(station_health), 80 ,255);
+            context.fillText ("Health level: " + parseInt(station_health) + "%", 80 ,260);
         }
     }
     draw_station();

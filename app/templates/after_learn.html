@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+
+<style type="text/css">
+input, textarea{
+width: 180px;
+margin-bottom: 5px;
+}
+
+#submitbutton {
+margin-left: 10px;
+margin-top: 5px;
+width: 100px;  
+height: 30px; //height control doesnt work :(
+
+}
+
+
+</style>
+
+<h1>You have completed the learning block</h1>
+<p style="font-size:18px">
+Press the "SUBMIT: button below to begin the task, please do not neglect you electronic cats!</p>
+
+<form  method="post" action="after_learn">
+<input type="submit" id="submitbutton" name="submitbutton" value="SUBMIT" />
+
+</form>
+{% endblock %}
