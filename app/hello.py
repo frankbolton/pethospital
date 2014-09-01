@@ -1,6 +1,7 @@
-#! ../venv/bin/python
+#!/home/ubuntu/pethospital/venv/bin/python
 
- # ! home/ubuntu/pethospital/venv/bin/python
+
+#! ../venv/bin/python
 
 from flask import Flask, request, render_template, redirect, jsonify, session
 #from flask.ext.sqlalchemy import SQLAlchemy
@@ -96,7 +97,7 @@ def instructions():
 def stationsLearn():        
     if request.method =='GET':
         session['score']=-1
-        time = 30 #600
+        time = 300
         gameduration = "gameduration = "+ str(time)
         print "test"
         print gameduration
@@ -136,7 +137,7 @@ def after_learn():
 @app.route('/stations')
 def stations():
     session['score']=-1
-    time = 60 #300
+    time = 300
     gameduration = "gameduration = "+ str(time)
     print "test"
     print gameduration
