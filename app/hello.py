@@ -286,5 +286,11 @@ def resultsUsers():
     #return render_template('Results_users.html', ajax = userData)
     return jsonify(results = userData)
     
+@app.route('/resultsEvents')
+def resultsEvents():
+    Events = EventsTable.all()
+    #return render_template('Results_users.html', ajax = userData)
+    return jsonify(results = Events)    
+    
 if __name__ == '__main__':
     app.run(host= '0.0.0.0', port=4000, debug=True)
