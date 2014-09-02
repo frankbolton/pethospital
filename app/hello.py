@@ -99,7 +99,7 @@ def instructions():
 def stationsLearn():        
     if request.method =='GET':
         session['score']=-1
-        time = 300
+        time = 1*60
         gameduration = "gameduration = "+ str(time)
         print "test"
         print gameduration
@@ -139,8 +139,8 @@ def after_learn():
 @app.route('/stations')
 def stations():
     session['score']=-1
-    time = 300
-    gameduration = "gameduration = "+ str(time)
+    session['time'] = 1*60
+    gameduration = "gameduration = "+ str(session['time'])
     print "test"
     print gameduration
     #arguments: [0] health level at the start, [1] station decrease rate (%/s),
@@ -156,10 +156,13 @@ def stations():
     i = session['stageNumber'] 
     if presenationOrder[i] == 0: 
         stationSetup = stationSetup_2
+        session['stationCount'] = 2
     elif presenationOrder[i] == 1:
         stationSetup = stationSetup_4
+        session['stationCount'] = 4
     elif presenationOrder[i] == 2:
         stationSetup = stationSetup_6
+        session['stationCount'] = 6
     #elif session['stageNumber'] == 4:
     #    stationSetup = stationSetup_4
     #elif session['stageNumber'] == 5:
@@ -168,6 +171,7 @@ def stations():
     #    stationSetup = stationSetup_6
     session['stationSetup'] = stationSetup
     print session['stageNumber']
+    session['SessionStartTime'] = time.asctime()
     return render_template('stations.html', gameduration = gameduration, stationSetup = stationSetup, trainingMode = 0)
 
     
@@ -199,7 +203,8 @@ def after_questions():
             'Effort':a.get('Effort'), 'Frustration':a.get('Frustration'),\
             'Physical Demand':a.get('Physical Demand'), 'Mental Demand':a.get('Mental Demand'),\
             'TLXStartTime':session['TLXStartTime'], 'TLXEndTime':time.asctime(),\
-            'stationSetup':session['stationSetup']})
+            'stationSetup':session['stationSetup'], 'stationCount':session['stationCount'], \
+            'gameDuration':session['time'], 'SessionStartTime':session['SessionStartTime'] })
             
             print "userID"
             print session['userID']
@@ -227,6 +232,7 @@ def eventLogging():
     print session['score']
     logData["serverTime"] = time.asctime()
     logData["stageNumber"] = session['stageNumber']
+    logData["userID"] = session['userID']
     EventsTable.insert(logData)
     return('successful insert' + str(logData))
     
