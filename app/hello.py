@@ -14,7 +14,9 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,4325'
 
 from tinydb import TinyDB, where
 dbUsers = TinyDB(os.path.join(basedir,'dbUsers.json'))
+#dbUsers = TinyDB('dbUsers.json')
 UsersTable = dbUsers.table('Users')
+
 
 dbTLX = TinyDB(os.path.join(basedir,'dbTLX.json'))
 FeedbackTable = dbTLX.table('TLXQuestions')
@@ -269,6 +271,20 @@ def end():
     session.pop('salaryRange', None)
     session.pop('stageNumber', None)
     return(endStr)
+  
+
+@app.route('/resultsTLX')
+def resultsTLX():
+    TLXdata = FeedbackTable.all()
+    #print(TLXdata)
+    #return render_template('Results_TLX.html', ajax = TLXdata)
+    return jsonify(results = TLXdata)
+
+@app.route('/resultsUsers')
+def resultsUsers():
+    userData = UsersTable.all()
+    #return render_template('Results_users.html', ajax = userData)
+    return jsonify(results = userData)
     
 if __name__ == '__main__':
     app.run(host= '0.0.0.0', port=4000, debug=True)
