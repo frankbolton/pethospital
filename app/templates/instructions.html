@@ -16,6 +16,9 @@ height: 30px; //height control doesnt work :(
 }
 
 
+<h3>Study particulars</h3>
+<p style="font-size:18px">
+
 </style>
 
 <h1>Instructions to perform the study</h1>
@@ -29,11 +32,11 @@ Topping up the health is done by pressing the heal "button" - don't do it excess
 
 <h3>Study particulars</h3>
 <p style="font-size:18px">
-Before the study you will perform a training phase to show you how the system behaves.<br>
-The study will consist of 3 tasks of 5 minutes each.<br> 
+Before the study you will perform a {{learntime}} minute training block to show you how the system behaves.<br>
+The study will consist of {{numberOfSessions}} tasks of {{exptime}} minutes each.<br> 
 After each task you have a chance to answer a few questions about your experience.<br>
 Please answer these honestly based on your personal experience, there are no incorrect answers.<br>
-This makes for an allocated experiment time of 20 minutes.<br><br>
+This makes for an allocated experiment time of {{totalTime}} minutes.<br><br>
 </p>
 
 <form  method="post" action="instructions">

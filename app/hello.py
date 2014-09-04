@@ -34,14 +34,20 @@ UserTracking = dbExperimentParameters.table('TrackUsers')
 
 order = [[0,1,2],[1,2,0],[2,0,1]]
 
+#This is the set of times required in the experiment. 
 
+
+exptime = 1 # in minutes
+learntime = 1 #in minutes
+numberOfSessions = 3
 
 #the index pate is the agreement... It's the first page that the participant encounters
 @app.route('/', methods = ['GET','POST'])
 def index():
     if request.method == 'GET':
         #user_agent = request.headers.get('User-Agent')
-        return render_template('agreement.html')
+        return render_template('agreement.html', exptime = exptime, learntime=learntime,\
+         numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
         #return'<h1>Hello World</h1><p>Your browser is %s</p>' % user_agent
     else:
         #number = -100
@@ -90,7 +96,8 @@ def user():
 @app.route('/instructions', methods = ['GET', 'POST'])
 def instructions():
     if request.method =='GET':
-        return render_template("instructions.html")
+        return render_template("instructions.html", exptime = exptime, learntime=learntime,\
+         numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
     else:
         return redirect('/stations_learn')
         
@@ -99,8 +106,8 @@ def instructions():
 def stationsLearn():        
     if request.method =='GET':
         session['score']=-1
-        time = 1*60
-        gameduration = "gameduration = "+ str(time)
+        
+        gameduration = "gameduration = "+ str(learntime*60)
         print "test"
         print gameduration
         #arguments: [0] health level at the start, [1] station decrease rate (%/s),
@@ -139,8 +146,8 @@ def after_learn():
 @app.route('/stations')
 def stations():
     session['score']=-1
-    session['time'] = 1*60
-    gameduration = "gameduration = "+ str(session['time'])
+    
+    gameduration = "gameduration = "+ str(exptime*60)
     print "test"
     print gameduration
     #arguments: [0] health level at the start, [1] station decrease rate (%/s),
@@ -204,7 +211,7 @@ def after_questions():
             'Physical Demand':a.get('Physical Demand'), 'Mental Demand':a.get('Mental Demand'),\
             'TLXStartTime':session['TLXStartTime'], 'TLXEndTime':time.asctime(),\
             'stationSetup':session['stationSetup'], 'stationCount':session['stationCount'], \
-            'gameDuration':session['time'], 'SessionStartTime':session['SessionStartTime'] })
+            'SessionStartTime':session['SessionStartTime'], 'gameDuration':exptime*60 })
             
             print "userID"
             print session['userID']
