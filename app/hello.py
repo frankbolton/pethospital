@@ -88,7 +88,8 @@ def user():
         
         
         UsersTable.insert({'userID':session['userID'], 'turkNickName':turkNickName, 'age':age, 'country':country, \
-        'gender':gender, 'touch':touch, 'serverTime':time.asctime(), 'browsertype':request.form['browserType'] })
+        'gender':gender, 'touch':touch, 'serverTime':time.asctime(), 'browsertype':request.form['browserType'], \
+        'numberOfSessions':numberOfSessions,'exptime':exptime, 'learntime':learntime})
           
           
         return redirect('/instructions')
