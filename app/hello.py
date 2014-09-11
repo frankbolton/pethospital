@@ -37,8 +37,8 @@ order = [[0,1,2],[1,2,0],[2,0,1]]
 #This is the set of times required in the experiment. 
 
 
-exptime = 1 # in minutes
-learntime = 1 #in minutes
+exptime = 5 # in minutes
+learntime = 5 #in minutes
 numberOfSessions = 3
 
 #the index pate is the agreement... It's the first page that the participant encounters
