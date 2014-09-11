@@ -122,8 +122,10 @@ var myStation = function () {
             context.fillStyle    = textColor;
             context.font         = TitleTextSize;
             context.textBaseline = "top";
-            context.fillText  (id, TitlePosition.x, TitlePosition.y );	
+            context.fillText  (id, TitlePosition.x, TitlePosition.y );
+            context.globalAlpha = 0.5;	
             context.drawImage(helloWorldImage, imageLocation.x, imageLocation.y);
+            context.globalAlpha = 1;
             context.strokeStyle = lineColor; 
             context.strokeRect(5,  5, stationSize.x-10, stationSize.y-10);
             //lockingText
