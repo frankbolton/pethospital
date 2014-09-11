@@ -3,6 +3,47 @@ var myStation = function () {
 	//it gives me the ability to add more station objects easily.
 	// arguments: [0] health level at the start, [1] station decrease rate (%/s),
 	// arguments_cont: [2] noise added, [3], viewing_cost, [4] stationID, [5] topOffset, [6] leftOffset 
+	
+	//HTML constants
+    var buttonTextSize = "20px _sans";
+    var TitleTextSize = "30px _sans";
+    var HealthTextSize = "30px _sans";
+    var stationSize = {x:280, y:280};
+    var buttonSize = {x:60, y:40};
+    var TitlePosition = {x:85,y:20};
+    var HealthPosition = {x:30, y:(stationSize.y - (buttonSize.y *2.5))};
+  
+    var showButtonpos = { x:40, y:(stationSize.y - (buttonSize.y *1.5))};
+    var hideButtonpos = { x:120, y:(stationSize.y - (buttonSize.y *1.5))};
+    var healButtonpos = { x:200, y:(stationSize.y - (buttonSize.y *1.5))};
+    
+    
+    var bgColor_unSel = "#ffffff";
+    var bgColor_sel = "#ddffff";
+    var buttonColor = "#eeeeee";
+    var lineColor = "#a0a0a0"
+    var textColor = "#404040";
+    
+    //var bgColor_unSel = "#ffeeaa";
+    //var bgColor_sel = "#ffffaa";
+    //var buttonColor = "#ffffee";
+    //var textColor = "#000000";
+    //var lineColor = "#000000"
+   
+    //image
+    var helloWorldImage = new Image();
+	//helloWorldImage.src = "static/cuteLion.gif";
+	helloWorldImage.src = "static/1410447967_rabbit_animal_pink_cute.png";
+	//helloWorldImage.src = "static/10411212_10152266707486863_7444125901069778805_n.jpg";
+	var imageLocation = {x:40, y:50};
+	var imageSize = {x:helloWorldImage.width, y:helloWorldImage.height}; 
+	//image size read doesn't work... perhaps need to wait for the image to load??
+	imageSize.x = 128;
+	imageSize.y = 128;
+	
+	imageLocation.x = stationSize.x / 2 - imageSize.x / 2;
+	imageLocation.y = stationSize.y / 2 - imageSize.x + 25;
+	console.log("imagewidth" + helloWorldImage.width);
 	var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
 	var station_hDelta = typeof arguments[1] === 'number' ? arguments[1] : 1;
 	var station_noise = typeof arguments[2] === 'number' ? arguments[2] :0;
@@ -13,21 +54,18 @@ var myStation = function () {
 	var drawcounter = 0;
     var buttonCounter = 0;
     var canvasHTML = "<div style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">";
-	canvasHTML +="<canvas id=\""+id+"\" width=\"300\" height=\"350\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
+	canvasHTML +="<canvas id=\""+id+"\" width=\""+stationSize.x+"\" height=\""+stationSize.y+"\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
 	document.writeln(canvasHTML);
 	console.log("writing CanvasHTML to the page");
     var theCanvas = document.getElementById(id);
 	var context = theCanvas.getContext("2d"); 
 	var station_h_visible = false;
-	var buttonSize = {x:60, y:40};
-    var showButtonpos = { x:40, y:290};
-    var hideButtonpos = { x:120, y:290};
-    var healButtonpos = { x:200, y:290};
+	
     var myGameScore = arguments[7];
     var that = this;
-    //image
-	var helloWorldImage = new Image();
-	helloWorldImage.src = "static/cuteLion.gif";
+    
+    
+    
 	
     function eventLog(stationNumber, stationEvent) {
         var LogObject = {};
@@ -50,65 +88,69 @@ var myStation = function () {
         //console.log("time up? "+ myGameScore.time_up());
         drawcounter +=1;
         console.log("Drawing Canvas");
+        console.log(TitlePosition.y);
         //clear canvas
         context.clearRect(0, 0, 300, 350);
         
         if (!station_h_visible ){
             //background
-            context.fillStyle = "#ffeeaa";
-            context.fillRect(0, 0, 350, 350);
+            context.fillStyle = bgColor_unSel;
+            context.fillRect(0, 0, stationSize.x, stationSize.y);
             //text
-            context.fillStyle    = "#000000";
-            context.font         = "20px _sans";
+            context.fillStyle    = textColor;
+            context.font         = TitleTextSize;
             context.textBaseline = "top";
-            context.fillText  (id, 95, 20 );	
-            context.drawImage(helloWorldImage, 40, 50);
-            context.strokeStyle = "#000000"; 
-            context.strokeRect(5,  5, 290, 340);
+            context.fillText  (id, TitlePosition.x, TitlePosition.y );	
+            context.drawImage(helloWorldImage, imageLocation.x, imageLocation.y);
+            context.strokeStyle = lineColor; 
+            context.strokeRect(5,  5, stationSize.x-10, stationSize.y-10);
             //showButton
-            context.fillStyle = "#ffffee";
+            context.fillStyle = buttonColor;
             context.fillRect(showButtonpos.x, showButtonpos.y, buttonSize.x, buttonSize.y);
-            context.fillStyle    = "#000000";
+            context.fillStyle    = lineColor;
             context.strokeRect(showButtonpos.x, showButtonpos.y, buttonSize.x, buttonSize.y);
-            context.font         = "20px _sans";
+            context.fillStyle	 = textColor;
+            context.font         = buttonTextSize;
             context.textBaseline = "middle";
             context.fillText  ("Show", showButtonpos.x+7, showButtonpos.y + buttonSize.y/2);	
         }
         if (station_h_visible){
             //background
-            context.fillStyle = "#ffffaa";
-            context.fillRect(0, 0, 350, 350);
+            context.fillStyle = bgColor_sel;
+            context.fillRect(0, 0, stationSize.x, stationSize.y);
             //text
-            context.fillStyle    = "#000000";
-            context.font         = "20px _sans";
+            context.fillStyle    = textColor;
+            context.font         = TitleTextSize;
             context.textBaseline = "top";
-            context.fillText  (id, 95, 20 );	
-            context.drawImage(helloWorldImage, 40, 50);
-            context.strokeStyle = "#000000"; 
-            context.strokeRect(5,  5, 290, 340);
+            context.fillText  (id, TitlePosition.x, TitlePosition.y );	
+            context.drawImage(helloWorldImage, imageLocation.x, imageLocation.y);
+            context.strokeStyle = lineColor; 
+            context.strokeRect(5,  5, stationSize.x-10, stationSize.y-10);
             //lockingText
-            context.fillText  ("Visible Health Blocks Score", 40, 230 );	
+            //context.fillText  ("Visible Health Blocks Score", 40, 230 );	
             //hideButton
-            context.fillStyle = "#ffffee";
+            context.fillStyle = buttonColor;
             context.fillRect(hideButtonpos.x, hideButtonpos.y , buttonSize.x, buttonSize.y);
-            context.fillStyle    = "#000000";
+            context.fillStyle    = lineColor;
             context.strokeRect(hideButtonpos.x, hideButtonpos.y , buttonSize.x, buttonSize.y);
-            context.font         = "20px _sans";
+            context.fillStyle = textColor;
+            context.font         = buttonTextSize;
             context.textBaseline = "middle";
             context.fillText  ("Hide", hideButtonpos.x+10, hideButtonpos.y + buttonSize.y/2);	
             //healButton
-            context.fillStyle = "#ffffee";
+            context.fillStyle = buttonColor;
             context.fillRect(healButtonpos.x, healButtonpos.y , buttonSize.x, buttonSize.y);
-            context.fillStyle    = "#000000";
+            context.fillStyle    = lineColor;
             context.strokeRect(healButtonpos.x, healButtonpos.y , buttonSize.x, buttonSize.y);
-            context.font         = "20px _sans";
+            context.fillStyle = textColor;
+            context.font         = buttonTextSize;
             context.textBaseline = "middle";
             context.fillText  ("Heal", healButtonpos.x+10, healButtonpos.y + buttonSize.y/2);	
             //healthLevel
-            context.fillStyle    = "#000000";
-            context.font         = "20px _sans";
+            context.fillStyle    = textColor;
+            context.font         = HealthTextSize;
             context.textBaseline = "top";
-            context.fillText ("Health level: " + parseInt(station_health) + "%", 80 ,260);
+            context.fillText ("Health level: " + parseInt(station_health) + "%", HealthPosition.x ,HealthPosition.y);
         }
     }
     draw_station();
@@ -250,3 +292,4 @@ var myStation = function () {
         },
 	};
 };
+

@@ -9,6 +9,13 @@
     var width = 900;
     var height = 50;
     var learnMode = false;
+    
+    var bgColor_unSel = "#ffffff";
+    var bgColor_sel = "#ddffff";
+    var buttonColor = "#eeeeee";
+    var lineColor = "#a0a0a0"
+    var textColor = "#404040";
+    
 	var canvasHTML = "<div id=\"gameScores\" style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">"
 	canvasHTML +="<canvas id=\""+id+"\"  width=\""+width+"\" height=\""+height+"\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
 	document.writeln(canvasHTML);
@@ -19,6 +26,9 @@
 	var t_Max = 30; //300: allow five minutes of game play per cycle
 	var t_remaining = t_Max;
     var scoreVisible = false;
+    
+    //var myIcon = new Image();
+    //myIcon.source = "1410452410_game-theme_hospital.png";
     
     function eventLog() {
         var LogObject = {};
@@ -61,8 +71,10 @@
     
     //This is only drawn at the start of the running the function
     function drawScoreScreen() {
+    		
+            
 			//background
- 			context.fillStyle = "#ffffaa";
+ 			context.fillStyle = bgColor_unSel;
   			context.fillRect(0, 0, width, height);
   			//text
             
@@ -71,7 +83,7 @@
 			//context.fillText ("Time Remaining: "+ t_remaining,600,10);
 			
   			//box
-			context.strokeStyle = "#000000"; 
+			context.strokeStyle = lineColor; 
             context.strokeRect(5,  5, width-10, height-10);
 			//context.strokeRect(5,  5, width-10, width-10);
         }
@@ -104,16 +116,14 @@
         //this seems to be the one called mostly.
         drawScoreScreen: function () {
 			//background
- 			context.fillStyle = "#ffffaa";
+ 			context.fillStyle = bgColor_unSel;
   			context.fillRect(0, 0, width, height);
   			//text
 
-			context.fillStyle    = "#000000";
-			context.font         = "30px _sans";
-			context.textBaseline = "top";
+			
 			
             if (scoreVisible){
-                context.fillStyle    = "#000000";
+                context.fillStyle    = textColor;
                 context.font         = "30px _sans";
                 context.textBaseline = "top";
 			    context.fillText  ("Score: "+score, 75, 10 );	
@@ -125,15 +135,24 @@
             
             if ((t_remaining>0)&&(!learnMode)) {
                 if (t_remaining % 60 > 55) {
+                	context.fillStyle    = textColor;
+                	context.font         = "30px _sans";
+                	context.textBaseline = "top";
                     context.fillText  ("Score: "+score, 75, 10 );	
                     context.fillText ("In Experiment Mode",300,10);
                     context.fillText ("Time Remaining: "+ t_remaining,600,10);
                 }
                 else {
+                    context.fillStyle    = textColor;
+                	context.font         = "30px _sans";
+                	context.textBaseline = "top";
                     context.fillText ("Keep all health measures above zero and hidden to increase your score",20,10);
                 }
             }    
             if ((t_remaining>0)&&learnMode){
+             	context.fillStyle    = textColor;
+                context.font         = "30px _sans";
+            	context.textBaseline = "top";
                 context.fillText  ("Score: "+score, 75, 10 );	
                 context.fillText ("In Training Mode",300,10);
                 context.fillText ("Time Remaining: "+ t_remaining,600,10);
@@ -147,14 +166,14 @@
                 //showButton
                 context.fillStyle = "#00ffee";
                 context.fillRect(790, 5, 100, 40);
-                context.fillStyle    = "#000000";
+                context.fillStyle    = textColor;
                 context.font         = "20px _sans";
                 context.textBaseline = "middle";
                 context.fillText  ("continue", 800, 30);	
             }
             
   			//box
-			context.strokeStyle = "#000000"; 
+			context.strokeStyle = lineColor; 
 			context.strokeRect(5,  5, width-10, height-10);
         },
         
