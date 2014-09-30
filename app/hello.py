@@ -38,8 +38,8 @@ order = [[0,1,2],[1,2,0],[2,0,1]]
 def makeStation (parameter) :
 	return 'this is my python function'
 
-exptime = 1 # in minutes
-learntime = 1 #in minutes
+exptime = 5 # in minutes
+learntime = 5 #in minutes
 numberOfSessions = 3
 
 #the index pate is the agreement... It's the first page that the participant encounters
@@ -315,4 +315,4 @@ def resultsEvents():
     return jsonify(results = Events)    
     
 if __name__ == '__main__':
-    app.run(host= '0.0.0.0', port=4000, debug=True)
+    app.run(host= '0.0.0.0', port=80, debug=True)
