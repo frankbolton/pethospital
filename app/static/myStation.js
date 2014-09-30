@@ -65,23 +65,23 @@ var myStation = function () {
     var that = this;
     
     
-    
+    debug = 0;
 	
     function eventLog(stationNumber, stationEvent) {
-        var LogObject = {};
-
-        LogObject['score']=gameScore.getscore();
-        LogObject['secondsLeft']=gameScore.secondsLeft();
-        LogObject['stationNumber']=stationNumber;
-        LogObject['stationEvent']=stationEvent;
-        for (x in station) {
-           LogObject['station '+x+' health'] = station[x].get_health();
-        }
+    	if (debug ==1){
+        	var LogObject = {};
+        	LogObject['score']=gameScore.getscore();
+        	LogObject['secondsLeft']=gameScore.secondsLeft();
+        	LogObject['stationNumber']=stationNumber;
+        	LogObject['stationEvent']=stationEvent;
+        	for (x in station) {
+        	   LogObject['station '+x+' health'] = station[x].get_health();
+        	}
         
-        var myjson =JSON.stringify(LogObject, null, 2);
-        console.log(myjson);
-        $.ajax({type: "POST", url:'/eventLog', data:myjson, contentType:'application/json'});
-
+        	var myjson =JSON.stringify(LogObject, null, 2);
+        	console.log(myjson);
+        	$.ajax({type: "POST", url:'/eventLog', data:myjson, contentType:'application/json'});
+		}
     }    
     
     function draw_station(){

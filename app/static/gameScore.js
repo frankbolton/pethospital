@@ -1,8 +1,8 @@
  var gameScore = function() {
 	var score = 0;
-	var scoreIncrease = 5;
-	var healCost = 3;
-	var viewCost = 1;
+	var scoreIncrease = typeof arguments[0] === 'number' ? arguments[0] : 5;
+	var healCost = typeof arguments[0] === 'number' ? arguments[1] : 3;
+	var viewCost = typeof arguments[0] === 'number' ? arguments[2] : 1;
 	var id = "Score";
 	var topOffset = 5;
 	var leftOffset = 40;
@@ -160,6 +160,9 @@
             
             if (t_remaining<0) {
                 //context.fillRect(0, 0, width, height);
+                context.fillStyle    = textColor;
+                context.font         = "30px _sans";
+                context.textBaseline = "top";
                 context.fillText  ("Score: "+score, 75, 10 );	
                 context.fillText ("Time is up. Press ", 570, 10);
                 

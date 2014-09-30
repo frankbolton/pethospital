@@ -35,10 +35,11 @@ UserTracking = dbExperimentParameters.table('TrackUsers')
 order = [[0,1,2],[1,2,0],[2,0,1]]
 
 #This is the set of times required in the experiment. 
+def makeStation (parameter) :
+	return 'this is my python function'
 
-
-exptime = 5 # in minutes
-learntime = 5 #in minutes
+exptime = 1 # in minutes
+learntime = 1 #in minutes
 numberOfSessions = 3
 
 #the index pate is the agreement... It's the first page that the participant encounters
@@ -111,13 +112,20 @@ def stationsLearn():
         gameduration = "gameduration = "+ str(learntime*60)
         print "test"
         print gameduration
+        
+        
+        identifier = 'Kitty Cat '
+    	testStation = (100,5,2,4,identifier+'1')
+        print testStation
+        testStations = {0:{'startHealth':100, 'decayRate':5, 'noise':2, 'viewCost':4, 'stationID':identifier+'1'}}
+        
         #arguments: [0] health level at the start, [1] station decrease rate (%/s),
         #arguments_cont: [2] noise added, [3], viewing_cost, [4] stationID, [5] topOffset, [6] leftOffset          
         #stationSetup_2 = 'station[1] = new myStation(50,3,2,4,"Station 1",60,35, gameScore,logging); station[2] = new #myStation(100,5,2,4,"Station 2",60,340, gameScore,logging); ';
         
         #stationSetup_4 = 'station[1] = new myStation(100,5,2,4,"Station 1",60,35, gameScore,logging); station[2] = new 
         #myStation(50,3,2,4,"Station 2",60,340, gameScore,logging); station[3] = new myStation(50,5,2,4,"Station 3",60,645, #gameScore,logging); station[4] = new myStation(100,3,2,4,"Station 4",410, 35, gameScore,logging); '
-        identifier = 'Kitty Cat '
+        
         stationSetup_6 ='station[1] = new myStation(100,5,2,4,"'+identifier+'1",60,35, gameScore,logging); station[2] = new myStation(100,5,2,4,"'+identifier+'2",60,340, gameScore,logging); station[3] = new myStation(50,3,2,4,"'+identifier+'3",60,645, gameScore,logging); station[4] = new myStation(100,3,2,4,"'+identifier+'4",410, 35, gameScore,logging); station[5] = new myStation(50,5,2,4,"'+identifier+'5",410, 340, gameScore,logging); station[6] = new myStation(50,3,2,4,"'+identifier+'6",410, 645, gameScore,logging); '
         #print "userid mod 30 = " + str(session['userID']%3)
         #presenationOrder = order[session['userID']%3]
