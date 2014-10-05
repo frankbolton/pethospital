@@ -65,7 +65,7 @@ var myStation = function () {
     var that = this;
     
     
-    debug = 0;
+    debug = 1;
 	
     function eventLog(stationNumber, stationEvent) {
     	if (debug ==1){
