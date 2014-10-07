@@ -41,9 +41,11 @@ order = [[0,1,2],[1,2,0],[2,0,1]]
 def makeStation (parameter) :
 	return 'this is my python function'
 
-exptime = 1 # in minutes
-learntime = 1 #in minutes
+exptime = 5 # in minutes
+learntime = 5 #in minutes
+portNumber = 80 
 numberOfSessions = 3
+debug = False
 
 def trackingLog(path, method,uuid=''):
     print 'in tracker path: '+path+'. Method:'+method+'. Time:'+time.asctime()
@@ -327,6 +329,13 @@ def resultsTLX():
     #return render_template('Results_TLX.html', ajax = TLXdata)
     return jsonify(results = TLXdata)
 
+@app.route('/resultsCatch')
+def resultsCatch():
+    CatchData = PageTracking.all()
+    #print(TLXdata)
+    #return render_template('Results_TLX.html', ajax = TLXdata)
+    return jsonify(results = CatchData)
+
 @app.route('/resultsUsers')
 def resultsUsers():
     userData = UsersTable.all()
@@ -340,4 +349,4 @@ def resultsEvents():
     return jsonify(results = Events)    
     
 if __name__ == '__main__':
-    app.run(host= '0.0.0.0', port=4000, debug=True)
+    app.run(host= '0.0.0.0', port=portNumber, debug=debug)
