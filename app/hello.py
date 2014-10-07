@@ -57,7 +57,6 @@ def index():
     
     if request.method == 'GET':
         #user_agent = request.headers.get('User-Agent')
-        #PageTracking.insert({'path':'/', 'uuid':'','method':request.method})
         trackingLog('/',request.method)
         return render_template('agreement.html', exptime = exptime, learntime=learntime,\
          numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
@@ -75,16 +74,14 @@ def index():
             UserTracking.update({'UserID': number }, where('UserID'))
         session['userID'] = number
         #session['subjectOrder'] = order[number-1]
-        #PageTracking.insert({'path':'/', 'uuid':number, 'method':request.method})
-        trackingLog('/',request.method,number)
+        trackingLog('/',request.method,session['userID'])
         return redirect('/questions')
     
     
 #the questions page.... The second page that the participant encounters
 @app.route('/questions', methods = ['GET','POST'])
 def user():
-    #PageTracking.insert({'path':'/questions', 'uuid':session['userID'], 'method':request.method})
-    trackingLog('/questions',request.method)
+    trackingLog('/questions',request.method, session['userID'])
     if request.method == 'GET':
         return render_template("questions.html", title = 'questions')  
         
@@ -113,7 +110,7 @@ def user():
 
 @app.route('/instructions', methods = ['GET', 'POST'])
 def instructions():
-    PageTracking.insert({'path':'/instructions', 'uuid':session['userID'], 'method':request.method})
+    trackingLog('/instructions',request.method, session['userID'])
     if request.method =='GET':
         return render_template("instructions.html", exptime = exptime, learntime=learntime,\
          numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
@@ -123,7 +120,7 @@ def instructions():
 #this is the trial block
 @app.route('/stations_learn')
 def stationsLearn():        
-    PageTracking.insert({'path':'/stations_learn', 'uuid':session['userID'], 'method':request.method,  'time':time.asctime()})
+    trackingLog('/stations_learn',request.method, session['userID'])
     if request.method =='GET':
         session['score']=-1
         
@@ -163,7 +160,8 @@ def stationsLearn():
 
 @app.route('/after_learn', methods = ['GET', 'POST'])
 def after_learn():
-    PageTracking.insert({'path':'/after_learn', 'uuid':session['userID'], 'method':request.method,  'time':time.asctime()})
+    trackingLog('/after_learn',request.method, session['userID'])
+    
     if request.method == 'GET':
         return render_template('after_learn.html')
     else:
@@ -173,9 +171,8 @@ def after_learn():
 #the actual experiment.... This is the forth page that the subject encounters.        
 @app.route('/stations')
 def stations():
-    PageTracking.insert({'path':'/stations', 'uuid':session['userID'], 'method':request.method, 'time':time.asctime()})
+    trackingLog('/stations',request.method, session['userID'])
     session['score']=-1
-    
     gameduration = "gameduration = "+ str(exptime*60)
     print "test"
     print gameduration
@@ -213,7 +210,7 @@ def stations():
     
 @app.route('/after_questions', methods =['GET', 'POST'])
 def after_questions():
-    PageTracking.insert({'path':'/after_questions', 'uuid':session['userID'], 'method':request.method, 'time':time.asctime()})
+    trackingLog('/after_questions',request.method, session['userID'])
     if request.method == 'GET':
     	session['TLXStartTime'] = time.asctime()
         return render_template("after_tlx.html")
@@ -255,7 +252,7 @@ def after_questions():
     
 @app.route('/end')
 def end():
-    PageTracking.insert({'path':'/end', 'uuid':session['userID'], 'method':request.method})
+    trackingLog('/end',request.method, session['userID'])
     endStr = "Experiment complete, thank you. Please enter the code into mechanical turk: \""\
     +session["turkNickName"]+str(session["userID"])+"\""
     session.pop('fullName', None)
@@ -279,7 +276,7 @@ def end():
 #Logging functions that the research subject doesn't see
 @app.route('/userLog', methods = ['POST']) 
 def userLogging():
-    PageTracking.insert({'path':'/userLog', 'uuid':session['userID'], 'method':request.method})
+    trackingLog('/userLog',request.method, session['userID'])
     logData = request.get_json()
     UsersTable.insert(logData)
     return('successful user insert?')
@@ -287,7 +284,7 @@ def userLogging():
 
 @app.route('/eventLog', methods = ['POST']) 
 def eventLogging():
-    PageTracking.insert({'path':'/eventLog', 'uuid':session['userID'], 'method':request.method})
+    trackingLog('/eventLog',request.method, session['userID'])
     logData = request.get_json()
     session['score']=logData["score"]
     print session['score']
