@@ -16,7 +16,7 @@ var myStation = function () {
     var showButtonpos = { x:40, y:(stationSize.y - (buttonSize.y *1.5))};
     var hideButtonpos = { x:120, y:(stationSize.y - (buttonSize.y *1.5))};
     var healButtonpos = { x:200, y:(stationSize.y - (buttonSize.y *1.5))};
-    
+    var timeRemaining = true;
     
     var bgColor_unSel = "#ffffff";
     var bgColor_sel = "#ddffff";
@@ -157,28 +157,33 @@ var myStation = function () {
     }
     draw_station();
     function show_health () {
-        console.log("in show_health");
-        station_h_visible = true;
-        myGameScore.healthViewPenalize(view_cost);
-        draw_station();
-        eventLog(id, "show");
-        }
+		if (timeRemaining){
+			console.log("in show_health");
+        	station_h_visible = true;
+        	myGameScore.healthViewPenalize(view_cost);
+        	draw_station();
+        	eventLog(id, "show");
+        	}
+		}
             
     function hide_health() {
-        console.log("in hide_health");
-        station_h_visible = false;
-        draw_station();
-        eventLog(id, "hide");
-        
+        if (timeRemaining) {
+			console.log("in hide_health");
+        	station_h_visible = false;
+        	draw_station();
+        	eventLog(id, "hide");
+        }
     }
         
     function heal_station() {
-        console.log("in hide_health");
-        station_health = 100;
-        myGameScore.healStationPenalize(view_cost);
-        draw_station();
-        eventLog(id, "heal");
-    }
+        if (timeRemaining) {
+			console.log("in hide_health");
+        	station_health = 100;
+        	myGameScore.healStationPenalize(view_cost);
+        	draw_station();
+        	eventLog(id, "heal");
+    	}
+	}
          
     function onMouseClick(e)  {
         mouseX=e.clientX-theCanvas.offsetLeft;
@@ -292,6 +297,9 @@ var myStation = function () {
         get_vis: function (){
             return station_h_visible;
         },
+		timeIsUp: function(){
+			timeRemaining = false;
+		},
 	};
 };
 

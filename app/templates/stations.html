@@ -89,6 +89,12 @@ function loop() {
         //    stationdata += x +", "+station[x].get_health()+", ";
         //}
         //logging.push("peridic logging, "+gameScore.secondsLeft()+", "+stationdata); 
+		//code to set a "time-is-up" state within the station objects
+		if (gameScore.timeLeft() == false){
+			for (i=1; i<station.length; i+=1) {
+				station[i].timeIsUp();
+			}
+		}
         gameScore.tick();
         console.log("inside per-second code");
         if (gameScore.timeLeft()) {
