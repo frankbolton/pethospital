@@ -163,8 +163,9 @@
                 context.fillStyle    = textColor;
                 context.font         = "30px _sans";
                 context.textBaseline = "top";
-                context.fillText  ("Score: "+score, 75, 10 );
-				context.fillText ("Healthy cats hidden are happy cats ", 400, 10);
+                context.fillText  ("Score: "+score, 50, 10 );
+				context.fillText ("Healthy cats hidden are happy cats ", 200, 10);
+				context.fillText ("Time Remaining: "+ t_remaining,630,10);
 			}
 			
           	if (gameOver){
