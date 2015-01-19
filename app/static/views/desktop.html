@@ -1,0 +1,86 @@
+<div class="container-fluid">
+  <p>&nbsp;</p>
+  <div class="row">
+
+    <div class="col-xs-3">
+      <button ng-click="setStatus('green')">ON</button>
+      <button ng-click="setStatus('red')">OFF</button>
+    </div>
+
+    <div class="col-xs-3">
+      <label for="setheader">Header HTML</label>
+      <hr/>
+      <textarea ng-model="header" id="setheader"></textarea>
+      <hr/>
+      <button ng-click="setHeader()">Set Header</button>
+    </div>
+
+    <div class="col-xs-6">
+      <label for="missed">Missed Text</label>
+      <textarea ng-model="note.missed" id="missed"></textarea>
+
+      <label for="ring">Ring Text</label>
+      <textarea ng-model="note.ring" id="ring"></textarea>
+      <hr/>      
+
+      <label for="full">Full Text</label>
+      <textarea ng-model="note.full" id="full"></textarea>
+
+      <label for="preview">Preview Text</label>
+      <textarea ng-model="note.preview" id="preview"></textarea>
+      <hr/>
+
+      <label for="msgheader">Message Header</label>
+      <textarea ng-model="note.messageHeader" id="msgheader"></textarea>
+
+      <label for="msgbtn">Message Button</label>
+      <textarea ng-model="note.messageButton" id="msgbtn"></textarea>
+      <hr/>
+
+      <label for="previewbtn">Preview Button</label>
+      <textarea ng-model="note.previewButton" id="previewbtn"></textarea>
+      <hr/>
+
+      <label for="duration">Max Duration (ms) -1 is straight to voicemail</label>
+      <input ng-model="note.duration" id="duration" type="number"/>
+      <hr/>
+
+      <label for="ringduration">Ring Duration (ms)</label>
+      <input ng-model="note.ringDuration" id="ringduration" type="number"/>
+      <hr/>
+      
+      <label for="swipesy">Swipesy Game Length</label>
+      <input ng-model="note.swipesy" id="swipesy" type="number"/>
+      <hr/>
+      
+      <label for="swduration">Swipesy Max Duration (ms)</label>
+      <input ng-model="note.swipesyDuration" id="swduration" type="number"/>
+      <hr/>
+
+      <button ng-click="notify()">
+	Notfiy
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+<div class="fodalvis" ng-show="!!landmarks.fodaltype">
+  <div class="fodal-popup">
+
+    <form ng-show="landmarks.fodaltype == 'uid'" ng-submit="setTurkUID()">
+      <label for="turkuid">TURK UID:</label>
+      <input id="turkuid" ng-model="turkuid"/>
+      <input type="submit" id="submit" value="Done"/>
+    </form>
+
+    <div ng-show="landmarks.fodaltype == 'fail'">
+      <p> failed to join room </p>
+      <button ng-click="setlandmark('fodaltype', false)">Dismiss</button>
+    </div>
+
+  </div>
+</div>
+
+<hr style="background:#F87431; border:0; height:7px" />

@@ -11,12 +11,12 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app = Flask(__name__)
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,4325'
 
+from flask.ext.socketio import SocketIO, emit, join_room, leave_room, send
 
 from tinydb import TinyDB, where
 dbUsers = TinyDB(os.path.join(basedir,'dbUsers.json'))
 #dbUsers = TinyDB('dbUsers.json')
 UsersTable = dbUsers.table('Users')
-
 
 dbCatch = TinyDB(os.path.join(basedir,'dbCatch.json'))
 PageTracking = dbCatch.table('catch')
@@ -43,7 +43,7 @@ def makeStation (parameter) :
 
 exptime = 5 # in minutes
 learntime = 5 #in minutes
-portNumber = 80 
+portNumber = 5001
 numberOfSessions = 3
 debug = False
 
@@ -52,6 +52,25 @@ def trackingLog(path, method,uuid=''):
     PageTracking.insert({'path':path, 'uuid':uuid,'method':method, 'time':time.asctime()})
     return
 
+socketio = SocketIO(app)
+rooms = {}
+usrs = {}
+
+def find_element_in_list(element,list_element):
+    print element
+    try:
+        index_element=list_element.index(element)
+        return index_element
+    except ValueError:
+        return -1
+ #--------------------------------------------------------------------------------------
+ #	Experiment paths
+ #--------------------------------------------------------------------------------------
+
+@app.route('/sockets')
+def socketindex():
+    print('INDEX')
+    return render_template('index.html')
 
 #the index pate is the agreement... It's the first page that the participant encounters
 @app.route('/', methods = ['GET','POST'])
@@ -273,7 +292,11 @@ def end():
     return(endStr)
   
   
-  
+ #--------------------------------------------------------------------------------------
+ #	Results paths
+ #--------------------------------------------------------------------------------------
+#Functions excluded from experiment flow- these exist to allow data retrieval, debugging, etc.
+ 
   
 #Logging functions that the research subject doesn't see
 @app.route('/userLog', methods = ['POST']) 
@@ -304,7 +327,6 @@ def phone():
 
     
 
-#Functions excluded from experiment flow- these exist to allow data retrieval, debugging, etc.
 @app.route('/results')
 def results():
     data = str(UsersTable.all())
@@ -315,8 +337,6 @@ def results():
     data += str(UserTracking.all())
     return data
     
-
-
 @app.route('/showsession')
 def showsession(): 
     return render_template('showSession.html',turkNickName = session['turkNickName'], \
@@ -347,6 +367,101 @@ def resultsEvents():
     Events = EventsTable.all()
     #return render_template('Results_users.html', ajax = userData)
     return jsonify(results = Events)    
+ 
+ #--------------------------------------------------------------------------------------
+ #	Socket paths
+ #-------------------------------------------------------------------------------------- 
+  
+@app.route('/rooms')
+def roomspage():
+    return jsonify(results = rooms)
+    
+@socketio.on('connect', namespace='/a')
+def test_connect(): #tested and works okay to get the phone and browser screens to show the UID questions
+    print('Client connected')
+    emit('serverConnect')#, {'data':' hello world'})
+    
+@socketio.on('identify', namespace='/a')
+def identify_f(data):
+    print '_________________________'
+    print 'in identify, data: '+str(data)   
+    print 'Uid: '+data['uid']
+    print 'socketID: '+ request.namespace.socket.sessid #+data['socketid']
+    print 'Len(uid): '+str(len(data['uid']))
+    print 'rooms: '
+    print rooms
+    print 'usrs'
+    print usrs
+    
+    if data['uid'] in rooms: 
+        print('in rooms already')
+        if find_element_in_list(request.namespace.socket.sessid, rooms[data['uid']])>-1:
+            print 'after "if"'
+            join_room(data['uid'])
+            usrs[request.namespace.socket.sessid] = data['uid']
+            emit('joinedroom', data)
+        elif len(rooms[data['uid']])>1:
+            print 'after elseif'
+            emit('failed', {'err':'already two connections'})
+        else:
+            print 'final else- this is where we have the second socket of the pair'
+            join_room(data['uid'])
+            rooms[data['uid']].append(data['socketid'])
+            usrs[request.namespace.socket.sessid] = data['uid']
+            emit('joinedroom', data)
+       
+    
+    else:
+        print('not yet in rooms')
+        join_room(data['uid'])#socket.join(data['uid'])
+        #print socket.id
+        #if data['uid'] not in rooms:
+        #    rooms[data['uid']]=[]
+        #rooms[data['uid']].append(data['socketid'])
+        rooms[data['uid']] = [data['socketid']]
+        usrs[request.namespace.socket.sessid] = data['uid']
+        emit('joinedroom', data)
+        print 'socketio'+str(socketio)
+        print 'rooms'+ str(rooms)
+
+
+@socketio.on('msg', namespace='/a')
+def msg(data):
+	print 'message received'
+	print data
+	print request.namespace
+	print request
+	print request.namespace.socket.sessid	
+	print rooms[data['uid']]
+	if find_element_in_list(request.namespace.socket.sessid, rooms[data['uid']])>-1:
+		print 'room :'
+		emit('msg', data, broadcast=True, room=data['uid'])
+	else:
+		print 'computer sez no'	
+	
+
+
+        
+@socketio.on('my event', namespace='/test')
+def test_message(message):
+    emit('my response', {'data': message['data']})
+
+@socketio.on('my broadcast event', namespace='/test')
+def test_message(message):
+    emit('my response', {'data': message['data']}, broadcast=True)
+
+
+
+@socketio.on('disconnect', namespace='/test')
+def test_disconnect():
+    print('Client disconnected')
+        
+#--------------------------------------------------------------------------------------
+#	Run code 
+#-------------------------------------------------------------------------------------- 
+    
+  
     
 if __name__ == '__main__':
-    app.run(host= '0.0.0.0', port=portNumber, debug=debug)
+    #app.run(host= '0.0.0.0', port=portNumber, debug=debug)
+    socketio.run(app, port=portNumber)
