@@ -131,7 +131,7 @@
 			
 			//time remaining text
 			t_remaining = t_Max - timer;
-            console.log("foo "+t_remaining);
+            //console.log("foo "+t_remaining);
             
             if ((t_remaining>0)&&(!learnMode)) {
                 if (t_remaining % 60 > 55) {

@@ -15,10 +15,10 @@ angular.module('ktz')
       socket.on('serverConnect', function(data){
 	  //console.log(data);
 	  $scope.setlandmark('fodaltype', 'uid');
-
+//socket.emit('msg',{socketid:socket.socket.sessionid, uid:turkNickName.toString(), device:2, setHeader:'asdf'});
 	  $scope.setTurkUID = function(){
 	      //socket.emit('identify', {uid:$scope.turkuid});
-	      socket.emit('identify', {uid:$scope.turkuid,  socketid:socket.socket.sessionid});
+	      socket.emit('identify', {uid:$scope.turkuid,  socketid:socket.socket.sessionid, device:1});
 
 	      document.getElementsByTagName('audio')[0].play();
 	      document.getElementsByTagName('audio')[0].pause();
@@ -30,7 +30,7 @@ angular.module('ktz')
       socket.on('joinedroom', function(data){
 	  $scope.uid = data.uid;
 	  $scope.setlandmark('fodaltype', false);
-	  socket.emit('msg', {uid:data.uid, text:'msg'});
+	  socket.emit('msg', {uid:data.uid, text:'msg', device:1});
 
 	  $scope.state = 'joined '+data.uid;
 
@@ -53,6 +53,7 @@ angular.module('ktz')
 
 	  if(data.setStatus){
 	      // set the status (traffic light)
+			console.log("in setStatus: "+data.setStatus);
 	      $scope.status = data.setStatus;
 	  }
 
@@ -68,7 +69,7 @@ angular.module('ktz')
 	      	  // send back interupt data
 		  socket.emit('msg', {uid:$scope.uid, notifyCreated:$scope.currentNotify.created,
 				      interrupt:(new Date()).getTime()-$scope.currentNotify.localStart
-				     });
+				     , device:1});
 	      }
 	      
 	      $scope.currentNotify = data.notify;
@@ -101,7 +102,7 @@ angular.module('ktz')
 	  $scope.lastInt = (new Date()).getTime();
 
 	  socket.emit('msg', {uid:$scope.uid, notifyCreated:$scope.currentNotify.created,
-			      accept: $scope.lastInt-$scope.currentNotify.localStart});
+			      accept: $scope.lastInt-$scope.currentNotify.localStart, device:1});
 
 	  $scope.currentNotify.acceptTime = $scope.lastInt - $scope.currentNotify.localStart;
 
@@ -134,7 +135,7 @@ angular.module('ktz')
 	  }
 	  socket.emit('msg', {uid:$scope.uid, notifyCreated:$scope.currentNotify.created,
 			      reject: now-$scope.currentNotify.localStart,
-			      byUserAction:!!byuser
+			      byUserAction:!!byuser, device:1
 			     });
 
 	  setTimeout(function(){
@@ -189,7 +190,7 @@ angular.module('ktz')
 	      $scope.lastInt = now;
 	      if($scope.currentSwipe === $scope.currentNotify.swipesy){
 		  socket.emit('msg', {uid:$scope.uid, notifyCreated:$scope.currentNotify.created,
-				      swipesySuccess:$scope.currentNotify.swipesyTimes});
+				      swipesySuccess:$scope.currentNotify.swipesyTimes, device:1});
 		  if($scope.swipesyFailTimeout) clearTimeout($scope.swipesyFailTimeout);
 		  $scope.fullMessage();
 	      }
@@ -209,7 +210,7 @@ angular.module('ktz')
       $scope.showFromPreview = function(){
 	  var now = (new Date()).getTime();
 	  socket.emit('msg', {uid:$scope.uid, notifyCreated:$scope.currentNotify.created,
-			      previewTime:now-$scope.lastInt});
+			      previewTime:now-$scope.lastInt, device:1});
 	  $scope.lastInt = now;
 	  $scope.swipesy();
       };
@@ -225,7 +226,7 @@ angular.module('ktz')
 	  clearTimeout($scope.durationFailTimeout);
 	  var now = (new Date()).getTime();
 	  socket.emit('msg', {uid:$scope.uid, notifyCreated:$scope.currentNotify.created,
-			      messageTime:now-$scope.lastInt});
+			      messageTime:now-$scope.lastInt, device:1});
 	  $scope.lastInt = now;
 	  $scope.setlandmark('idle', 'clean');	  
 	  $scope.setlandmark('page', false);
@@ -235,7 +236,7 @@ angular.module('ktz')
       $scope.clearDirty = function(){
 	  $scope.setlandmark('idle', 'clean');
 	  socket.emit('msg', {uid:$scope.uid, notifyCreated:$scope.currentNotify.created,
-			      dirtyTime:(new Date()).getTime() - $scope.lastInt});
+			      dirtyTime:(new Date()).getTime() - $scope.lastInt, device:1});
 	  
 	  $scope.currentNotify = false;
       };
@@ -250,7 +251,7 @@ angular.module('ktz')
 	  $scope.lastInt = now;
 	  $scope.missed = $scope.currentNotify.missed;
 	  socket.emit('msg', {uid:$scope.uid, notifyCreated:$scope.currentNotify.created,
-			      durationFail:now - $scope.currentNotify.localStart});
+			      durationFail:now - $scope.currentNotify.localStart, device:1});
 	  
 	  setTimeout(function(){
 	      $scope.$apply();
@@ -266,7 +267,7 @@ angular.module('ktz')
 	  $scope.missed = $scope.currentNotify.missed;
 	  socket.emit('msg', {uid:$scope.uid, notifyCreated:$scope.currentNotify.created,
 			      swipesyFail:now - $scope.currentNotify.localStart,
-			      swipesyProgress: $scope.currentNotify.swipesyTimes
+			      swipesyProgress: $scope.currentNotify.swipesyTimes, device:1
 			     });
 	  
 	  if($scope.durationFailTimeout) clearTimeout($scope.durationFailTimeout);
@@ -293,7 +294,7 @@ angular.module('ktz')
       });
 
       $scope.$watch('landmarks.switch', function(n){
-	  if(typeof n !== 'undefined') socket.emit('msg', {uid:$scope.uid, switchState:n});
+	  if(typeof n !== 'undefined') socket.emit('msg', {uid:$scope.uid, switchState:n, device:1});
       });
 
 

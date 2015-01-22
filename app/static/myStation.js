@@ -87,8 +87,8 @@ var myStation = function () {
     function draw_station(){
         //console.log("time up? "+ myGameScore.time_up());
         drawcounter +=1;
-        console.log("Drawing Canvas");
-        console.log(TitlePosition.y);
+        //console.log("Drawing Canvas");
+        //console.log(TitlePosition.y);
         //clear canvas
         context.clearRect(0, 0, 300, 350);
         

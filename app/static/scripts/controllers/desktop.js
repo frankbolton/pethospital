@@ -16,7 +16,7 @@ angular.module('ktz')
 
 	  $scope.setTurkUID = function(){
 	      //add element to provide unique ID socket.emit('identify', {uid:$scope.turkuid});
-	       socket.emit('identify', {uid:$scope.turkuid, socketid:socket.socket.sessionid});
+	       socket.emit('identify', {uid:$scope.turkuid, socketid:socket.socket.sessionid, device:2});
 	      console.log(socket);
 	      console.log(socket.socket.sessionid);
 	  };
@@ -27,7 +27,7 @@ angular.module('ktz')
 
 	  $scope.setlandmark('fodaltype', false);
 	  $scope.uid = data.uid;
-	  socket.emit('msg', {uid:$scope.uid, text:'msg'});
+	  socket.emit('msg', {uid:$scope.uid, text:'msg', device:2});
 	  $scope.$apply();
       });
 
@@ -44,12 +44,12 @@ angular.module('ktz')
 
       $scope.setStatus = function(state){
 	  //socket.emit('msg', {uid:$scope.uid, setStatus:state});
-	  socket.emit('msg', {uid:$scope.uid, setStatus:state, socketid:socket.socket.sessionid});
+	  socket.emit('msg', {uid:$scope.uid, setStatus:state, socketid:socket.socket.sessionid, device:2});
 	  console.log('setStatus: ', state);
       };
 
       $scope.setHeader = function(){
-	  socket.emit('msg', {uid:$scope.uid, setHeader:$scope.header});
+	  socket.emit('msg', {uid:$scope.uid, setHeader:$scope.header,device:2});
 	  $scope.header = '';
       };
 
@@ -62,7 +62,7 @@ angular.module('ktz')
 // without angular, here you may need to explicitly pull values from the inputs
 
 	  $scope.note.created = (new Date()).getTime();
-	  socket.emit('msg', {uid:$scope.uid, notify:$scope.note});
+	  socket.emit('msg', {uid:$scope.uid, notify:$scope.note, device:2});
 
 // comment during testing for lazy!
 	  //$scope.note = {messageButton:'Done', previewButton:'Show'};

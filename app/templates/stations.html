@@ -6,13 +6,22 @@
 <script src="/static/jquery.js"></script>
 <script src="/static/gameScore.js"></script>
 <script src="/static/myStation.js"></script>
+<script src="/static/jquery.js"></script>
+<script src="static/vendor/socket.io.js"></script>
 <script type="text/javascript">
 //default parameters (to allow the templating engine to automatically build the experiment if it decides to.
 //var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
 var gameduration = 300;
 {{gameduration|safe}};
+
+
 gameScore.setDuration(gameduration);
 
+var turkNickName = "-1";
+turkNickName = {{turkNickName}};
+
+var socket= io.connect('/a');
+var poo = 1234;
 
 
 //screen size 1024 x 768
@@ -96,7 +105,7 @@ function loop() {
 			}
 		}
         gameScore.tick();
-        console.log("inside per-second code");
+        //console.log("inside per-second code");
         if (gameScore.timeLeft()) {
             var i;
             for (i=1; i<station.length; i+=1) {
@@ -121,7 +130,7 @@ function loop() {
             }
            
         }
-        console.log("increment?" + inc)
+        //console.log("increment?" + inc)
         if (inc) {
             gameScore.inc(); 
         }
@@ -135,7 +144,7 @@ function loop() {
 
 </script>
 
-
+<script src="static/engine.js"></script>
 <body>
 
 </body>
