@@ -6,7 +6,6 @@
 <script src="/static/jquery.js"></script>
 <script src="/static/gameScore.js"></script>
 <script src="/static/myStation.js"></script>
-<script src="/static/jquery.js"></script>
 <script src="static/vendor/socket.io.js"></script>
 <script type="text/javascript">
 //default parameters (to allow the templating engine to automatically build the experiment if it decides to.
@@ -21,9 +20,24 @@ var turkNickName = "-1";
 turkNickName = {{turkNickName}};
 
 var socket= io.connect('/a');
+
+
 var poo = 1234;
 
+var itimes = [4000,8000,12000,16000,20000];
+var imessageVal = [true, false, true, false, true];
 
+var messageindex=0;
+//var nexttime = itimes[i];
+//var nextmessage = imessage[i];
+var startTime = new Date().getTime(),
+    time = 0,
+    elapsed = '0.0';
+var timeNow = new Date().getTime(),
+    time = 0,
+    elapsed = '0.0';
+var a = false;
+var healths=[];
 //screen size 1024 x 768
 
 ///this border code messes up the button handler on the score
@@ -85,6 +99,7 @@ loop();
 //
 //}
 
+
 const FRAME_RATE =10;
 var intervalTime = 1000/FRAME_RATE;
 var loopCounter=0;
@@ -92,12 +107,19 @@ var flag = false;
 function loop() {
 	//log();
     loopCounter +=1;
+    timeNow = new Date().getTime(),
+    	time = 0,
+    	elapsed = '0.0';
+    
+    
     if (loopCounter > FRAME_RATE-1) { //we are in a per-second action
-        //var stationdata = '';
-        //for (x in station) {
-        //    stationdata += x +", "+station[x].get_health()+", ";
-        //}
-        //logging.push("peridic logging, "+gameScore.secondsLeft()+", "+stationdata); 
+      // This block of code generates the interruptions on the mobile phone. 
+      //The times are in the vector itimes and the messages are in the imessages vector.
+      if((timeNow - startTime) >= itimes[messageindex]){
+        genInteruption(messageindex);
+    		messageindex++;
+    	}
+      //logging.push("peridic logging, "+gameScore.secondsLeft()+", "+stationdata); 
 		//code to set a "time-is-up" state within the station objects
 		if (gameScore.timeLeft() == false){
 			for (i=1; i<station.length; i+=1) {
@@ -138,9 +160,43 @@ function loop() {
         loopCounter =0;
         
     }
+   
+    
     window.setTimeout(loop, intervalTime);
 }
 
+
+function genInteruption(messageindex){
+  console.log(messageindex);
+	console.log(imessageVal[messageindex]);
+  if (imessageVal[messageindex]) 
+  { 
+    for (i2=1; i2<station.length; i2+=1) {
+        healths[i2-1]=station[i2].get_health();
+      }
+    var indexMax = healths.indexOf(Math.max.apply(Math, healths));
+    console.log(healths);
+    console.log(indexMax);
+    console.log(healths[indexMax]);
+    
+    //This is where I need to generate valuable messages 
+    //kill the max station
+    
+    var ValidNotification = {missed:"Nurse was trying to warn that one pet wasn't well", ring:"Nurse is trying to get hold of you", full: "This is the full text", //preview:"pre", 
+msgheader:"Message: :)", msgButton:"a", previewbtn:"b", duration:100000, ringduration:40000, swipesy:0, swduration:40000};
+	  //notify(ValidNotification);
+    
+    }
+    else {
+      console.log("bogus message");
+      //This is where I need to generate bogus messages 
+     
+      var Bocusnotification = {missed:"The cafeteria was trying to get marketing information to you.", ring:"Cageteria marketing is trying to get hold of you", full: "This is the full text", //preview:"pre", 
+msgheader:"Message: :)", msgButton:"a", previewbtn:"b", duration:100000, ringduration:40000, swipesy:0, swduration:40000};
+	  //notify(Bocusnotification);
+    }
+  
+}
 
 </script>
 

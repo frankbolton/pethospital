@@ -31,6 +31,9 @@ var myStation = function () {
     //var lineColor = "#000000"
    
     //image
+   
+    var lastTimeVisible = 0;
+   
     var helloWorldImage = new Image();
 	//helloWorldImage.src = "static/cuteLion.gif";
 	helloWorldImage.src = "static/1410447967_rabbit_animal_pink_cute.png";
@@ -153,6 +156,8 @@ var myStation = function () {
             context.font         = HealthTextSize;
             context.textBaseline = "top";
             context.fillText ("Health level: " + parseInt(station_health) + "%", HealthPosition.x ,HealthPosition.y);
+            
+            lastTimeVisible = timeNow;
         }
     }
     draw_station();
@@ -184,6 +189,8 @@ var myStation = function () {
         	eventLog(id, "heal");
     	}
 	}
+    
+
          
     function onMouseClick(e)  {
         mouseX=e.clientX-theCanvas.offsetLeft;
@@ -279,6 +286,11 @@ var myStation = function () {
             }
             draw_station();
 		},
+    
+     killstation: function() {
+      station_health = 0;
+    
+    },
 		get_health: function () {
 			return station_health;
 		},
@@ -300,6 +312,9 @@ var myStation = function () {
 		timeIsUp: function(){
 			timeRemaining = false;
 		},
+    lastVisibleTime: function () {
+      return (timeNow-lastTimeVisible)/1000;
+    },
 	};
 };
 

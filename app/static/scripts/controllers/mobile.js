@@ -13,65 +13,65 @@ angular.module('ktz')
       var socket = io.connect('/a');
 
       socket.on('serverConnect', function(data){
-	  //console.log(data);
-	  $scope.setlandmark('fodaltype', 'uid');
-//socket.emit('msg',{socketid:socket.socket.sessionid, uid:turkNickName.toString(), device:2, setHeader:'asdf'});
-	  $scope.setTurkUID = function(){
-	      //socket.emit('identify', {uid:$scope.turkuid});
-	      socket.emit('identify', {uid:$scope.turkuid,  socketid:socket.socket.sessionid, device:1});
+	        //console.log(data);
+	        $scope.setlandmark('fodaltype', 'uid');
+          //socket.emit('msg',{socketid:socket.socket.sessionid, uid:turkNickName.toString(), device:2, setHeader:'asdf'});
+	        $scope.setTurkUID = function(){
+	          //socket.emit('identify', {uid:$scope.turkuid});
+	          socket.emit('identify', {uid:$scope.turkuid,  socketid:socket.socket.sessionid, device:1});
 
-	      document.getElementsByTagName('audio')[0].play();
-	      document.getElementsByTagName('audio')[0].pause();
-	  };
-	  $scope.state = 'connect';
-	  $scope.$apply();
+	          document.getElementsByTagName('audio')[0].play();
+	          document.getElementsByTagName('audio')[0].pause();
+	        };
+	        $scope.state = 'connect';
+	        $scope.$apply();
       });
 
       socket.on('joinedroom', function(data){
-	  $scope.uid = data.uid;
-	  $scope.setlandmark('fodaltype', false);
-	  socket.emit('msg', {uid:data.uid, text:'msg', device:1});
-
-	  $scope.state = 'joined '+data.uid;
-
-	  $scope.$apply();
+	        $scope.uid = data.uid;
+	        $scope.setlandmark('fodaltype', false);
+	        socket.emit('msg', {uid:data.uid, text:'msg', device:1});
+	        $scope.state = 'joined '+data.uid;
+	        $scope.$apply();
       });
 
-      socket.on('msg', function(data){
-	  console.log(data);
+    socket.on('msg', function(data){
+	    console.log(data);
 
-	  if(data.clear){
+	    if(data.clear){
 	      // clear the dirty msg
 	      $scope.setlandmark('idle', 'clean');
 	      $scope.setlandmark('page', false);
-	  }
+	    }
 
-	  if(data.setHeader){
+	    if(data.setHeader){
 	      // set the header html
 	      $scope.headerHTML = data.setHeader;
-	  }
+	    }
 
-	  if(data.setStatus){
+	    if(data.setStatus){
 	      // set the status (traffic light)
-			console.log("in setStatus: "+data.setStatus);
+			  console.log("in setStatus: "+data.setStatus);
 	      $scope.status = data.setStatus;
-	  }
+	    }
 
-	  if(data.notify){	      
+	  if(data.notify){
+	  		//junk code to figure out why I'm not getting notifications
+	  		console.log("in notify");
+	  	      
 	      if($scope.durationFailTimeout){
-		  clearTimeout($scope.durationFailTimeout);
-		  $scope.durationFailTimeout = false;
-
-		  // clear any other timeouts
-		  if($scope.ringTimeout) clearTimeout($scope.ringTimeout);
-		  if($scope.swipesyFailTimeout) clearTimeout($scope.swipesyFailTimeout);
-
-	      	  // send back interupt data
-		  socket.emit('msg', {uid:$scope.uid, notifyCreated:$scope.currentNotify.created,
-				      interrupt:(new Date()).getTime()-$scope.currentNotify.localStart
-				     , device:1});
-	      }
-	      
+	        console.log("in timeout");
+		      clearTimeout($scope.durationFailTimeout);
+		      $scope.durationFailTimeout = false;
+		      // clear any other timeouts
+		  	  if($scope.ringTimeout) clearTimeout($scope.ringTimeout);
+		      if($scope.swipesyFailTimeout) clearTimeout($scope.swipesyFailTimeout);
+          
+	         // send back interupt data
+		  	  socket.emit('msg', {uid:$scope.uid, notifyCreated:$scope.currentNotify.created, interrupt:(new  Date()).getTime()-$scope.currentNotify.localStart, device:1});
+	        }
+        
+        console.log("after timeout code");
 	      $scope.currentNotify = data.notify;
 
 	      $scope.missed = '';
@@ -82,10 +82,10 @@ angular.module('ktz')
 
 	      $scope.setlandmark('page', 'ringing');
 	      $scope.ringText = data.notify.ring;
-
+        console.log(data.notify.ringDuration);
 	      if((data.notify.ringDuration>50)&&(data.notify.duration>50)){
-		  $scope.ringTimeout = setTimeout($scope.reject, data.notify.ringDuration);
-
+		      $scope.ringTimeout = setTimeout($scope.reject, data.notify.ringDuration);
+          console.log("inside ring caller");
 		  // play audio
 		  document.getElementsByTagName('audio')[0].play();
 	      }else{

@@ -12,6 +12,7 @@ function setStatus(state){
 
 };
 
+
 //working
 function setHeader(header){
   socket.emit('msg',{uid:uid, socketid:sid, device:2, setHeader:header});
@@ -19,11 +20,11 @@ function setHeader(header){
 
 //var notify = 123;
 
-var notification = {missed:"You missed message", ring:"Incoming message", full: "This is the full text", preview:"pre", 
-msgheader:"Message: :)", msgButton:"a", previewbtn:"b", duration:100000, ringduration:40000, swipesy:1, swduration:40000};
+var notification = {missed:"You missed message", ring:"Incoming message", full: "This is the full text", preview:null, messageHeader:"Message: :)", messageButton:"Done", previewButton:"Show", duration:10000, ringDuration:4000,  created:(new Date()).getTime()};
 
 function notify(n){
   console.log("in notify");
+  notification.created = (new Date()).getTime();
   socket.emit('msg',{uid:uid, socketid:sid, device:2, notify:n});
   
 }
@@ -42,3 +43,4 @@ socket.on('msg', function(data){console.log(data);});
 
 
 //socket.emit('msg',{socketid:socket.socket.sessionid, uid:turkNickName.toString(), device:2});
+setHeader("<h2>Pethospital mobile device</h2>");

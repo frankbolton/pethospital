@@ -35,16 +35,16 @@ UserTracking = dbExperimentParameters.table('TrackUsers')
 #------DO NOT REMOVE --------------------------------------------------------------
 
 
-order = [[0,1,2],[1,2,0],[2,0,1]]
-
+#order = [[0,1,2],[1,2,0],[2,0,1]]
+order  = [[0,1],[1,0]]
 #This is the set of times required in the experiment. 
 def makeStation (parameter) :
 	return 'this is my python function'
 
 exptime = 5 # in minutes
-learntime = 5 #in minutes
+learntime = 2 #in minutes
 portNumber = 5000
-numberOfSessions = 3
+numberOfSessions = 2
 debug = False
 
 def trackingLog(path, method,uuid=''):
@@ -207,21 +207,21 @@ def stations():
     identifier = 'Kitty Cat '
     stationSetup_2 = 'station[1] = new myStation(50,3,2,4,"'+identifier+'1",60,35, gameScore,logging); station[2] = new myStation(100,5,2,4,"'+identifier+'2",60,340, gameScore,logging); ';
     
-    stationSetup_4 = 'station[1] = new myStation(100,5,2,4,"'+identifier+'1",60,35, gameScore,logging); station[2] = new myStation(50,3,2,4,"'+identifier+'2",60,340, gameScore,logging); station[3] = new myStation(50,5,2,4,"'+identifier+'3",60,645, gameScore,logging); station[4] = new myStation(100,3,2,4,"'+identifier+'4",410, 35, gameScore,logging); '
+    #stationSetup_4 = 'station[1] = new myStation(100,5,2,4,"'+identifier+'1",60,35, gameScore,logging); station[2] = new myStation(50,3,2,4,"'+identifier+'2",60,340, gameScore,logging); station[3] = new myStation(50,5,2,4,"'+identifier+'3",60,645, gameScore,logging); station[4] = new myStation(100,3,2,4,"'+identifier+'4",410, 35, gameScore,logging); '
     stationSetup_6 ='station[1] = new myStation(100,5,2,4,"'+identifier+'1",60,35, gameScore,logging); station[2] = new myStation(100,5,2,4,"'+identifier+'2",60,340, gameScore,logging); station[3] = new myStation(50,3,2,4,"'+identifier+'3",60,645, gameScore,logging); station[4] = new myStation(100,3,2,4,"'+identifier+'4",410, 35, gameScore,logging); station[5] = new myStation(50,5,2,4,"'+identifier+'5",410, 340, gameScore,logging); station[6] = new myStation(50,3,2,4,"'+identifier+'6",410, 645, gameScore,logging); '
-    print "userid mod 30 = " + str(session['userID']%3)
-    presenationOrder = order[session['userID']%3]
+    print "userid mod 30 = " + str(session['userID']%2)
+    presenationOrder = order[session['userID']%2]
     print presenationOrder
     i = session['stageNumber'] 
     if presenationOrder[i] == 0: 
         stationSetup = stationSetup_2
         session['stationCount'] = 2
     elif presenationOrder[i] == 1:
-        stationSetup = stationSetup_4
-        session['stationCount'] = 4
-    elif presenationOrder[i] == 2:
         stationSetup = stationSetup_6
         session['stationCount'] = 6
+    #elif presenationOrder[i] == 2:
+    #    stationSetup = stationSetup_6
+    #    session['stationCount'] = 6
     #elif session['stageNumber'] == 4:
     #    stationSetup = stationSetup_4
     #elif session['stageNumber'] == 5:
@@ -269,7 +269,7 @@ def after_questions():
             print "userID"
             print session['userID']
             
-        if session['stageNumber']<2:
+        if session['stageNumber']<1:
             session['stageNumber']+=1
             return redirect('/stations')
         else:
