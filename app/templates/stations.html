@@ -24,7 +24,7 @@ var socket= io.connect('/a');
 
 var poo = 1234;
 
-var itimes = [4000,8000,12000,16000,20000];
+var itimes = [20000,40000,60000,80000,12000];
 var imessageVal = [true, false, true, false, true];
 
 var messageindex=0;
@@ -176,24 +176,29 @@ function genInteruption(messageindex){
       }
     var indexMax = healths.indexOf(Math.max.apply(Math, healths));
     console.log(healths);
-    console.log(indexMax);
-    console.log(healths[indexMax]);
-    
+    console.log("indexMax: "+indexMax);
+    console.log("health "+healths[indexMax]);
+    //console.log("from function: "+station[indexMax].get_health());
     //This is where I need to generate valuable messages 
     //kill the max station
     
-    var ValidNotification = {missed:"Nurse was trying to warn that one pet wasn't well", ring:"Nurse is trying to get hold of you", full: "This is the full text", //preview:"pre", 
-msgheader:"Message: :)", msgButton:"a", previewbtn:"b", duration:100000, ringduration:40000, swipesy:0, swduration:40000};
-	  //notify(ValidNotification);
+    if (indexMax ==0) indexMax = 1;
+    station[indexMax].killstation();
+    var messageText = "Station "+indexMax+" needs help. get to it."
+    var ValidNotification = {missed:"Missed:Nurse", ring:"Incoming", full:messageText , preview:null, 
+messageHeader:"Message:", messageButton:"Done", previewButton:"Show", duration:100000, ringDuration:4000, swipesy:2, swipesyDuration:4000};
+	  notify(ValidNotification);
+    
+    //missed:"You missed message", ring:"Incoming message", full: "This is the full text", preview:null, messageHeader:"Message: :)", messageButton:"Done", previewButton:"Show", duration:10000, ringDuration:4000
     
     }
     else {
       console.log("bogus message");
       //This is where I need to generate bogus messages 
      
-      var Bocusnotification = {missed:"The cafeteria was trying to get marketing information to you.", ring:"Cageteria marketing is trying to get hold of you", full: "This is the full text", //preview:"pre", 
-msgheader:"Message: :)", msgButton:"a", previewbtn:"b", duration:100000, ringduration:40000, swipesy:0, swduration:40000};
-	  //notify(Bocusnotification);
+      var Bocusnotification = {missed:"Missed: cafeteria", ring:"Incoming", full: "Lunch special today on Hamburger", preview:null, 
+messageHeader:"Message:", messageButton:"Done", previewButton:"Show", duration:10000, ringDuration:4000, swipesy:2, swipesyDuration:4000};
+	  notify(Bocusnotification);
     }
   
 }

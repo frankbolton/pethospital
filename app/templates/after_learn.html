@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-
+<script type="text/javascript" src="static/vendor/qrcode.js"></script>
 <style type="text/css">
 input, textarea{
 width: 180px;
@@ -20,8 +20,35 @@ height: 30px; //height control doesnt work :(
 
 <h1>You have completed the learning block</h1>
 <p style="font-size:18px">
-Press the "Continue" button below to begin the task, please do not neglect you electronic cats!</p>
+Please direct your phone to the address <script type="text/javascript">
+mobAddress = window.location.origin+ "/sockets#/mobile"
+document.write(mobAddress);
+</script> and enter your mechanical turk ID there.
+<br>
+Press the "Continue" button below to begin the task, please do not neglect you electronic cats!<br></p>
 
+ <div id="qrcode"> </div>
+<script type="text/javascript">
+var qrcode = new QRCode(document.getElementById("qrcode"), {
+	width : 100,
+	height : 100
+});
+
+function makeCode () {		
+	//var elText = document.URL;
+	
+	//if (!elText.value) {
+	//	alert("Input a text");
+	//	elText.focus();
+	//	return;
+	//}
+	
+	qrcode.makeCode(mobAddress);
+}
+
+makeCode();
+
+</script>
 <form  method="post" action="after_learn">
 <input type="submit" id="submitbutton" name="submitbutton" value="Continue" />
 
