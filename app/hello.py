@@ -1,3 +1,6 @@
+portNumber = 5000
+debug = False
+myHost = '0.0.0.0'
 #!/home/ubuntu/pethospital/venv/bin/python
 
 
@@ -43,9 +46,9 @@ def makeStation (parameter) :
 
 exptime = 5 # in minutes
 learntime = 2 #in minutes
-portNumber = 5000
+
 numberOfSessions = 2
-debug = False
+
 
 def trackingLog(path, method,uuid=''):
     print 'in tracker path: '+path+'. Method:'+method+'. Time:'+time.asctime()
@@ -479,4 +482,4 @@ def test_disconnect():
     
 if __name__ == '__main__':
     #app.run(host= '0.0.0.0', port=portNumber, debug=debug)
-    socketio.run(app, port=portNumber)
+    socketio.run(app, host=myHost, port=portNumber)
