@@ -25,13 +25,13 @@ mobAddress = window.location.origin+ "/sockets#/mobile"
 document.write(mobAddress);
 </script> and enter your mechanical turk ID there.
 <br>
-Press the "Continue" button below to begin the task, please do not neglect you electronic cats!<br></p>
+</p>
 
  <div id="qrcode"> </div>
 <script type="text/javascript">
 var qrcode = new QRCode(document.getElementById("qrcode"), {
-	width : 100,
-	height : 100
+	width : 200,
+	height : 200
 });
 
 function makeCode () {		
@@ -49,6 +49,11 @@ function makeCode () {
 makeCode();
 
 </script>
+<p>
+Once you have loaded the mobile page and logged in, Press the "Continue" button below.
+This will begin your task, please do not neglect you electronic cats!
+</p>
+
 <form  method="post" action="after_learn">
 <input type="submit" id="submitbutton" name="submitbutton" value="Continue" />
 
