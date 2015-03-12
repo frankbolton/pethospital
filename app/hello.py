@@ -184,7 +184,12 @@ def stationsLearn():
         #    stationSetup = stationSetup_6
         #session['stationSetup'] = stationSetup
         #print session['stageNumber']
-        return render_template('stations.html', gameduration = gameduration, stationSetup =  stationSetup_6 , trainingMode = 1, turkNickName=str(session['turkNickName']))
+        
+        
+        #No interruptions during training block.
+        iTimes = []
+        iMessageVal = []
+        return render_template('stations.html', gameduration = gameduration, stationSetup =  stationSetup_6 , trainingMode = 1, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal)
     else:
         return redirect('/after_learn')
 
@@ -235,7 +240,10 @@ def stations():
     session['stationSetup'] = stationSetup
     print session['stageNumber']
     session['SessionStartTime'] = time.asctime()
-    return render_template('stations.html', gameduration = gameduration, stationSetup = stationSetup, trainingMode = 0, turkNickName=str(session['turkNickName']))
+    iTimes = '[20000,40000,60000,80000,12000]'
+    iMessageVal = '[true, false, true, false, true]'
+    print "just before render_template"
+    return render_template('stations.html', gameduration = gameduration, stationSetup = stationSetup, trainingMode = 0, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal)
 
     
 @app.route('/after_questions', methods =['GET', 'POST'])

@@ -74,7 +74,7 @@ function checkCheckBox(f){
         alert('Please enter an age');
         return false;
     }
-    if (f.turkNickName.value.length == 0) {
+    if (f.turkNickName.value.length == 0){
         alert('Please enter a subject ID number or Mechanical Turk Nickname');
         return false;
     }
@@ -88,8 +88,9 @@ function checkCheckBox(f){
 
 
 <table  style="font-size:18px">
-    <tr><form name="RegisterUser" method="post" action="questions"  onsubmit="return checkCheckBox(this)">
-<label><td style="width:50%" >Your Mechanical Turk WorkerId</label> </td><td><input type="string" name="turkNickName"></td></tr>
+    <tr>
+<form name="RegisterUser" method="post" action="questions"  onsubmit="return checkCheckBox(this)">
+<label><td style="width:50%" >Your Mechanical Turk WorkerId</label> </td><td><input type="number" name="turkNickName"></td></tr>
 
 <tr><td>Age:</td><td><!--<input type="string" name="age">-->
 <select name="age">
