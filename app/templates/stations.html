@@ -187,8 +187,8 @@ function genInteruption(messageindex){
     if (indexMax ==0) indexMax = 1;
     station[indexMax].killstation();
     var messageText = "Station "+indexMax+" needs help. get to it."
-    var ValidNotification = {missed:"Missed:Nurse", ring:"Incoming", full:messageText , preview:null, 
-messageHeader:"Message:", messageButton:"Done", previewButton:"Show", duration:100000, ringDuration:4000, swipesy:2, swipesyDuration:4000};
+    var ValidNotification = {missed:"Missed:Nurse", ring:"Incoming", full:messageText , preview:"Incoming:Nurse", 
+messageHeader:"Message:", messageButton:"Done", previewButton:"Show", duration:100000, ringDuration:4000, swipesy:0, swipesyDuration:4000};
 	  notify(ValidNotification);
     
     //missed:"You missed message", ring:"Incoming message", full: "This is the full text", preview:null, messageHeader:"Message: :)", messageButton:"Done", previewButton:"Show", duration:10000, ringDuration:4000
@@ -198,9 +198,9 @@ messageHeader:"Message:", messageButton:"Done", previewButton:"Show", duration:1
       console.log("bogus message");
       //This is where I need to generate bogus messages 
      
-      var Bocusnotification = {missed:"Missed: cafeteria", ring:"Incoming", full: "Lunch special today on Hamburger", preview:null, 
-messageHeader:"Message:", messageButton:"Done", previewButton:"Show", duration:10000, ringDuration:4000, swipesy:2, swipesyDuration:4000};
-	  notify(Bocusnotification);
+      var Bogusnotification = {missed:"Missed: cafeteria", ring:"Incoming", full: "Lunch special today on Hamburger", preview:"Incoming:Cafeteria", 
+messageHeader:"Message:", messageButton:"Done", previewButton:"Show", duration:10000, ringDuration:4000, swipesy:0, swipesyDuration:4000};
+	  notify(Bogusnotification);
     }
   
 }
