@@ -30,6 +30,14 @@
     //var myIcon = new Image();
     //myIcon.source = "1410452410_game-theme_hospital.png";
     
+    function getMinSec(){
+    	var minutes = "0" + Math.floor(t_remaining / 60);
+		var seconds = "0" + (t_remaining - minutes * 60);
+		return minutes.substr(-2) + ":" + seconds.substr(-2);
+
+    	//return "this is a test";
+    }
+    
     function eventLog() {
         var LogObject = {};
 
@@ -90,6 +98,8 @@
     
     drawScoreScreen();
     
+    
+    
 	return {
         setDuration: function (intimer) {
         //var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
@@ -110,6 +120,9 @@
         },
         secondsLeft: function () {
             return t_remaining;
+        },
+        minutessecondsLeft: function () {
+        	return getMinSec(t_remaining);
         },
         
         
@@ -140,7 +153,10 @@
                 	context.textBaseline = "top";
                     context.fillText  ("Score: "+score, 75, 10 );	
                     context.fillText ("In Experiment Mode",300,10);
-                    context.fillText ("Time Remaining: "+ t_remaining,600,10);
+                    //context.fillText ("Time Remaining: "+ t_remaining,600,10);
+                    context.fillText ("Time Remaining: "+ getMinSec(),600,10);
+                	
+                
                 }
                 else {
                     context.fillStyle    = textColor;
@@ -155,7 +171,8 @@
             	context.textBaseline = "top";
                 context.fillText  ("Score: "+score, 75, 10 );	
                 context.fillText ("In Training Mode",300,10);
-                context.fillText ("Time Remaining: "+ t_remaining,600,10);
+                //context.fillText ("Time Remaining: "+ t_remaining,600,10);
+                context.fillText ("Time Remaining: "+ getMinSec(),600,10);
             }
             
             if (t_remaining<0) {

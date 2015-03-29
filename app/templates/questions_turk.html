@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Questions</h1>
+<div p style="font-size:25px">Please enter the following data to facilitate the experiment.</div>
+
+<style type="text/css">
+input, textarea{
+width: 180px;
+margin-bottom: 5px;
+}
+
+input[type=radio].css-checkbox {
+							display:none;
+						}
+
+						input[type=radio].css-checkbox + label.css-label {
+							padding-left:26px;
+							height:20px; 
+							display:inline-block;
+							line-height:20px;
+							background-repeat:no-repeat;
+							background-position: 0 0;
+							font-size:20px;
+							vertical-align:middle;
+							cursor:pointer;
+
+						}
+
+						input[type=radio].css-checkbox:checked + label.css-label {
+							background-position: 0 -20px;
+						}
+						label.css-label {
+				background-image:url(static/csscheckbox_8057db35801269ba2c626e2b2995936b.png);
+				-webkit-touch-callout: none;
+				-webkit-user-select: none;
+				-khtml-user-select: none;
+				-moz-user-select: none;
+				-ms-user-select: none;
+				user-select: none;
+			}
+
+#submitbutton {
+margin-left: 10px;
+margin-top: 5px;
+width: 100px;  
+height: 30px; //height control doesnt work :(
+
+}
+
+</style>
+
+
+<script src="/static/modernizr-1.6.min.js"></script>
+<SCRIPT language=JavaScript>
+
+//background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_8057db35801269ba2c626e2b2995936b.png);
+//<!--
+
+//Accept terms & conditions script (by InsightEye www.insighteye.com)
+//Visit JavaScript Kit (http://javascriptkit.com) for this script & more.
+
+function checkCheckBox(f){
+
+	//load some content into hidden variables
+	document.getElementById('touch').value = Modernizr.touch
+	document.getElementById('browserType').value = navigator.userAgent
+		
+	//now perform the tests.
+    if (f.gender.value <1 ){
+        alert('Please enter a gender value.');
+        return false;
+    }
+    if (f.age.value =="-1" ){
+        alert('Please enter an age');
+        return false;
+    }
+    if (f.turkNickName.value.length == 0){
+        alert('Please enter a subject ID number or Mechanical Turk Nickname');
+        return false;
+    }
+    else
+        return true;
+}
+
+
+//-->
+</SCRIPT>
+
+
+<table  style="font-size:18px">
+    <tr>
+<form name="RegisterUser" method="post" action="questions"  onsubmit="return checkCheckBox(this)">
+<label><td style="width:50%" >Participant ID:</label>
+<!--<label><td style="width:50%" >Mechanical Turk WorkerId</label> -->
+ </td><td><input type="number" name="turkNickName"></td></tr>
+
+<tr><td>Age:</td><td><!--<input type="string" name="age">-->
+<select name="age">
+	<option value="-1" disabled="disabled" selected="selected">Please select your age</option>
+	<option value="18,20">18-20</option>
+<option value="21,24">21-24</option>
+<option value="25,30">25-30</option>
+<option value="31,40">31-40</option>
+<option value="41,50">41-50</option>
+<option value="51,60">51-60</option>
+<option value="61,70">61-70</option>
+<option value="70,0">\>70</option>
+</select></td></tr>
+<!--<tr><td style="width:50%">Salary:</td><td><input type="string" name="salaryRangefoo"></td></tr>-->
+<tr><td>Country:</td><td><input type="string" name="country"></td></tr>
+
+
+
+
+	
+
+<tr><td>Gender:</td>
+<td><input type="radio" name="gender" value="male" id="male" class="css-checkbox"><label for="male" class="css-label radGroup2">Male</label>
+<input type="radio" name="gender" value="female" id="female"  class="css-checkbox"><label for="female" class="css-label radGroup2">Female</label>
+<input type="radio" name="gender" value="other/not shared" id="other/not shared" class="css-checkbox"><label for="other/not shared" class="css-label radGroup2">Prefer not to disclose / Other</label>
+
+</td></tr>
+</table>	
+<input type="hidden" id="touch" name="touch" value="[return value from product function]">
+<input type="hidden" id="browserType" name="browserType" value="[return value from product function]"
+<br>
+<input type="submit" name="submitbutton" id="submitbutton" value="Continue" />
+
+</form>
+{% endblock %}

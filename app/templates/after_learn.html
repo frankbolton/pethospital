@@ -21,9 +21,18 @@ height: 30px; //height control doesnt work :(
 <h1>You have completed the learning block</h1>
 <p style="font-size:18px">
 Please direct your phone to the address <script type="text/javascript">
-mobAddress = window.location.origin+ "/sockets#/mobile"
+var uid = {{uid}};
+
+mobAddress = window.location.origin+ "/sockets#/mobile?uid="+uid
+
+
 document.write(mobAddress);
+
+var uid = {{uid}};
+
+
 </script> and enter your mechanical turk ID there.
+
 <br>
 </p>
 

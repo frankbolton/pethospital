@@ -1,8 +1,16 @@
 'use strict';
-
+console.log('in mobile.js');
 angular.module('ktz')
-  .controller('MobileCtrl', function ($scope, $http) {
-
+  .controller('MobileCtrl', function ($scope, $http, $routeParams, $route) {
+	 console.log($routeParams);
+	 //var a = $routeParams;
+	 //$rootScope.$on('$routeChangeSuccess', function () {
+	 console.log($routeParams.uid);
+	 //console.log($routeParams.type);
+	 //console.log(a[2]);
+	  //});
+	  $scope.turkuid = $routeParams.uid
+	  //$scope.turkuid = 12345;
 
       $scope.landmarks = {state:'idle'};
 

@@ -2,6 +2,7 @@
 console.log('in desktop.js');
 angular.module('ktz')
   .controller('DesktopCtrl', function ($scope, $http) {
+     
       console.log('in function inside desktop.js');
       var socket = io.connect('/a');
  	  console.log(socket.id);

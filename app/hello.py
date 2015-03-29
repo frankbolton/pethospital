@@ -2,6 +2,8 @@
 portNumber = 5000
 debug = True
 myHost = '0.0.0.0'
+AMT = True
+
 
 
 
@@ -85,12 +87,15 @@ def socketindex():
 
 #the index pate is the agreement... It's the first page that the participant encounters
 @app.route('/', methods = ['GET','POST'])
-def index():
-    
+def index():  
     if request.method == 'GET':
         #user_agent = request.headers.get('User-Agent')
         trackingLog('/',request.method)
-        return render_template('agreement.html', exptime = exptime, learntime=learntime,\
+        if AMT:
+            return render_template('agreement_turk.html', exptime = exptime, learntime=learntime,\
+         numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
+        else: 
+            return render_template('agreement.html', exptime = exptime, learntime=learntime,\
          numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
         #return'<h1>Hello World</h1><p>Your browser is %s</p>' % user_agent
     else:
@@ -115,8 +120,10 @@ def index():
 def user():
     trackingLog('/questions',request.method, session['userID'])
     if request.method == 'GET':
-        return render_template("questions.html", title = 'questions')  
-        
+        if AMT:
+            return render_template("questions_turk.html", title = 'questions')  
+        else:
+            return render_template("questions.html", title = 'questions')
     else:
         turkNickName = request.form['turkNickName']
         age = request.form['age']
@@ -144,7 +151,11 @@ def user():
 def instructions():
     trackingLog('/instructions',request.method, session['userID'])
     if request.method =='GET':
-        return render_template("instructions.html", exptime = exptime, learntime=learntime,\
+        if AMT:        
+            return render_template("instructions.html", exptime = exptime, learntime=learntime,\
+         numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
+        else:
+            return render_template("instructions_turk.html", exptime = exptime, learntime=learntime,\
          numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
     else:
         return redirect('/stations_learn')
@@ -171,7 +182,7 @@ def stationsLearn():
 def after_learn():
     trackingLog('/after_learn',request.method, session['userID'])    
     if request.method == 'GET':
-        return render_template('after_learn.html')
+        return render_template('after_learn.html', uid = session['turkNickName'] )
     else:
         return redirect('/stations')
         
