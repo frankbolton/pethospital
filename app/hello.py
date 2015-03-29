@@ -33,6 +33,8 @@ EventsTable = dbEvents.table('Events')
 db = TinyDB(os.path.join(basedir, 'dbExperimentConfiguration.json'))
 stationsLearnTable = db.table('stationsLearn')
 stationsExperimentTable = db.table('stationsExperiment')
+interruptionsLearnTable = db.table('interruptionsLearn')
+interruptionsExperimentTable = db.table('interruptionsExperiment')
 
 #this database keeps track of the subjects ID that will be allocated next.
 #------DO NOT REMOVE --------------------------------------------------------------
@@ -160,7 +162,8 @@ def stationsLearn():
         data = stationsLearnTable.all()
         iTimes = []
         iMessageVal = []
-        return render_template('stations.html', gameduration = gameduration, stations = json.dumps(data),  trainingMode = 1, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal)
+        interruptions = []
+        return render_template('stations.html', gameduration = gameduration, stations = json.dumps(data),  trainingMode = 1, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal, interruptions=json.dumps(interruptions))
     else:
         return redirect('/after_learn')
 
@@ -210,8 +213,10 @@ def stations():
     session['SessionStartTime'] = time.asctime()
     iTimes = '[20000,40000,60000,80000,12000]'
     iMessageVal = '[true, false, true, false, true]'
+    
+    interruptions = interruptionsExperimentTable.all()
     print "just before render_template"
-    return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal)
+    return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal, interruptions=json.dumps(interruptions))
 
 
 @app.route('/after_questions', methods =['GET', 'POST'])

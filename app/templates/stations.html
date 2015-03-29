@@ -22,15 +22,15 @@ turkNickName = {{turkNickName}};
 var socket= io.connect('/a');
 
 
-var itimes = [20000,40000,60000,80000,12000];
-var imessageVal = [true, false, true, false, true];
+//var itimes = [20000,40000,60000,80000,12000];
+//var imessageVal = [true, false, true, false, true];
 //var notifications = [{"missed":"Missed: cafeteria", "ring":"Incoming", "full": "Lunch special today on Hamburger", "preview":"Incoming:Cafeteria", 
 //"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":10000, "ringDuration":4000, "swipesy":-1, "swipesyDuration":4000},{"missed":"Missed:Nurse", "ring":"Incoming", "full":messageText , "preview":"Incoming:Nurse", 
 //"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":100000, "ringDuration":4000, "swipesy":-1, "swipesyDuration":4000}];
 
 
-itimes = {{iTimes}};
-imessageVal = {{iMessageVal}};
+//itimes = {{iTimes}};
+//imessageVal = {{iMessageVal}};
 
 
 var messageindex=0;
@@ -47,11 +47,21 @@ var logging = [];
 
 //{{stationSetup|safe}}
 data = {{stations | safe}}
+
 var station = [];
 for (i in data){
 	station[i]= new myStation(data[i].station_health, data[i].station_hDelta, data[i].station_noise, data[i].viewcost, data[i].id, data[i].topOffset, data[i].leftOffset, gameScore, logging);
 }
 
+
+interruptions = {{interruptions | safe}}
+var itimes=[]
+var imessageVal=[]
+for (i in interruptions){
+	itimes[i] = interruptions[i].time
+	imessageVal[i]= interruptions[i].value
+	
+}
 
 
 var jstrainingMode = false;
