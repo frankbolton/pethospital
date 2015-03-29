@@ -24,14 +24,16 @@ var socket= io.connect('/a');
 
 var itimes = [20000,40000,60000,80000,12000];
 var imessageVal = [true, false, true, false, true];
+//var notifications = [{"missed":"Missed: cafeteria", "ring":"Incoming", "full": "Lunch special today on Hamburger", "preview":"Incoming:Cafeteria", 
+//"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":10000, "ringDuration":4000, "swipesy":-1, "swipesyDuration":4000},{"missed":"Missed:Nurse", "ring":"Incoming", "full":messageText , "preview":"Incoming:Nurse", 
+//"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":100000, "ringDuration":4000, "swipesy":-1, "swipesyDuration":4000}];
+
 
 itimes = {{iTimes}};
 imessageVal = {{iMessageVal}};
 
 
 var messageindex=0;
-//var nexttime = itimes[i];
-//var nextmessage = imessage[i];
 var startTime = new Date().getTime(),
     time = 0,
     elapsed = '0.0';
@@ -40,29 +42,16 @@ var timeNow = new Date().getTime(),
     elapsed = '0.0';
 var a = false;
 var healths=[];
-//screen size 1024 x 768
-
-///this border code messes up the button handler on the score
-///var canvasHTML = "<div style=\"position: absolute; top: 40px; left: 10px;\">";
-///canvasHTML +="<canvas id=\"background\" width=\"964\" height=\"838\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
-///document.writeln(canvasHTML);
-///console.log("writing CanvasHTML to the page");
-///var theCanvas = document.getElementById("background");
-///var context = theCanvas.getContext("2d"); 
-//context.fillStyle = "#00000";
-//context.strokeRect(0, 0, 800, 600);
-
-//var canvasHTML = "<div style=\"position: absolute; top: 40px; left: 10px;\">";
-//canvasHTML +="<canvas id=\"background\" width=\"964\" height=\"838\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
-//document.writeln(canvasHTML);
-//console.log("writing CanvasHTML to the page");
-//var theCanvas = document.getElementById("background");
-//var context = theCanvas.getContext("2d"); 
-
 var station =[];
 var logging = [];
 
-{{stationSetup|safe}}
+//{{stationSetup|safe}}
+data = {{stations | safe}}
+var station = [];
+for (i in data){
+	station[i]= new myStation(data[i].station_health, data[i].station_hDelta, data[i].station_noise, data[i].viewcost, data[i].id, data[i].topOffset, data[i].leftOffset, gameScore, logging);
+}
+
 
 
 var jstrainingMode = false;
@@ -73,39 +62,14 @@ if (PytrainingMode) {
     gameScore.setLearnMode(true);
 }
 loop();
-//function log () {
-//    var LogObject = {};
-//    
-//    LogObject['score']=gameScore.getscore();
-//    LogObject['secondsLeft']=gameScore.secondsLeft();
-//    
-//    //console.log(LogObject);    
-//    var myjson =JSON.stringify(LogObject, null,2);
-//    console.log(myjson);
-//    $.ajax({type: "POST", url:'/log', data:myjson, contentType:'application/json'});
-//}
 
-
-//function eventLog(stationNumber, stationEvent) {
-//    var LogObject = {};
-//    LogObject['score']=gameScore.getscore();
-//    LogObject['secondsLeft']=gameScore.secondsLeft();
-//    LogObject['stationNumber']=stationNumber;
-//    LogObject['stationEvent']=stationEvent;
-//    for (x in station) {
-//       LogObject['station '+x+' health'] = station[x].get_health();
-//    }
-//    var myjson =JSON.stringify(LogObject, null, 2);
-//    console.log(myjson);
-//    $.ajax({type: "POST", url:'/eventLog', data:myjson, contentType:'application/json'});
-//
-//}
 
 
 const FRAME_RATE =10;
 var intervalTime = 1000/FRAME_RATE;
 var loopCounter=0;
 var flag = false;
+
 function loop() {
 	//log();
     loopCounter +=1;
@@ -115,16 +79,17 @@ function loop() {
     
     
     if (loopCounter > FRAME_RATE-1) { //we are in a 10x per-second action
+    
       // This block of code generates the interruptions on the mobile phone. 
       //The times are in the vector itimes and the messages are in the imessages vector.
       if((timeNow - startTime) >= itimes[messageindex]){
         genInteruption(messageindex);
     		messageindex++;
     	}
-      //logging.push("peridic logging, "+gameScore.secondsLeft()+", "+stationdata); 
+       //logging.push("peridic logging, "+gameScore.secondsLeft()+", "+stationdata); 
 		//code to set a "time-is-up" state within the station objects
 		if (gameScore.timeLeft() == false){
-			for (i=1; i<station.length; i+=1) {
+			for (i=0; i<station.length; i+=1) {
 				station[i].timeIsUp();
 			}
 		}
@@ -132,11 +97,10 @@ function loop() {
         //console.log("inside per-second code");
         if (gameScore.timeLeft()) {
             var i;
-            for (i=1; i<station.length; i+=1) {
+            for (i=0; i<station.length; i+=1) {
                 station[i].decrement();
             }
-            
-        }
+    	}
         else {
             if (!flag){
                 alert('session over, please close and press the CONTINUE button');
@@ -146,24 +110,19 @@ function loop() {
         
         //increment score if all stations have positive health and are hidden.
         var inc = true;
-        for (i=1; i<station.length; i+=1) {
+        for (i=0; i<station.length; i+=1) {
             if ((station[i].OK()) && (!station[i].get_vis())) {
             }
             else {
             inc = false;
             }
-           
         }
         //console.log("increment?" + inc)
         if (inc) {
             gameScore.inc(); 
         }
-        
-        loopCounter =0;
-        
+        loopCounter =0;       
     }
-   
-    
     window.setTimeout(loop, intervalTime);
 }
 
@@ -173,7 +132,7 @@ function genInteruption(messageindex){
 	console.log(imessageVal[messageindex]);
   if (imessageVal[messageindex]) 
   { 
-    for (i2=1; i2<station.length; i2+=1) {
+    for (i2=0; i2<station.length; i2+=1) {
         healths[i2-1]=station[i2].get_health();
       }
     var indexMax = healths.indexOf(Math.max.apply(Math, healths));
@@ -187,31 +146,22 @@ function genInteruption(messageindex){
     if (indexMax ==0) indexMax = 1;
     station[indexMax].killstation();
     var messageText = "Station "+indexMax+" needs help. get to it."
-    var ValidNotification = {missed:"Missed:Nurse", ring:"Incoming", full:messageText , preview:"Incoming:Nurse", 
-messageHeader:"Message:", messageButton:"Done", previewButton:"Show", duration:100000, ringDuration:4000, swipesy:0, swipesyDuration:4000};
+    var ValidNotification = {"missed":"Missed:Nurse", "ring":"Incoming", "full":messageText , "preview":"Incoming:Nurse", 
+"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":100000, "ringDuration":4000, "swipesy":-1, "swipesyDuration":4000};
 	  notify(ValidNotification);
-    
-    //missed:"You missed message", ring:"Incoming message", full: "This is the full text", preview:null, messageHeader:"Message: :)", messageButton:"Done", previewButton:"Show", duration:10000, ringDuration:4000
-    
-    }
+	}
     else {
       console.log("bogus message");
+      
       //This is where I need to generate bogus messages 
-     
-      var Bogusnotification = {missed:"Missed: cafeteria", ring:"Incoming", full: "Lunch special today on Hamburger", preview:"Incoming:Cafeteria", 
-messageHeader:"Message:", messageButton:"Done", previewButton:"Show", duration:10000, ringDuration:4000, swipesy:0, swipesyDuration:4000};
+       var Bogusnotification = {"missed":"Missed: cafeteria", "ring":"Incoming", "full": "Lunch special today on Hamburger", "preview":"Incoming:Cafeteria", 
+"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":10000, "ringDuration":4000, "swipesy":-1, "swipesyDuration":4000};
 	  notify(Bogusnotification);
     }
-  
 }
 
-
-
-
 </script>
-
 <script src="static/engine.js"></script>
 <body>
-
 </body>
 {% endblock %}

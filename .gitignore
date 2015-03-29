@@ -2,3 +2,9 @@ venv
 *.pyc
 virtualenv.py
 *.json
+dbCatch.json
+dbEvents.json
+dbTLX.json
+dbUsers.json
+dbExperimentParameters.json
+

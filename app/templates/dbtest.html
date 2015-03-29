@@ -1,0 +1,19 @@
+test 1234.
+<script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
+<script src="/static/myStation.js"></script>
+   
+   
+<SCRIPT language=JavaScript>
+
+data = {{stations | safe}}
+
+var gameScore = '';
+var logging = '';
+
+var station = [];
+for (i in data){
+	station[i]= new myStation(data[i].station_health, data[i].station_hDelta, data[i].station_noise, data[i].viewcost, data[i].id, data[i].topOffset, data[i].leftOffset, gameScore, logging);
+}
+
+</SCRIPT>
+asdf

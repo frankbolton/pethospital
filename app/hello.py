@@ -1,13 +1,13 @@
 #!/home/ubuntu/pethospital/venv/bin/python
 portNumber = 5000
-debug = False
+debug = True
 myHost = '0.0.0.0'
 
 
 
 #! ../venv/bin/python
 
-from flask import Flask, request, render_template, redirect, jsonify, session
+from flask import Response, json, Flask, request, render_template, redirect, jsonify, session
 #from flask.ext.sqlalchemy import SQLAlchemy
 import os.path, time
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -19,7 +19,6 @@ from flask.ext.socketio import SocketIO, emit, join_room, leave_room, send
 
 from tinydb import TinyDB, where
 dbUsers = TinyDB(os.path.join(basedir,'dbUsers.json'))
-#dbUsers = TinyDB('dbUsers.json')
 UsersTable = dbUsers.table('Users')
 
 dbCatch = TinyDB(os.path.join(basedir,'dbCatch.json'))
@@ -30,6 +29,10 @@ FeedbackTable = dbTLX.table('TLXQuestions')
 
 dbEvents = TinyDB(os.path.join(basedir,'dbEvents.json'))
 EventsTable = dbEvents.table('Events')
+
+db = TinyDB(os.path.join(basedir, 'dbExperimentConfiguration.json'))
+stationsLearnTable = db.table('stationsLearn')
+stationsExperimentTable = db.table('stationsExperiment')
 
 #this database keeps track of the subjects ID that will be allocated next.
 #------DO NOT REMOVE --------------------------------------------------------------
@@ -43,7 +46,7 @@ UserTracking = dbExperimentParameters.table('TrackUsers')
 order  = [[0,1],[1,0]]
 #This is the set of times required in the experiment. 
 def makeStation (parameter) :
-	return 'this is my python function'
+    return 'this is my python function'
 
 exptime = 5 # in minutes
 learntime = 2 #in minutes
@@ -68,13 +71,10 @@ def find_element_in_list(element,list_element):
     except ValueError:
         return -1
  #--------------------------------------------------------------------------------------
- #	Experiment paths
+ #  Experiment paths
  #--------------------------------------------------------------------------------------
 
-@app.route('/foo')
-def foo():
-    print('in foo')
-    return render_template('foo.html')
+
 
 @app.route('/sockets')
 def socketindex():
@@ -153,50 +153,20 @@ def stationsLearn():
     trackingLog('/stations_learn',request.method, session['userID'])
     if request.method =='GET':
         session['score']=-1
-        
         gameduration = "gameduration = "+ str(learntime*60)
         print "test"
         print gameduration
-        
-        
-        identifier = 'Kitty Cat '
-    	testStation = (100,5,2,4,identifier+'1')
-        print testStation
-        testStations = {0:{'startHealth':100, 'decayRate':5, 'noise':2, 'viewCost':4, 'stationID':identifier+'1'}}
-        
-        #arguments: [0] health level at the start, [1] station decrease rate (%/s),
-        #arguments_cont: [2] noise added, [3], viewing_cost, [4] stationID, [5] topOffset, [6] leftOffset          
-        #stationSetup_2 = 'station[1] = new myStation(50,3,2,4,"Station 1",60,35, gameScore,logging); station[2] = new #myStation(100,5,2,4,"Station 2",60,340, gameScore,logging); ';
-        
-        #stationSetup_4 = 'station[1] = new myStation(100,5,2,4,"Station 1",60,35, gameScore,logging); station[2] = new 
-        #myStation(50,3,2,4,"Station 2",60,340, gameScore,logging); station[3] = new myStation(50,5,2,4,"Station 3",60,645, #gameScore,logging); station[4] = new myStation(100,3,2,4,"Station 4",410, 35, gameScore,logging); '
-        
-        stationSetup_6 ='station[1] = new myStation(100,5,2,4,"'+identifier+'1",60,35, gameScore,logging); station[2] = new myStation(100,5,2,4,"'+identifier+'2",60,340, gameScore,logging); station[3] = new myStation(50,3,2,4,"'+identifier+'3",60,645, gameScore,logging); station[4] = new myStation(100,3,2,4,"'+identifier+'4",410, 35, gameScore,logging); station[5] = new myStation(50,5,2,4,"'+identifier+'5",410, 340, gameScore,logging); station[6] = new myStation(50,3,2,4,"'+identifier+'6",410, 645, gameScore,logging); '
-        #print "userid mod 30 = " + str(session['userID']%3)
-        #presenationOrder = order[session['userID']%3]
-        #print presenationOrder
-        #i = session['stageNumber'] 
-        #if presenationOrder[i] == 0: 
-        #    stationSetup = stationSetup_2
-        #elif presenationOrder[i] == 1:
-        #    stationSetup = stationSetup_4
-        #elif presenationOrder[i] == 2:
-        #    stationSetup = stationSetup_6
-        #session['stationSetup'] = stationSetup
-        #print session['stageNumber']
-        
-        
-        #No interruptions during training block.
+        #No interruptions during training block.         
+        data = stationsLearnTable.all()
         iTimes = []
         iMessageVal = []
-        return render_template('stations.html', gameduration = gameduration, stationSetup =  stationSetup_6 , trainingMode = 1, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal)
+        return render_template('stations.html', gameduration = gameduration, stations = json.dumps(data),  trainingMode = 1, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal)
     else:
         return redirect('/after_learn')
 
 @app.route('/after_learn', methods = ['GET', 'POST'])
 def after_learn():
-    trackingLog('/after_learn',request.method, session['userID'])
-    
+    trackingLog('/after_learn',request.method, session['userID'])    
     if request.method == 'GET':
         return render_template('after_learn.html')
     else:
@@ -211,46 +181,44 @@ def stations():
     gameduration = "gameduration = "+ str(exptime*60)
     print "test"
     print gameduration
-    #arguments: [0] health level at the start, [1] station decrease rate (%/s),
-    #arguments_cont: [2] noise added, [3], viewing_cost, [4] stationID, [5] topOffset, [6] leftOffset   
-    identifier = 'Kitty Cat '
-    stationSetup_2 = 'station[1] = new myStation(50,3,2,4,"'+identifier+'1",60,35, gameScore,logging); station[2] = new myStation(100,5,2,4,"'+identifier+'2",60,340, gameScore,logging); ';
-    
-    #stationSetup_4 = 'station[1] = new myStation(100,5,2,4,"'+identifier+'1",60,35, gameScore,logging); station[2] = new myStation(50,3,2,4,"'+identifier+'2",60,340, gameScore,logging); station[3] = new myStation(50,5,2,4,"'+identifier+'3",60,645, gameScore,logging); station[4] = new myStation(100,3,2,4,"'+identifier+'4",410, 35, gameScore,logging); '
-    stationSetup_6 ='station[1] = new myStation(100,5,2,4,"'+identifier+'1",60,35, gameScore,logging); station[2] = new myStation(100,5,2,4,"'+identifier+'2",60,340, gameScore,logging); station[3] = new myStation(50,3,2,4,"'+identifier+'3",60,645, gameScore,logging); station[4] = new myStation(100,3,2,4,"'+identifier+'4",410, 35, gameScore,logging); station[5] = new myStation(50,5,2,4,"'+identifier+'5",410, 340, gameScore,logging); station[6] = new myStation(50,3,2,4,"'+identifier+'6",410, 645, gameScore,logging); '
+    data = stationsExperimentTable.all()
+    blockNumbersVerbose = []
+    for station in data:
+        blockNumbersVerbose.append(station['block_number'])
+    blockNumbers = list(set(blockNumbersVerbose))
+    blocks = [{} for iter in blockNumbers]
+    for ix in range(len(blocks)):
+        blocks[ix] = stationsExperimentTable.search(where('block_number')==blockNumbers[ix])   
+        print blocks[ix]
+        
     print "userid mod 30 = " + str(session['userID']%2)
     presenationOrder = order[session['userID']%2]
     print presenationOrder
     i = session['stageNumber'] 
+    print i
     if presenationOrder[i] == 0: 
-        stationSetup = stationSetup_2
-        session['stationCount'] = 2
+        session['stationCount'] = len(blocks[0])
+        station = blocks[0]
+        print 'present 2 stations first'
     elif presenationOrder[i] == 1:
-        stationSetup = stationSetup_6
-        session['stationCount'] = 6
-    #elif presenationOrder[i] == 2:
-    #    stationSetup = stationSetup_6
-    #    session['stationCount'] = 6
-    #elif session['stageNumber'] == 4:
-    #    stationSetup = stationSetup_4
-    #elif session['stageNumber'] == 5:
-    #    stationSetup = stationSetup_5
-    #elif session['stageNumber'] == 6:
-    #    stationSetup = stationSetup_6
-    session['stationSetup'] = stationSetup
+        session['stationCount'] = len(blocks[1])
+        station = blocks[1]
+        print 'present 6 stations first'
+    
+    session['stationSetup'] = station
     print session['stageNumber']
     session['SessionStartTime'] = time.asctime()
     iTimes = '[20000,40000,60000,80000,12000]'
     iMessageVal = '[true, false, true, false, true]'
     print "just before render_template"
-    return render_template('stations.html', gameduration = gameduration, stationSetup = stationSetup, trainingMode = 0, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal)
+    return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal)
 
-    
+
 @app.route('/after_questions', methods =['GET', 'POST'])
 def after_questions():
     trackingLog('/after_questions',request.method, session['userID'])
     if request.method == 'GET':
-    	session['TLXStartTime'] = time.asctime()
+        session['TLXStartTime'] = time.asctime()
         return render_template("after_tlx.html")
     else:
         #record the feedback from the user.
@@ -310,7 +278,7 @@ def end():
   
   
  #--------------------------------------------------------------------------------------
- #	Results paths
+ #  Results paths
  #--------------------------------------------------------------------------------------
 #Functions excluded from experiment flow- these exist to allow data retrieval, debugging, etc.
  
@@ -386,7 +354,7 @@ def resultsEvents():
     return jsonify(results = Events)    
  
  #--------------------------------------------------------------------------------------
- #	Socket paths
+ #  Socket paths
  #-------------------------------------------------------------------------------------- 
   
 @app.route('/rooms')
@@ -458,13 +426,13 @@ def msg(data):
     print data
     print request.namespace
     print request
-    print request.namespace.socket.sessid	
+    print request.namespace.socket.sessid   
     print rooms[data['uid']]
     if find_element_in_list(socketID, rooms[data['uid']])>-1:
         print 'room :'
         emit('msg', data, broadcast=True, room=data['uid'])
     else:
-        print 'computer sez no'	
+        print 'computer sez no' 
 
 
 
@@ -484,7 +452,7 @@ def test_disconnect():
     print('Client disconnected')
         
 #--------------------------------------------------------------------------------------
-#	Run code 
+#   Run code 
 #-------------------------------------------------------------------------------------- 
     
   

@@ -3,6 +3,7 @@
 uid = turkNickName.toString();
 sid = socket.socket.sessionid;
 
+var debug = 0;
 function eventLog(stationNumber, stationEvent) {
 	if (debug ==1){
     	var LogObject = {};

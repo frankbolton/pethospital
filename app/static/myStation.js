@@ -35,9 +35,7 @@ var myStation = function () {
     var lastTimeVisible = 0;
    
     var helloWorldImage = new Image();
-	//helloWorldImage.src = "static/cuteLion.gif";
 	helloWorldImage.src = "static/1410447967_rabbit_animal_pink_cute.png";
-	//helloWorldImage.src = "static/10411212_10152266707486863_7444125901069778805_n.jpg";
 	var imageLocation = {x:40, y:50};
 	var imageSize = {x:helloWorldImage.width, y:helloWorldImage.height}; 
 	//image size read doesn't work... perhaps need to wait for the image to load??
@@ -160,7 +158,10 @@ var myStation = function () {
             lastTimeVisible = timeNow;
         }
     }
-    draw_station();
+    helloWorldImage.onload = function() {
+    	draw_station();
+    }
+    
     function show_health () {
 		if (timeRemaining){
 			console.log("in show_health");
