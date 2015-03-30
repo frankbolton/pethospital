@@ -20,20 +20,47 @@ height: 30px; //height control doesnt work :(
 
 <h1>You have completed the learning block</h1>
 <p style="font-size:18px">
-Please direct your phone to the address <script type="text/javascript">
+Please direct your phone to the address: <br><script type="text/javascript">
+
+//bit_url function
+function bit_url(url) 
+{ 
+var url=url;
+var username="frankbolton"; // bit.ly username
+var key="R_620a1aee3e434f8fb69b6e4956db783a";
+$.ajax({
+url:"http://api.bit.ly/v3/shorten",
+data:{longUrl:url,apiKey:key,login:username},
+dataType:"jsonp",
+success:function(v)
+{
+console.log(v);
+var bit_url=v.data.url;
+$("#result").html('<a href="'+bit_url+'" target="_blank">'+bit_url+'</a>');
+}
+});
+}
+
 var uid = {{uid}};
 
-mobAddress = window.location.origin+ "/sockets#/mobile?uid="+uid
+var mobAddress = window.location.origin+ "/sockets#/mobile?uid="+uid
+
+
 
 
 document.write(mobAddress);
 
-var uid = {{uid}};
+bit_url(mobAddress);
 
+</script> <br>
+that can be reached using a shortcode
+<div id="result"></div>
 
-</script> and enter your mechanical turk ID there.
+and enter your mechanical turk ID there.
 
 <br>
+
+Alternatively, scan the QR code below to 
 </p>
 
  <div id="qrcode"> </div>
@@ -44,13 +71,6 @@ var qrcode = new QRCode(document.getElementById("qrcode"), {
 });
 
 function makeCode () {		
-	//var elText = document.URL;
-	
-	//if (!elText.value) {
-	//	alert("Input a text");
-	//	elText.focus();
-	//	return;
-	//}
 	
 	qrcode.makeCode(mobAddress);
 }
@@ -67,4 +87,36 @@ This will begin your task, please do not neglect you electronic cats!
 <input type="submit" id="submitbutton" name="submitbutton" value="Continue" />
 
 </form>
+
+
+<script type="text/javascript">
+$(document).ready(function()
+{
+
+
+
+$("#short").click(function()
+{
+var url=$("#url").val();
+var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
+var urltest=urlRegex.test(url);
+if(urltest)
+{
+bit_url(url);
+}
+else
+{
+alert("Bad URL");
+}
+});
+
+});
+</script>
+
+//HTML Code
+<input type="text" name="url" id="url"/> 
+<input type="submit" id="short" value="Submit"/> 
+<div id="result"></div>
+
+
 {% endblock %}
