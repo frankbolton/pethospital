@@ -15,13 +15,21 @@ height: 30px; //height control doesnt work :(
 
 }
 
+p {
+	font-size: 10px
+}
+
 
 </style>
 
 <h1>You have completed the learning block</h1>
-<p style="font-size:18px">
-Please direct your phone to the address: <br><script type="text/javascript">
+<p>
+You will continue with the experiment block where you will handle mobile phone messages<br> whilst managing several virtual pets in the pet hospital.<br><br>
 
+Direct your phone browser to the experiment using one of the two options:<br><br>
+
+1. Short url to copy into the address bar: <div id="result">
+<script type="text/javascript">
 //bit_url function
 function bit_url(url) 
 { 
@@ -45,26 +53,23 @@ var uid = {{uid}};
 
 var mobAddress = window.location.origin+ "/sockets#/mobile?uid="+uid
 
-
-
-
-document.write(mobAddress);
-
 bit_url(mobAddress);
 
 </script> <br>
 that can be reached using a shortcode
-<div id="result"></div>
 
-and enter your mechanical turk ID there.
+
+Please direct your phone to the address: <br></div>
 
 <br>
+<p>
+2. Scan the QR barcode code:
+<div id="qrcode"> </div>
 
-Alternatively, scan the QR code below to 
 </p>
-
- <div id="qrcode"> </div>
 <script type="text/javascript">
+ 
+
 var qrcode = new QRCode(document.getElementById("qrcode"), {
 	width : 200,
 	height : 200
@@ -77,9 +82,13 @@ function makeCode () {
 
 makeCode();
 
+
 </script>
+Both of these should load the page with your participant ID pre-entered.<br>
+
+<script type="text/javascript">//document.write(mobAddress);</script>
 <p>
-Once you have loaded the mobile page and logged in, Press the "Continue" button below.
+Once you have loaded the mobile page and logged in, Press the "Continue" button below.<br>
 This will begin your task, please do not neglect you electronic cats!
 </p>
 
@@ -89,34 +98,7 @@ This will begin your task, please do not neglect you electronic cats!
 </form>
 
 
-<script type="text/javascript">
-$(document).ready(function()
-{
 
-
-
-$("#short").click(function()
-{
-var url=$("#url").val();
-var urlRegex = /(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-var urltest=urlRegex.test(url);
-if(urltest)
-{
-bit_url(url);
-}
-else
-{
-alert("Bad URL");
-}
-});
-
-});
-</script>
-
-//HTML Code
-<input type="text" name="url" id="url"/> 
-<input type="submit" id="short" value="Submit"/> 
-<div id="result"></div>
 
 
 {% endblock %}
