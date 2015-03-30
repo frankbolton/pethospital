@@ -7,6 +7,7 @@
 <script src="/static/gameScore.js"></script>
 <script src="/static/myStation.js"></script>
 <script src="static/vendor/socket.io.js"></script>
+
 <script type="text/javascript">
 //default parameters (to allow the templating engine to automatically build the experiment if it decides to.
 //var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
@@ -133,6 +134,7 @@ function loop() {
         }
         loopCounter =0;       
     }
+	
     window.setTimeout(loop, intervalTime);
 }
 
@@ -156,16 +158,16 @@ function genInteruption(messageindex){
     if (indexMax ==0) indexMax = 1;
     station[indexMax].killstation();
     var messageText = "Station "+indexMax+" needs help. get to it."
-    var ValidNotification = {"missed":"Missed:Nurse", "ring":"Incoming", "full":messageText , "preview":"Incoming:Nurse", 
-"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":100000, "ringDuration":4000, "swipesy":-1, "swipesyDuration":4000};
+    var ValidNotification = {"missed":"Missed:Nurse", "ring":"Incoming", "full":messageText ,
+"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":600000, "ringDuration":30000, "preview":"Incoming:Nurse", "swipesy":2, "swipesyDuration":10000};
 	  notify(ValidNotification);
 	}
     else {
       console.log("bogus message");
       
       //This is where I need to generate bogus messages 
-       var Bogusnotification = {"missed":"Missed: cafeteria", "ring":"Incoming", "full": "Lunch special today on Hamburger", "preview":"Incoming:Cafeteria", 
-"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":10000, "ringDuration":4000, "swipesy":-1, "swipesyDuration":4000};
+       var Bogusnotification = {"missed":"Missed: cafeteria", "ring":"Incoming", "full": "Lunch special today on Hamburger", 
+"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":60000, "ringDuration":30000, "preview":"Incoming:Cafeteria", "swipesy":-1, "swipesyDuration":-1};
 	  notify(Bogusnotification);
     }
 }
