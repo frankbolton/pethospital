@@ -46,11 +46,14 @@ return true;
 
 
 <h1>Welcome to the study</h1>
-<h2> Some Task Particulars. </h2>
-<h3>Objectives</h3>
+    <h3>Objectives</h3>
 <p style="font-size:18px">The objective of this study is to better understand human factors of intelligent notification systems in the context of performing a process management task.
 </p>
-<h3>Action Required</h3>
+
+
+
+<SCRIPT language=JavaScript>
+/*<h3>Action Required</h3>
 <p style="font-size:18px">
 The cat health levels tend to decrease over time, and sometimes a mobile phone message will give a warning about a problem with one of the stations.<br>
 You will view cat health levels, and heal the cat's as you think it's necessary. <br>
@@ -63,7 +66,9 @@ Your objective is to keep all of the health levels above 0%.<br>
 <p style="font-size:18px">There is a {{learntime}} minute training block where the score will be visible all of the time, to show you how the health and score of the system behave.<br>
 The study will consist of {{numberOfSessions}} tasks of {{exptime}} minutes each.<br> After each task you have a chance to answer a few questions about your experience.<br>
 This makes for a task time of about {{totalTime}} minutes.</p>
-
+*/
+</script>
+<div id="centered">
 <h3>Benefits and possible risks</h3>
 <p style="font-size:18px">
 The main personal benefit from your participation is the payment you will receive for participation.
@@ -100,8 +105,8 @@ Your questions regarding the study will be promptly answered by <a href="mailto:
 <input type="checkbox" name="agree" class="check" /></td><td style="font-size:20px"><b>I hereby declare that I gave my free consent and I understood all the above instructions:</b><br />
 </td></tr></table>
 
-<input type="submit" type="submitbutton" id="submitbutton" value="Continue" >
+<input type="submitbutton" id="submitbutton" value="Continue" >
 </form>
-
+</div>
 
 {% endblock %}

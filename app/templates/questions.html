@@ -1,53 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 <h1>Questions</h1>
-<div p style="font-size:25px">Please enter the following data to facilitate the experiment.</div>
+<div id="centered">
+<h3>Please enter the following data to facilitate the experiment.</h3>
 
-<style type="text/css">
-input, textarea{
-width: 180px;
-margin-bottom: 5px;
-}
 
-input[type=radio].css-checkbox {
-							display:none;
-						}
-
-						input[type=radio].css-checkbox + label.css-label {
-							padding-left:26px;
-							height:20px; 
-							display:inline-block;
-							line-height:20px;
-							background-repeat:no-repeat;
-							background-position: 0 0;
-							font-size:20px;
-							vertical-align:middle;
-							cursor:pointer;
-
-						}
-
-						input[type=radio].css-checkbox:checked + label.css-label {
-							background-position: 0 -20px;
-						}
-						label.css-label {
-				background-image:url(static/csscheckbox_8057db35801269ba2c626e2b2995936b.png);
-				-webkit-touch-callout: none;
-				-webkit-user-select: none;
-				-khtml-user-select: none;
-				-moz-user-select: none;
-				-ms-user-select: none;
-				user-select: none;
-			}
-
-#submitbutton {
-margin-left: 10px;
-margin-top: 5px;
-width: 100px;  
-height: 30px; //height control doesnt work :(
-
-}
-
-</style>
 
 
 <script src="/static/modernizr-1.6.min.js"></script>
@@ -115,9 +72,9 @@ function checkCheckBox(f){
 	
 
 <tr><td>Gender:</td>
-<td><input type="radio" name="gender" value="male" id="male" class="css-checkbox"><label for="male" class="css-label radGroup2">Male</label>
-<input type="radio" name="gender" value="female" id="female"  class="css-checkbox"><label for="female" class="css-label radGroup2">Female</label>
-<input type="radio" name="gender" value="other/not shared" id="other/not shared" class="css-checkbox"><label for="other/not shared" class="css-label radGroup2">Prefer not to disclose / Other</label>
+<td><input type="radio" name="gender" value="male" id="male" ><label for="male" >Male</label>
+<input type="radio" name="gender" value="female" id="female" ><label for="female" >Female</label>
+<input type="radio" name="gender" value="other/not shared" id="other/not shared" ><label for="other/not shared">Prefer not to disclose / Other</label>
 
 </td></tr>
 </table>	
@@ -127,4 +84,5 @@ function checkCheckBox(f){
 <input type="submit" name="submitbutton" id="submitbutton" value="Continue" />
 
 </form>
+</div>
 {% endblock %}

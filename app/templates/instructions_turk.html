@@ -1,32 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
 
-<style type="text/css">
-input, textarea{
-width: 180px;
-margin-bottom: 5px;
-}
-
-#submitbutton {
-margin-left: 10px;
-margin-top: 5px;
-width: 100px;  
-height: 30px; //height control doesnt work :(
-
-}
 
 
-<h3>Study particulars</h3>
-<p style="font-size:18px">
-
-</style>
-
+<div id="centered">
 <h1>Instructions to perform the study</h1>
 <p style="font-size:18px">
-Your objective is to apply yourself to maximize your score in each session. The higher your score- the greater your odds of winning a $5 bonus!
+Your objective is to maximize your score in each session. The higher your score- the greater your odds of winning a $5 bonus!
 </p>
 <h3>Method</h3>
-<p style="font-size:18px">To have your health increase, all of the stations must have a positive health level and the health of all the stations must be hidden. <br>
+<p style="font-size:18px">To have your score increase, all of the stations must have a positive health level and the health of all the stations must be hidden. <br>
 The pet health levels decrease over time.<br>
 Topping up the health is done by pressing the heal "button" - don't do it excessively as it's costly to your score.<br></p>
 
@@ -43,4 +26,5 @@ This makes for an allocated experiment time of {{totalTime}} minutes.<br><br>
 <input type="submit" id="submitbutton" name="submitbutton" value="Continue" />
 
 </form>
+</div>
 {% endblock %}

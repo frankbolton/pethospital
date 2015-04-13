@@ -1,15 +1,16 @@
 <html>
   <head>
     {% if title %}
-    <title>{{title}} - Multi-device HCI study </title>
+    <title>{{title}} - Pet Hospital Study</title>
     {% else %}
-    <title> Multi-device HCI study</title>
+    <title> Pet Hospital Study</title>
     {% endif %}
 
     <script type="text/javascript" src="//code.jquery.com/jquery-1.4.2.min.js"></script>
     <!--<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.16/socket.io.min.js"></script>-->
 	  <!--<script src="https://cdn.socket.io/socket.io-0.9.16.js"></script>-->
 		<script src = "static/vendor/socket.io.js"></script>
+    <link rel="stylesheet" type="text/css" href="static/styles/web.css">
     
   </head>
 <!--insert the flashing functionality
@@ -26,7 +27,7 @@
 
   <body>
   <table><tr><td><img src="static/logo.png" alt="PetHospital Logo" > </td>
-  <td><H1>Pet Hospital multi-device HCI study</H1></td></tr></table>
+  <td><H1>Pet Hospital Study</H1></td></tr></table>
 	<!-- Comment out the navigation after we've got the site figured out..-->	
 	<!--<div>Test navigation (Remove in live app):  <a href="/">Agreement</a>  <a href="/questions">Questions</a>  <a href="/instructions">Instructions</a> 
 	<a href="/stations">Stations</a>   <a href="/showsession">Show Sessions</a>    <a href="/after_questions">After</a>     <a href="/end">End</a>   <a href="/admin">Admin</a>   	<a href="/results">Results</a>
