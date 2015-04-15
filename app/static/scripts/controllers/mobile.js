@@ -38,7 +38,7 @@ angular.module('ktz')
       socket.on('joinedroom', function(data){
 	        $scope.uid = data.uid;
 	        $scope.setlandmark('fodaltype', false);
-	        socket.emit('msg', {uid:data.uid, text:'msg', device:1});
+	        socket.emit('msg', {uid:data.uid, text:'msg', phone:'joined', device:1});
 	        $scope.state = 'joined '+data.uid;
 	        $scope.$apply();
       });

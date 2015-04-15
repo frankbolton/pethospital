@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+{% block content %}
+
+
+<h1>Feedback</h1>
+<div><h3><b>To complete the experiment,</b> please rank your level of agreement <br>(on a scale from 1-'Strongly Disagree'  to 7-'Strongly Agree'), with the following statements:
+</h3></div>
+<SCRIPT language=JavaScript>
+<!--
+
+//Accept terms & conditions script (by InsightEye www.insighteye.com)
+//Visit JavaScript Kit (http://javascriptkit.com) for this script & more.
+
+function checkCheckBox(f){
+console.log(f.radio01.value);
+if (f.radio01.value <1 )
+{
+    alert('Please answer question 1.');
+    return false;
+}
+console.log(f.radio02.value);
+if (f.radio02.value <1 )
+{
+    alert('Please answer question 2.');
+    return false;
+}
+console.log(f.radio03.value);
+if (f.radio03.value <1 )
+{
+    alert('Please answer question 3.');
+    return false;
+}
+console.log(f.radio04.value);
+if (f.radio04.value <1 )
+{
+    alert('Please answer question 4.');
+    return false;
+}
+console.log(f.radio05.value);
+if (f.radio05.value <1 )
+{
+    alert('Please answer question 5.');
+    return false;
+}else
+return true;
+}
+//-->
+</SCRIPT>
+
+<form name="after" method="post" action="after_questions" onsubmit="return checkCheckBox(this)">
+
+
+<head>
+    <style type="text/css">
+    .likert ul
+    {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .likert li
+    {
+        float: left;
+        text-align: left;
+        list-style-type: none;
+        padding-right:10px;
+		padding-left:40px;
+}
+    }
+    </style>
+</head>
+
+
+ <div> 
+        <ul class="likert">
+		(1) <b>Mental Demand</b> How mentally demanding was the task?<br>    
+            <li class="likert"> (Very Low) 1 <input id="radio01Start" type="radio" name="radio01" value="1" />
+            <li class="likert">2<input type="radio" name="radio01" value="2" />
+            <li class="likert">3<input type="radio" name="radio01" value="3" />
+            <li class="likert">4<input type="radio" name="radio01" value="4" />
+			<li class="likert">5<input type="radio" name="radio01" value="5" />
+			<li class="likert">6<input type="radio" name="radio01" value="6" />
+            <li class="likert">7<input id="radio02End" type="radio" name="radio01" value="7" /> (Very High)
+        </ul>
+    </div>
+<br>	
+
+<br>
+ <div> 
+        <ul class="likert">
+		(2) <b>Temporal Demand</b> How hurried or rushed was the pace of the task?.<br>    
+            <li class="likert"> (Very Low) 1 <input id="radio02Start" type="radio" name="radio02" value="1" />
+            <li class="likert">2<input type="radio" name="radio02" value="2" />
+            <li class="likert">3<input type="radio" name="radio02" value="3" />
+            <li class="likert">4<input type="radio" name="radio02" value="4" />
+			<li class="likert">5<input type="radio" name="radio02" value="5" />
+			<li class="likert">6<input type="radio" name="radio02" value="6" />
+            <li class="likert">7<input id="radio02End" type="radio" name="radio02" value="7" /> (Very High)
+        </ul>
+    </div>
+<br>	
+<br>
+
+<div> 
+        <ul class="likert">
+		(3) <b>Performance</b> How successful were you in accomplishing what
+you were asked to do?
+ <br>    
+            <li class="likert"> (Perfect) 1 <input id="radio03Start" type="radio" name="radio03" value="1" />
+            <li class="likert">2<input type="radio" name="radio03" value="2" />
+            <li class="likert">3<input type="radio" name="radio03" value="3" />
+            <li class="likert">4<input type="radio" name="radio03" value="4" />
+			<li class="likert">5<input type="radio" name="radio03" value="5" />
+			<li class="likert">6<input type="radio" name="radio03" value="6" />
+            <li class="likert">7<input id="radio03End" type="radio" name="radio03" value="7" /> (Failure)
+        </ul>
+    </div>
+<br>	
+<br>
+  <div> 
+        <ul class="likert">
+		(4) <b>Effort</b> How hard did you have to work to accomplish
+your level of performance?<br>    
+            <li class="likert"> (Very Low) 1 <input id="radio04Start" type="radio" name="radio04" value="1" />
+            <li class="likert">2<input type="radio" name="radio04" value="2" />
+            <li class="likert">3<input type="radio" name="radio04" value="3" />
+            <li class="likert">4<input type="radio" name="radio04" value="4" />
+			<li class="likert">5<input type="radio" name="radio04" value="5" />
+			<li class="likert">6<input type="radio" name="radio04" value="6" />
+            <li class="likert">7<input id="radio04End" type="radio" name="radio04" value="7" /> (Very High)
+        </ul>
+    </div>
+<br>	
+<br>
+ <div> 
+        <ul class="likert">
+		(5) <b> Frustration</b>How insecure, discouraged, irritated, stressed,
+and annoyed were you? <br>    
+            <li class="likert"> (Very Low) 1 <input id="radio05Start" type="radio" name="radio05" value="1" />
+            <li class="likert">2<input type="radio" name="radio05" value="2" />
+            <li class="likert">3<input type="radio" name="radio05" value="3" />
+            <li class="likert">4<input type="radio" name="radio05" value="4" />
+			<li class="likert">5<input type="radio" name="radio05" value="5" />
+			<li class="likert">6<input type="radio" name="radio05" value="6" />
+            <li class="likert">7<input id="radio05End" type="radio" name="radio05" value="7" /> (Very High)
+        </ul>
+    </div>
+<br>	
+<br>
+ 
+ <div> 
+        <ul class="likert">
+		(6) <b> radio 6</b>How radio 6 were you? <br>    
+            <li class="likert"> (Very Low) 1 <input id="radio06Start" type="radio" name="radio06" value="1" />
+            <li class="likert">2<input type="radio" name="radio06" value="2" />
+            <li class="likert">3<input type="radio" name="radio06" value="3" />
+            <li class="likert">4<input type="radio" name="radio06" value="4" />
+			<li class="likert">5<input type="radio" name="radio06" value="5" />
+			<li class="likert">6<input type="radio" name="radio06" value="6" />
+            <li class="likert">7<input id="radio06End" type="radio" name="radio06" value="7" /> (Very High)
+        </ul>
+    </div>
+<br>	
+<br> 
+ 
+ <div> 
+
+
+
+<input type="submit" value="SUBMIT" />
+
+</form>
+{% endblock %}

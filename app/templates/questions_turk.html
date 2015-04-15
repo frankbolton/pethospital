@@ -32,7 +32,7 @@ function checkCheckBox(f){
         return false;
     }
     if (f.turkNickName.value.length == 0){
-        alert('Please enter a subject ID number or Mechanical Turk Nickname');
+        alert('Please enter a Participant ID number or Mechanical Turk Nickname');
         return false;
     }
     else
@@ -47,7 +47,7 @@ function checkCheckBox(f){
 <table>
     <tr>
 <form name="RegisterUser" method="post" action="questions"  onsubmit="return checkCheckBox(this)">
-<label><td style="width:50%" >Participant ID:</label>
+<label><td style="width:50%" >Mechanical Turk Nickname:</label>
 <!--<label><td style="width:50%" >Mechanical Turk WorkerId</label> -->
  </td><td><input type="number" name="turkNickName"></td></tr>
 

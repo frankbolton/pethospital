@@ -16,6 +16,9 @@
     var lineColor = "#a0a0a0"
     var textColor = "#404040";
     
+    var gameScoreText = "200 26px sans-serif"
+    var textTopOffset = 14;
+    
 	var canvasHTML = "<div id=\"gameScores\" style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">"
 	canvasHTML +="<canvas id=\""+id+"\"  width=\""+width+"\" height=\""+height+"\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
 	document.writeln(canvasHTML);
@@ -26,6 +29,8 @@
 	var t_Max = 30; //300: allow five minutes of game play per cycle
 	var t_remaining = t_Max;
     var scoreVisible = false;
+    
+
     
     //var myIcon = new Image();
     //myIcon.source = "1410452410_game-theme_hospital.png";
@@ -112,6 +117,9 @@
             //t_Max = intimer;
             learnMode = true;
         },
+        getLearnMode: function () {
+            return learnMode;
+        },
 		getscore: function () {
 			return score;
 		},
@@ -132,9 +140,8 @@
  			context.fillStyle = bgColor_unSel;
   			context.fillRect(0, 0, width, height);
   			//text
+        
 
-			
-			
             if (scoreVisible){
                 context.fillStyle    = textColor;
                 context.font         = "30px _sans";
@@ -149,45 +156,47 @@
             if ((t_remaining>0)&&(!learnMode)) {
                 if (t_remaining % 60 > 55) {
                 	context.fillStyle    = textColor;
-                	context.font         = "30px _sans";
+                	context.font         = gameScoreText;
                 	context.textBaseline = "top";
-                    context.fillText  ("Score: "+score, 75, 10 );	
-                    context.fillText ("In Experiment Mode",300,10);
+                    context.fillText  ("Score: "+score, 75, textTopOffset );	
+                    context.fillText ("In Experiment Mode",300,textTopOffset);
                     //context.fillText ("Time Remaining: "+ t_remaining,600,10);
-                    context.fillText ("Time Remaining: "+ getMinSec(),600,10);
+                    context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
                 	
                 
                 }
                 else {
                     context.fillStyle    = textColor;
-                	context.font         = "30px _sans";
+                	context.font         = gameScoreText;
                 	context.textBaseline = "top";
-                    context.fillText ("Keep all health measures above zero and hidden to increase your score",20,10);
+                    //context.fillText ("Keep all health measures above zero and hidden to increase your score",20,textTopOffset);
+                    context.fillText ("Keep the health levels above zero and hidden.",20,textTopOffset);
+                    context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
                 }
             }    
             if ((t_remaining>0)&&learnMode){
              	context.fillStyle    = textColor;
-                context.font         = "30px _sans";
+                context.font         = gameScoreText;
             	context.textBaseline = "top";
-                context.fillText  ("Score: "+score, 75, 10 );	
-                context.fillText ("In Training Mode",300,10);
+                context.fillText  ("Score: "+score, 75, textTopOffset );	
+                context.fillText ("In Training Mode",300,textTopOffset);
                 //context.fillText ("Time Remaining: "+ t_remaining,600,10);
-                context.fillText ("Time Remaining: "+ getMinSec(),600,10);
+                context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
             }
             
             if (t_remaining<0) {
                 //context.fillRect(0, 0, width, height);
                 context.fillStyle    = textColor;
-                context.font         = "30px _sans";
+                context.font         = gameScoreText;
                 context.textBaseline = "top";
-                context.fillText  ("Score: "+score, 75, 10 );	
-                context.fillText ("Time is up. Press ", 570, 10);
+                context.fillText  ("Score: "+score, 75, textTopOffset);	
+                context.fillText ("Time is up. Press ", 570, textTopOffset);
                 
                 //showButton
                 context.fillStyle = "#00ffee";
                 context.fillRect(790, 5, 100, 40);
                 context.fillStyle    = textColor;
-                context.font         = "20px _sans";
+                context.font         = gameScoreText;
                 context.textBaseline = "middle";
                 context.fillText  ("continue", 800, 30);	
             }

@@ -2,7 +2,7 @@
 
 uid = turkNickName.toString();
 sid = socket.socket.sessionid;
-
+var phoneHeader = "<h2>Pet Hospital Study - Mobile</h2>";
 var debug = 0;
 function eventLog(stationNumber, stationEvent) {
 	if (debug ==1){
@@ -39,30 +39,37 @@ function setHeader(header){
 
 function notify(n){
   console.log("in notify");
-  notification.created = (new Date()).getTime();
+  n.created = (new Date()).getTime();
   socket.emit('msg',{uid:uid, socketid:sid, device:2, notify:n});
   eventLog('',{function:'in notify', uid:uid, socketid:sid, device:2, notify:n});
 }
 
-socket.on('serverConnect',function(){
-  console.log("serverConnect success");
+socket.on('serverConnect',function(data){
+  console.log("serverConnect success"+toString(data));
   socket.emit('identify',{socketid:socket.socket.sessionid, uid:turkNickName.toString(), device:2});
   eventLog('', {function:'serverConnect'});
 });
 
 socket.on('joinedroom', function(data){
-  console.log("joinedroom: " +toString(data));
-  socket.emit('msg', {uid:data.uid, text:'msg', device:1});
+  console.log("joinedroom:");
+  console.log(data);
+  socket.emit('msg', {uid:data.uid, text:'msg', device:2});
   eventLog('', {function:'joinedRoom'});
-  setHeader("<h2>Pethospital mobile device</h2>");
-    
+  setHeader(phoneHeader);
+  
 });
 
 socket.on('msg', function(data){
+  console.log("msg");
   console.log(data);
   eventLog('', {function:'message received', data:data});
+  if (data.phone=="joined"){
+    console.log('startgame?')
+  //  loop();
+    setHeader(phoneHeader);
+  }
 });
 
 
 
-setHeader("<h2>Pethospital mobile device</h2>");
+setHeader(phoneHeader);

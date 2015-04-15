@@ -16,7 +16,7 @@ h3 {
 
 p {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-    font-size: 100%;
+    font-size: 120%;
 }
 
 ul {
@@ -27,7 +27,7 @@ ul {
 body {
    text-align:center; /* this is required for old versions of IE */
    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-   font-size: 100%;
+   font-size: 120%;
 }
 #centered {
    width:800px; /* this is the width of the center column (px, em or %) */
@@ -37,7 +37,7 @@ body {
 
 button, input, label, textarea {
     font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-    font-size: 100%;
+    font-size: 120%;
 }
 
 

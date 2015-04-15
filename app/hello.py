@@ -152,10 +152,10 @@ def instructions():
     trackingLog('/instructions',request.method, session['userID'])
     if request.method =='GET':
         if AMT:        
-            return render_template("instructions.html", exptime = exptime, learntime=learntime,\
+            return render_template("instructions_turk.html", exptime = exptime, learntime=learntime,\
          numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
         else:
-            return render_template("instructions_turk.html", exptime = exptime, learntime=learntime,\
+            return render_template("instructions.html", exptime = exptime, learntime=learntime,\
          numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
     else:
         return redirect('/stations_learn')
@@ -272,6 +272,7 @@ def after_questions():
             return redirect('/end')
     #4 sets of logging functions- user, experiment, event and periodic
     
+    
 @app.route('/end')
 def end():
     trackingLog('/end',request.method, session['userID'])
@@ -290,8 +291,32 @@ def end():
     session.pop('sex', None)
     session.pop('salaryRange', None)
     session.pop('stageNumber', None)
-    return(endStr)
-  
+    return(endStr)    
+    
+@app.route('/end3')
+def end3():
+    if request.method == 'GET':
+        #trackingLog('/end',request.method, session['userID'])
+        #endStr = "Experiment complete, thank you. Please enter the code into mechanical turk"
+        #print endstr
+        turkNickName = session['turkNickName']
+        userID=session['userID'] 
+        strlong = str(turkNickName)+str(userID)
+        session.pop('fullName', None)
+        session.pop('idnumber', None)
+        session.pop('address', None)    
+        session.pop('name1', None)
+        session.pop('date', None)
+        session.pop('agree', None)
+        session.pop("userID", None)
+        session.pop('turkNickName', None)
+        session.pop('age', None)
+        session.pop('date', None)    
+        session.pop('sex', None)
+        session.pop('salaryRange', None)
+        session.pop('stageNumber', None)
+        
+    return render_template('expComplete.html', turkNickName = turkNickName, userID=userID, strlong = strlong)
   
  #--------------------------------------------------------------------------------------
  #  Results paths

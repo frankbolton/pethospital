@@ -5,13 +5,13 @@ var myStation = function () {
 	// arguments_cont: [2] noise added, [3], viewing_cost, [4] stationID, [5] topOffset, [6] leftOffset 
 	
 	//HTML constants
-    var buttonTextSize = "20px _sans";
-    var TitleTextSize = "30px _sans";
-    var HealthTextSize = "30px _sans";
+    var buttonTextSize = "200 18px sans-serif";
+    var TitleTextSize = "200 22px sans-serif";
+    var HealthTextSize = "200 22px sans-serif";
     var stationSize = {x:280, y:280};
     var buttonSize = {x:60, y:40};
-    var TitlePosition = {x:85,y:20};
-    var HealthPosition = {x:30, y:(stationSize.y - (buttonSize.y *2.5))};
+    var TitlePosition = {x:85,y:10};
+    var HealthPosition = {x:50, y:(stationSize.y - (buttonSize.y *2.5))};
   
     var showButtonpos = { x:40, y:(stationSize.y - (buttonSize.y *1.5))};
     var hideButtonpos = { x:120, y:(stationSize.y - (buttonSize.y *1.5))};
@@ -36,14 +36,14 @@ var myStation = function () {
    
     var helloWorldImage = new Image();
 	helloWorldImage.src = "static/1410447967_rabbit_animal_pink_cute.png";
-	var imageLocation = {x:40, y:50};
+	var imageLocation = {};//{x:40, y:60};
 	var imageSize = {x:helloWorldImage.width, y:helloWorldImage.height}; 
 	//image size read doesn't work... perhaps need to wait for the image to load??
 	imageSize.x = 128;
 	imageSize.y = 128;
 	
 	imageLocation.x = stationSize.x / 2 - imageSize.x / 2;
-	imageLocation.y = stationSize.y / 2 - imageSize.x + 25;
+	imageLocation.y = stationSize.y / 2 - imageSize.y / 2 -10;
 	console.log("imagewidth" + helloWorldImage.width);
 	var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
 	var station_hDelta = typeof arguments[1] === 'number' ? arguments[1] : 1;
@@ -153,7 +153,7 @@ var myStation = function () {
             context.fillStyle    = textColor;
             context.font         = HealthTextSize;
             context.textBaseline = "top";
-            context.fillText ("Health level: " + parseInt(station_health) + "%", HealthPosition.x ,HealthPosition.y);
+            context.fillText ("Health Level: " + parseInt(station_health) + "%", HealthPosition.x ,HealthPosition.y);
             
             lastTimeVisible = timeNow;
         }
