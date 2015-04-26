@@ -28,6 +28,8 @@ angular.module('ktz')
 	          //socket.emit('identify', {uid:$scope.turkuid});
 	          socket.emit('identify', {uid:$scope.turkuid,  socketid:socket.socket.sessionid, device:1});
 
+	          document.getElementsByTagName('audio')[0].volume=1;
+	          
 	          document.getElementsByTagName('audio')[0].play();
 	          document.getElementsByTagName('audio')[0].pause();
 	        };
@@ -304,6 +306,29 @@ angular.module('ktz')
       $scope.$watch('landmarks.switch', function(n){
 	  if(typeof n !== 'undefined') socket.emit('msg', {uid:$scope.uid, switchState:n, device:1});
       });
+      
+      //add focus listener
+      function getTime() {
+          return (new Date()).getTime();
+      }
+
+      var lastInterval = getTime();
+
+      function intervalHeartbeat() {
+          var now = getTime();
+          var diff = now - lastInterval;
+          var offBy = diff - 1000; // 1000 = the 1 second delay I was expecting
+          lastInterval = now;
+
+          if(offBy > 500) { // don't trigger on small stutters less than 500ms
+              console.log('interval heartbeat - off by ' + offBy + 'ms');
+          	  socket.emit('msg', {uid:$scope.uid, heartbeatfailtime:now, device:1});
+          }
+      }
+
+      setInterval(intervalHeartbeat, 1000);
 
 
   });
+
+

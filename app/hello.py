@@ -2,7 +2,7 @@
 portNumber = 5000
 debug = True
 myHost = '0.0.0.0'
-AMT = True
+#AMT = True
 
 
 
@@ -91,12 +91,12 @@ def index():
     if request.method == 'GET':
         #user_agent = request.headers.get('User-Agent')
         trackingLog('/',request.method)
-        if AMT:
-            return render_template('agreement_turk.html', exptime = exptime, learntime=learntime,\
-         numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
-        else: 
-            return render_template('agreement.html', exptime = exptime, learntime=learntime,\
-         numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
+        #if AMT:
+        #return render_template('agreement_turk.html', exptime = exptime, learntime=learntime,\
+        # numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
+        #else: 
+        return render_template('agreement.html', exptime = exptime, learntime=learntime,\
+        numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
         #return'<h1>Hello World</h1><p>Your browser is %s</p>' % user_agent
     else:
         #number = -100
@@ -120,10 +120,10 @@ def index():
 def user():
     trackingLog('/questions',request.method, session['userID'])
     if request.method == 'GET':
-        if AMT:
-            return render_template("questions_turk.html", title = 'questions')  
-        else:
-            return render_template("questions.html", title = 'questions')
+        #if AMT:
+        #    return render_template("questions_turk.html", title = 'questions')  
+        #else:
+        return render_template("questions.html", title = 'questions')
     else:
         turkNickName = request.form['turkNickName']
         age = request.form['age']
@@ -151,11 +151,11 @@ def user():
 def instructions():
     trackingLog('/instructions',request.method, session['userID'])
     if request.method =='GET':
-        if AMT:        
-            return render_template("instructions_turk.html", exptime = exptime, learntime=learntime,\
-         numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
-        else:
-            return render_template("instructions.html", exptime = exptime, learntime=learntime,\
+        #if AMT:        
+        #    return render_template("instructions_turk.html", exptime = exptime, learntime=learntime,\
+        # numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
+        #else:
+        return render_template("instructions.html", exptime = exptime, learntime=learntime,\
          numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
     else:
         return redirect('/stations_learn')
@@ -275,23 +275,19 @@ def after_questions():
     
 @app.route('/end')
 def end():
-    trackingLog('/end',request.method, session['userID'])
-    endStr = "Experiment complete, thank you. Please enter the code into mechanical turk: \""\
-    +session["turkNickName"]+str(session["userID"])+"\""
-    session.pop('fullName', None)
-    session.pop('idnumber', None)
-    session.pop('address', None)    
-    session.pop('name1', None)
-    session.pop('date', None)
-    session.pop('agree', None)
-    session.pop("userID", None)
-    session.pop('turkNickName', None)
-    session.pop('age', None)
-    session.pop('date', None)    
-    session.pop('sex', None)
-    session.pop('salaryRange', None)
-    session.pop('stageNumber', None)
-    return(endStr)    
+    try:
+        trackingLog('/end',request.method, session['userID'])
+        endStr = "Experiment complete, thank you. Please enter the code into mechanical turk: \""\
+        +session["turkNickName"]+str(session["userID"])+"\""
+        
+        endCode = session["turkNickName"]+str(session["userID"])
+        print endCode
+        session.clear()
+        #return(endStr)    
+        return render_template('expComplete.html', endCode = endCode)
+    except KeyError:
+        print "else"
+        return render_template('noSession.html')
     
 @app.route('/end3')
 def end3():

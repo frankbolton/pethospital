@@ -2,29 +2,7 @@
 {% block content %}
 
 
-<style type="text/css">
-.check {
-	//-webkit-appearance:none;
-	width: 20px;
-	height: 20px;
-	border-radius:4px;
-    border:2px solid #555;
-}
-:checked {
-    background: #aaa;
-}
 
-#submitbutton {
-margin-left: 10px;
-margin-top: 5px;
-width: 100px;  
-height: 40px; //height control doesnt work :(
-}
-
-br{
-clear: left;
-}
-</style>
 
 <SCRIPT language=JavaScript>
 <!--
@@ -46,12 +24,6 @@ return true;
 
 
 <h1>Welcome to the study</h1>
-    <h3>Objectives</h3>
-<p style="font-size:18px">The objective of this study is to better understand human factors of intelligent notification systems in the context of performing a process management task.
-</p>
-
-
-
 <SCRIPT language=JavaScript>
 /*<h3>Action Required</h3>
 <p style="font-size:18px">
@@ -69,8 +41,11 @@ This makes for a task time of about {{totalTime}} minutes.</p>
 */
 </script>
 <div id="centered">
+<h3>Objectives</h3>
+<p>The objective of this study is to better understand human factors of intelligent notification systems in the context of performing a process management task.
+</p>
 <h3>Benefits and possible risks</h3>
-<p style="font-size:18px">
+<p>
 The main personal benefit from your participation is the payment you will receive for participation.
 A performance bonus will be issued to one player and the chances of winning are based on your score.<br>
 Apart from that, the knowledge received may be of value to humanity and hopefully the development of further mobile phone notification mechanisms. <br> You will be performing a process management task that is quite demanding. You may experience tiredness at the end of the study, but no parts of the exam are harmful.
@@ -80,14 +55,14 @@ Apart from that, the knowledge received may be of value to humanity and hopefull
 
 
 <h3>Rights</h3>
-<p style="font-size:18px">You are free to not participate in the study, or to leave the study at any time, without any harm, damages to your rights, and without any sanction carried out against you.<br>
+<p>You are free to not participate in the study, or to leave the study at any time, without any harm, damages to your rights, and without any sanction carried out against you.<br>
 Your personal privacy is protected in scientific publications.<br>
 Your questions regarding the study will be promptly answered by <a href="mailto:frankbolton@post.tau.ac.il"> Frank Bolton</a>.</p>
 
 
 <h2>Agreement for participation. </h2>
-<p style="font-size:18px">This is required to proceed.</p>
-<ul style="font-size:20px">
+<p>This is required to proceed.</p>
+<ul>
 <li>I confirm that I have read the above information and agree.</li>
 <li>I agree that I am willing to participate in the study titled "multi-device HCI study".</li>
 <li>I confirm that I am 18 years old or older.</li></ul>
@@ -102,10 +77,10 @@ Your questions regarding the study will be promptly answered by <a href="mailto:
 
 <form action="/" method="POST" onsubmit="return checkCheckBox(this)">
 <table><tr><td>
-<input type="checkbox" name="agree" class="check" /></td><td style="font-size:20px"><b>I hereby declare that I gave my free consent and I understood all the above instructions:</b><br />
+<input type="checkbox" name="agree" class="check" /></td><td><b>I hereby declare that I give my free consent and I understood all the above instructions</b>
 </td></tr></table>
 
-<input type="submitbutton" id="submitbutton" value="Continue" >
+<input type="submit" id="submitbutton" value="Continue" >
 </form>
 </div>
 
