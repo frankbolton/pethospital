@@ -27,15 +27,7 @@ turkNickName = {{turkNickName}};
 var socket= io.connect('/a');
 
 
-//var itimes = [20000,40000,60000,80000,12000];
-//var imessageVal = [true, false, true, false, true];
-//var notifications = [{"missed":"Missed: cafeteria", "ring":"Incoming", "full": "Lunch special today on Hamburger", "preview":"Incoming:Cafeteria", 
-//"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":10000, "ringDuration":4000, "swipesy":-1, "swipesyDuration":4000},{"missed":"Missed:Nurse", "ring":"Incoming", "full":messageText , "preview":"Incoming:Nurse", 
-//"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":100000, "ringDuration":4000, "swipesy":-1, "swipesyDuration":4000}];
 
-
-//itimes = {{iTimes}};
-//imessageVal = {{iMessageVal}};
 
 
 var messageindex=0;
@@ -62,9 +54,11 @@ for (i in data){
 interruptions = {{interruptions | safe}}
 var itimes=[]
 var imessageVal=[]
+var iswipesyCount=[]
 for (i in interruptions){
 	itimes[i] = interruptions[i].time
 	imessageVal[i]= interruptions[i].value
+  iswipesyCount[i]=interruptions[i].swipesyCount
 	
 }
 
@@ -76,10 +70,7 @@ if (PytrainingMode) {
     jstrainingMode = true;
     gameScore.setLearnMode(true);
 }
-//if (gameScore.getLearnMode()){
-//  console.log('start learn mode');
 loop();
-//}
 
 
 const FRAME_RATE =10;
@@ -164,7 +155,7 @@ function loop() {
 function genInteruption(messageindex){
   console.log("Interruption generated- index:  "+messageindex);
 	console.log(imessageVal[messageindex]);
-  if (imessageVal[messageindex]) 
+  if (imessageVal[messageindex])  
   { 
     for (i2=0; i2<station.length; i2+=1) {
         healths[i2-1]=station[i2].get_health();
@@ -180,17 +171,21 @@ function genInteruption(messageindex){
     if (indexMax ==0) indexMax = 1;
     station[indexMax].killstation();
     var messageText = "Station "+indexMax+" needs help. get to it."
-    var ValidNotification = {"missed":"Missed:Nurse", "ring":"Incoming", "full":messageText ,
-"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":600000, "ringDuration":30000, "preview":"Incoming:Nurse", "swipesy":2, "swipesyDuration":10000};
+    /*var ValidNotification = {"missed":"Missed:Nurse", "ring":"Incoming", "full":messageText ,
+"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":600000, "ringDuration":interruptions[messageindex].ringDuration, "preview":interruptions[messageindex].preview, "swipesy":interruptions[messageindex].swipesyCount, "swipesyDuration":10000};*/
+    var ValidNotification = interruptions[messageindex];
+    ValidNotification.full = messageText;
 	  notify(ValidNotification);
 	}
     else {
       console.log("bogus message");
       
       //This is where I need to generate bogus messages 
-       var Bogusnotification = {"missed":"Missed: cafeteria", "ring":"Incoming", "full": "Lunch special today on Hamburger", 
-"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":60000, "ringDuration":30000, "preview":"Incoming:Cafeteria", "swipesy":-1, "swipesyDuration":-1};
-	  notify(Bogusnotification);
+       /*var Bogusnotification = {"missed":"Missed: cafeteria", "ring":"Incoming", "full": "Lunch special today on Hamburger", 
+"messageHeader":"Message:", "messageButton":"Done", "previewButton":"Show", "duration":60000, "ringDuration":interruptions[messageindex].ringDuration, "preview":interruptions[messageindex].preview, "swipesy":interruptions[messageindex].swipesyCount, "swipesyDuration":10000};*/
+	  var Bogusnotification = interruptions[messageindex]
+    Bogusnotification.full = "Lunch special today on Hamburger";
+    notify(Bogusnotification);
     }
 }
 

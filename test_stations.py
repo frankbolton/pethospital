@@ -7,7 +7,7 @@ db = TinyDB(os.path.join(basedir, 'app/dbExperimentConfiguration.json'))
 
 #stationsExperimentTable = db.table('stationsLearn')
 stationsExperimentTable = db.table('stationsExperiment')
-
+interruptionsExperimentTable = db.table('interruptionsExperiment')
 
 foo = stationsExperimentTable.all()
 blockNumbersVerbose = []
@@ -23,11 +23,17 @@ blocks = [{} for iter in blockNumbers]
 	#a[1] = learnStationTable.search(where('block_number')==3)
 
 for ix in range(len(blocks)):
-	print ix
+#	print ix
 	blocks[ix] = stationsExperimentTable.search(where('block_number')==blockNumbers[ix])   
 
 
 
 #goal - generate this
-stationSetup_3 ='station[1] = new myStation(100,5,2,4,"'+identifier+'1",60,35, gameScore,logging); station[2] = new myStation(100,5,2,4,"'+identifier+'2",60,340, gameScore,logging); station[3] = new myStation(50,3,2,4,"'+identifier+'3",60,645, gameScore,logging);'
+#stationSetup_3 ='station[1] = new myStation(100,5,2,4,"'+identifier+'1",60,35, gameScore,logging); station[2] = new myStation(100,5,2,4,"'+identifier+'2",60,340, gameScore,logging); station[3] = new myStation(50,3,2,4,"'+identifier+'3",60,645, gameScore,logging);'
         
+        
+foo = interruptionsExperimentTable.all()
+#print foo
+
+interruptions = interruptionsExperimentTable.search(where('group_number')==1)
+print interruptions

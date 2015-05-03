@@ -23,7 +23,7 @@ var myStation = function () {
     var buttonColor = "#eeeeee";
     var lineColor = "#a0a0a0"
     var textColor = "#404040";
-    
+    var scale = {x:1, y:1};
     //var bgColor_unSel = "#ffeeaa";
     //var bgColor_sel = "#ffffaa";
     //var buttonColor = "#ffffee";
@@ -60,6 +60,7 @@ var myStation = function () {
 	console.log("writing CanvasHTML to the page");
     var theCanvas = document.getElementById(id);
 	var context = theCanvas.getContext("2d"); 
+  context.scale(scale.x,scale.y);
 	var station_h_visible = false;
 	
     var myGameScore = arguments[7];
@@ -194,8 +195,8 @@ var myStation = function () {
 
          
     function onMouseClick(e)  {
-        mouseX=e.clientX-theCanvas.offsetLeft;
-        mouseY=e.clientY-theCanvas.offsetTop;
+        mouseX=(e.clientX-theCanvas.offsetLeft)/scale.x;
+        mouseY=(e.clientY-theCanvas.offsetTop)/scale.y;
         //text
         console.log("mouse: "+mouseX+", "+mouseY);
         //showButtonpos

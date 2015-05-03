@@ -4,14 +4,11 @@ debug = True
 myHost = '0.0.0.0'
 #AMT = True
 
-
-
-
 #! ../venv/bin/python
 
 from flask import Response, json, Flask, request, render_template, redirect, jsonify, session
 #from flask.ext.sqlalchemy import SQLAlchemy
-import os.path, time
+import os.path, time, random
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
@@ -57,6 +54,7 @@ learntime = 2 #in minutes
 
 numberOfSessions = 2
 
+numberOfGroups = 3 #this is used for setting up the random manipulation
 
 def trackingLog(path, method,uuid=''):
     print 'in tracker path: '+path+'. Method:'+method+'. Time:'+time.asctime()
@@ -89,17 +87,10 @@ def socketindex():
 @app.route('/', methods = ['GET','POST'])
 def index():  
     if request.method == 'GET':
-        #user_agent = request.headers.get('User-Agent')
         trackingLog('/',request.method)
-        #if AMT:
-        #return render_template('agreement_turk.html', exptime = exptime, learntime=learntime,\
-        # numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
-        #else: 
         return render_template('agreement.html', exptime = exptime, learntime=learntime,\
         numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
-        #return'<h1>Hello World</h1><p>Your browser is %s</p>' % user_agent
     else:
-        #number = -100
         #Check if a user exists, if so increment UserID
         if not UserTracking.search(where('UserID')):
             number = 0
@@ -110,19 +101,14 @@ def index():
             number = record['UserID'] + 1
             UserTracking.update({'UserID': number }, where('UserID'))
         session['userID'] = number
-        #session['subjectOrder'] = order[number-1]
         trackingLog('/',request.method,session['userID'])
         return redirect('/questions')
-    
     
 #the questions page.... The second page that the participant encounters
 @app.route('/questions', methods = ['GET','POST'])
 def user():
     trackingLog('/questions',request.method, session['userID'])
     if request.method == 'GET':
-        #if AMT:
-        #    return render_template("questions_turk.html", title = 'questions')  
-        #else:
         return render_template("questions.html", title = 'questions')
     else:
         turkNickName = request.form['turkNickName']
@@ -130,8 +116,7 @@ def user():
         country = request.form['country']
         gender = request.form['gender']
         touch = request.form['touch']
-        print "touch - "
-        print touch
+        
         
         session['turkNickName'] = request.form['turkNickName']
         session['age'] = request.form['age']
@@ -139,10 +124,13 @@ def user():
         session['gender'] = request.form['gender']
         session['stageNumber'] = 0
         
+        #After the questions have been filled in, we can add the user to a condition
+        group = random.randrange(1,(numberOfGroups+1),1)
+        session['group'] = group
         
         UsersTable.insert({'userID':session['userID'], 'turkNickName':turkNickName, 'age':age, 'country':country, \
         'gender':gender, 'touch':touch, 'serverTime':time.asctime(), 'browsertype':request.form['browserType'], \
-        'numberOfSessions':numberOfSessions,'exptime':exptime, 'learntime':learntime})
+        'numberOfSessions':numberOfSessions,'exptime':exptime, 'learntime':learntime, 'group':group})
           
           
         return redirect('/instructions')
@@ -193,8 +181,8 @@ def stations():
     trackingLog('/stations',request.method, session['userID'])
     session['score']=-1
     gameduration = "gameduration = "+ str(exptime*60)
-    print "test"
-    print gameduration
+    #print "test"
+    #print gameduration
     data = stationsExperimentTable.all()
     blockNumbersVerbose = []
     for station in data:
@@ -222,12 +210,23 @@ def stations():
     session['stationSetup'] = station
     print session['stageNumber']
     session['SessionStartTime'] = time.asctime()
-    iTimes = '[20000,40000,60000,80000,12000]'
-    iMessageVal = '[true, false, true, false, true]'
+    #iTimes = '[20000,40000,60000,80000,12000]'
+    #iMessageVal = '[true, false, true, false, true]'
     
-    interruptions = interruptionsExperimentTable.all()
+    #interruptions1 = interruptionsExperimentTable.all()
+    #interruptions2 = interruptionsExperimentTable.search(where('group_number')==1)
+    interruptions = interruptionsExperimentTable.search(where('group_number')==session['group'])
+    
+    print 'session: '
+    print session['group']
+    
+    
+    #print '____________________________________'
+    
     print "just before render_template"
-    return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal, interruptions=json.dumps(interruptions))
+    #return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal, interruptions=json.dumps(interruptions))
+    return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), interruptions=json.dumps(interruptions))
+
 
 
 @app.route('/after_questions', methods =['GET', 'POST'])
@@ -362,7 +361,7 @@ def results():
 @app.route('/showsession')
 def showsession(): 
     return render_template('showSession.html',turkNickName = session['turkNickName'], \
-    stageNumber= session['stageNumber'], userID=session['userID'], score=session['score'])
+    stageNumber= session['stageNumber'], userID=session['userID'], score=session['score'], group=session['group'])
 
 @app.route('/resultsTLX')
 def resultsTLX():
