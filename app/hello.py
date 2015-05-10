@@ -54,7 +54,7 @@ learntime = 2 #in minutes
 
 numberOfSessions = 2
 
-numberOfGroups = 3 #this is used for setting up the random manipulation
+numberOfGroups = 3 #this is used for setting up the random manipulation,  we have 2 groups with interruptions 
 
 def trackingLog(path, method,uuid=''):
     print 'in tracker path: '+path+'. Method:'+method+'. Time:'+time.asctime()
@@ -125,7 +125,7 @@ def user():
         session['stageNumber'] = 0
         
         #After the questions have been filled in, we can add the user to a condition
-        group = random.randrange(1,(numberOfGroups+1),1)
+        group = random.randrange(0,(numberOfGroups),1) #produces random numbers from 0 to numberOfGroups - 1
         session['group'] = group
         
         UsersTable.insert({'userID':session['userID'], 'turkNickName':turkNickName, 'age':age, 'country':country, \
