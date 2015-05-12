@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<script type="text/javascript" src="static/vendor/qrcode.js"></script>
+
+<div id="centered">
+<h1>You have completed the Learning Block</h1>
+
+<p>
+You will continue with the experiment block where you will handle mobile phone messages whilst managing several virtual pets in the pet hospital.<br><br>
+
+The current screen has two buttons on top that allow you to toggle between the views of the browser and a virtual mobile or wearable device. <br>
+
+Audible notifications will be made when you have recieved messages.
+Please go to the mobile tab now and press the "login button".
+Once you have completed that, press the submit button below to begin the trial.
+<form  method="post" action="after_learn">
+<input type="submit" id="submitbutton" name="submitbutton" value="Continue" />
+
+</form>
+</div>
+
+
+
+
+{% endblock %}

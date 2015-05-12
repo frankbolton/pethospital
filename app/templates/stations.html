@@ -3,6 +3,8 @@
 <!doctype html>
 
 <body>
+<base target="_parent" />
+    
 <script src="/static/jquery.js"></script>
 <script src="/static/gameScore.js"></script>
 <script src="/static/myStation.js"></script>
@@ -11,6 +13,8 @@
 body {
     overflow: hidden;
 }
+
+
 </style>
 <script type="text/javascript">
 //default parameters (to allow the templating engine to automatically build the experiment if it decides to.
@@ -120,10 +124,25 @@ function loop() {
             if (answer){
               eventLog();
               if (!gameScore.getLearnMode()){
-                  window.location.href="/after_questions";
+                  if ("False" == "{{multipleDevices}}"){
+                      //parent.document.location.href="/after_questions";
+                      window.location.href="/after_questions";
+                  }
+                  else {
+                      window.location.href="/after_questions";
+                      //parent.document.location.href="/after_questions";
+                  }
               }
-              else{
-                  window.location.href="/after_learn";
+              else {
+                  //window.location.href="/after_learn";
+                  if ("False"=="{{multipleDevices}}"){
+                      window.location.href="/stations_mobile";
+                      
+                  }
+                  else {
+                      window.location.href = "/after_learn"
+                      
+                  }
               }
             }
             else{

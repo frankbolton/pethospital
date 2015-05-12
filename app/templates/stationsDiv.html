@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+     <body onload="init()">
+         <p>By pressing the buttons below the views can be alternated:<p/>
+
+<button onclick="showStation()">Look at Station</button>
+<button onclick="showPhone()">Look at Smartphone</button> <br/>
+
+
+<iframe id = "station" src="after_learn" width = "1024" height = "700"  style="position:absolute;Left:0;Bottom:-10"></iframe>
+<iframe id = "phone" src="/sockets#/mobile?uid={{uid}}" width = "600" height = "700" style="position:absolute;Left:15;Bottom:-10"></iframe>
+
+
+
+<script type="text/javascript">
+
+    var origin = window.location.origin;
+
+    function showStation() {
+        document.getElementById("station").style.display = "block";
+        document.getElementById("phone").style.display = "none";
+        console.log("in showstation")
+    }
+
+    function showPhone() {
+        document.getElementById("phone").style.display = "block";
+        document.getElementById("station").style.display = "none";
+        console.log("in showphone")
+    }
+
+    function init() {
+        showStation();
+
+    }
+
+</script>
+
+
+
+
+</body>
+</html>

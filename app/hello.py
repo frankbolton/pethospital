@@ -3,6 +3,8 @@ portNumber = 5000
 debug = True
 myHost = '0.0.0.0'
 #AMT = True
+multipleDevices = False
+
 
 #! ../venv/bin/python
 
@@ -49,8 +51,8 @@ order  = [[0,1],[1,0]]
 def makeStation (parameter) :
     return 'this is my python function'
 
-exptime = 5 # in minutes
-learntime = 2 #in minutes
+exptime = 1 # in minutes
+learntime = 1 #in minutes
 
 numberOfSessions = 2
 
@@ -162,18 +164,30 @@ def stationsLearn():
         iTimes = []
         iMessageVal = []
         interruptions = []
-        return render_template('stations.html', gameduration = gameduration, stations = json.dumps(data),  trainingMode = 1, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal, interruptions=json.dumps(interruptions))
-    else:
-        return redirect('/after_learn')
+        return render_template('stations.html', gameduration = gameduration, stations = json.dumps(data),  trainingMode = 1, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal, interruptions=json.dumps(interruptions), multipleDevices=multipleDevices)
+    #There is no condition for Post here as Station.html generates a confirm and redirects, so there are no post requests.
 
 @app.route('/after_learn', methods = ['GET', 'POST'])
 def after_learn():
     trackingLog('/after_learn',request.method, session['userID'])    
     if request.method == 'GET':
-        return render_template('after_learn.html', uid = session['turkNickName'] )
+        if multipleDevices:
+            return render_template('after_learn.html', uid = session['turkNickName'])
+        else:
+            return render_template('after_learn_tabbed.html', uid = session['turkNickName'] )
     else:
         return redirect('/stations')
-        
+
+
+
+@app.route('/stations_mobile')
+def stations_mobile():
+    try:
+        return render_template('stationsDiv.html', uid = session['turkNickName'])
+    except KeyError:
+        print "else"
+        return render_template('noSession.html')
+
         
 #the actual experiment.... This is the forth page that the subject encounters.        
 @app.route('/stations')
@@ -225,7 +239,7 @@ def stations():
     
     print "just before render_template"
     #return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal, interruptions=json.dumps(interruptions))
-    return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), interruptions=json.dumps(interruptions))
+    return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), interruptions=json.dumps(interruptions), multipleDevices=multipleDevices)
 
 
 
@@ -266,7 +280,10 @@ def after_questions():
             
         if session['stageNumber']<1:
             session['stageNumber']+=1
-            return redirect('/stations')
+            if multipleDevices:
+                return redirect('/stations')
+            else:
+                return redirect('/stations')
         else:
             return redirect('/end')
     #4 sets of logging functions- user, experiment, event and periodic
