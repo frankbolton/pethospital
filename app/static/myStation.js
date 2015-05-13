@@ -67,10 +67,10 @@ var myStation = function () {
     var that = this;
     
     
-    debug = 1;
+    debugState = 1;
 	
     function eventLog(stationNumber, stationEvent) {
-    	if (debug ==1){
+    	if (debugState ==1){
         	var LogObject = {};
         	LogObject['score']=gameScore.getscore();
         	LogObject['secondsLeft']=gameScore.secondsLeft();
@@ -81,8 +81,9 @@ var myStation = function () {
         	}
         
         	var myjson =JSON.stringify(LogObject, null, 2);
-        	console.log(myjson);
-        	$.ajax({type: "POST", url:'/eventLog', data:myjson, contentType:'application/json'});
+            console.log("This is my json string");
+            console.log(myjson);
+        	jQuery.ajax({type: "POST", url:'/eventLog/', data:myjson, contentType:'application/json'});
 		}
     }    
     
@@ -195,6 +196,7 @@ var myStation = function () {
 
          
     function onMouseClick(e)  {
+        eventLog();
         mouseX=(e.clientX-theCanvas.offsetLeft)/scale.x;
         mouseY=(e.clientY-theCanvas.offsetTop)/scale.y;
         //text

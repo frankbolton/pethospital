@@ -6,6 +6,7 @@ myHost = '0.0.0.0'
 multipleDevices = False
 
 
+
 #! ../venv/bin/python
 
 from flask import Response, json, Flask, request, render_template, redirect, jsonify, session
@@ -51,8 +52,10 @@ order  = [[0,1],[1,0]]
 def makeStation (parameter) :
     return 'this is my python function'
 
-exptime = 1 # in minutes
-learntime = 1 #in minutes
+exptime = 5 # in minutes
+learntime = 3 #in minutes
+
+
 
 numberOfSessions = 2
 
@@ -320,7 +323,7 @@ def end3():
         session.pop('name1', None)
         session.pop('date', None)
         session.pop('agree', None)
-        session.pop("userID", None)
+        session.pop('userID', None)
         session.pop('turkNickName', None)
         session.pop('age', None)
         session.pop('date', None)    
@@ -345,18 +348,40 @@ def userLogging():
     return('successful user insert?')
 
 
-@app.route('/eventLog', methods = ['POST']) 
+#@app.route('/eventLog', methods = ['GET','POST'])
+#def eventLogging():
+#    if request.method == 'GET':
+#        return ('test123456')
+#        trackingLog('/eventLog',request.method, session['userID'])
+#    else:
+#        trackingLog('/eventLog',request.method, session['userID'])
+
+
+@app.route('/eventLog/', methods = ['POST'])
 def eventLogging():
-    trackingLog('/eventLog',request.method, session['userID'])
-    logData = request.get_json()
-    session['score']=logData["score"]
-    print session['score']
-    logData["serverTime"] = time.asctime()
-    logData["stageNumber"] = session['stageNumber']
-    logData["userID"] = session['userID']
-    EventsTable.insert(logData)
-    return('successful insert' + str(logData))
-    
+    #if request.method == 'GET':
+        #    console.log("get on event log")
+        #logData = request.get_json()
+        #    trackingLog('/eventLog',request.method, session['userID'])
+        #return('You\'re trying to do get on a function that only deals with POST requests')
+        #else:
+    if request.method=='POST':
+        print 'successful in post'
+        logData = {}
+        #trackingLog('/eventLog',request.method, session['userID'])
+        #logData = request.get_json()
+        #session['score']=logData["score"]
+        #print session['score']
+        logData["serverTime"] = time.asctime()
+        logData["stageNumber"] = session['stageNumber']
+        logData["userID"] = session['userID']
+        logData["postData"] = request.json
+        #logData["postData1"] = get_json(request.data)
+        EventsTable.insert(logData)
+        print logData
+        return('successful run of post')
+
+
 
 #Phone interface is still in development
 @app.route('/phone')
@@ -367,13 +392,13 @@ def phone():
 
 @app.route('/results')
 def results():
-    data = str(UsersTable.all())
-    data += str(FeedbackTable.all())
-    data += str(EventsTable.all())
-    data += str(PeriodicLogsTable.all())
-    data += str(ParametersTable.all())
-    data += str(UserTracking.all())
-    return data
+    #data = jsonify(users = UsersTable.all())#str(UsersTable.all())
+    #data += jsonify(feedback = FeedbackTable.all())#str(FeedbackTable.all())
+    #data += str(EventsTable.all())
+    #data += str(PeriodicLogsTable.all())
+    #data += str(ParametersTable.all())
+    #data += str(UserTracking.all())
+    return jsonify(users = UsersTable.all())
     
 @app.route('/showsession')
 def showsession(): 
@@ -382,10 +407,11 @@ def showsession():
 
 @app.route('/resultsTLX')
 def resultsTLX():
-    TLXdata = FeedbackTable.all()
+    #TLXdata = FeedbackTable.all()
     #print(TLXdata)
     #return render_template('Results_TLX.html', ajax = TLXdata)
-    return jsonify(results = TLXdata)
+    #return jsonify(results = TLXdata)
+    return jsonify(results = FeedbackTable.all())
 
 @app.route('/resultsCatch')
 def resultsCatch():
