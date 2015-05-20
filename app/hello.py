@@ -5,12 +5,8 @@ myHost = '0.0.0.0'
 #AMT = True
 multipleDevices = False
 
-
-
-#! ../venv/bin/python
-
 from flask import Response, json, Flask, request, render_template, redirect, jsonify, session
-#from flask.ext.sqlalchemy import SQLAlchemy
+
 import os.path, time, random
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -45,7 +41,6 @@ ParametersTable = dbExperimentParameters.table('Parameters')
 UserTracking = dbExperimentParameters.table('TrackUsers')
 #------DO NOT REMOVE --------------------------------------------------------------
 
-
 #order = [[0,1,2],[1,2,0],[2,0,1]]
 order  = [[0,1],[1,0]]
 #This is the set of times required in the experiment. 
@@ -54,7 +49,6 @@ def makeStation (parameter) :
 
 exptime = 5 # in minutes
 learntime = 3 #in minutes
-
 
 
 numberOfSessions = 2

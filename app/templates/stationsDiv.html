@@ -2,19 +2,42 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>Pethospital</title>
+    <style>
+        <style>
+        #watch {
+            position: relative;
+            top: 0px;
+            left: 0px;
+            
+        }
+    #text {
+        position: relative;
+        top: -470px;
+        left: 210px;
+        
+    }
+    </style>
 </head>
      <body onload="init()">
          <p>By pressing the buttons below the views can be alternated:<p/>
 
 <button onclick="showStation()">Look at Station</button>
-<button onclick="showPhone()">Look at Smartphone</button> <br/>
+<button onclick="showPhone()">Look at Smartphone</button>
+<button onclick="showWatch()">Look at Smartwatch</button><br>
 
 
 <iframe id = "station" src="after_learn" width = "1024" height = "700"  style="position:absolute;Left:0;Bottom:-10"></iframe>
+
+<div id= "phone"></div>
+<!--
 <iframe id = "phone" src="/sockets#/mobile?uid={{uid}}" width = "600" height = "700" style="position:absolute;Left:15;Bottom:-10"></iframe>
-
-
+-->
+    <div id="watch">
+        <img src="static/watch1.gif"><div>
+            <div id="text">
+                <iframe id = "watchdiv" src="/sockets#/mobile?uid={{uid}}" width = "210" height = "260"></iframe>
+            </div>
 
 <script type="text/javascript">
 
@@ -23,13 +46,25 @@
     function showStation() {
         document.getElementById("station").style.display = "block";
         document.getElementById("phone").style.display = "none";
+        document.getElementById("watch").style.display = "none";
+        document.getElementById("watchdiv").style.display = "none";
         console.log("in showstation")
     }
 
     function showPhone() {
         document.getElementById("phone").style.display = "block";
         document.getElementById("station").style.display = "none";
+        document.getElementById("watch").style.display = "none";
+        document.getElementById("watchdiv").style.display = "none";
         console.log("in showphone")
+    }
+
+    function showWatch() {
+        document.getElementById("phone").style.display = "none";
+        document.getElementById("station").style.display = "none";
+        document.getElementById("watch").style.display = "block";
+        document.getElementById("watchdiv").style.display = "block";
+        console.log("in showWatch")
     }
 
     function init() {
