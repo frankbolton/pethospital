@@ -42,6 +42,12 @@
 
     	//return "this is a test";
     }
+     
+     //function killTimeInner(){
+     //    t_remaining = 10;
+     //    return 10;
+     
+     //}
     
     function eventLog() {
         var LogObject = {};
@@ -60,6 +66,7 @@
 
     }    
     
+     
     
     function onMouseClick(e)
     {       
@@ -132,7 +139,10 @@
         minutessecondsLeft: function () {
         	return getMinSec(t_remaining);
         },
-        
+    killTime: function() {
+            timer = t_Max-10;
+    
+        },
         
         //this seems to be the one called mostly.
         drawScoreScreen: function () {
