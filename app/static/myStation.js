@@ -33,6 +33,7 @@ var myStation = function () {
     //image
    
     var lastTimeVisible = 0;
+    var autoHideAfterHeal = true;
    
     var helloWorldImage = new Image();
 	helloWorldImage.src = "static/1410447967_rabbit_animal_pink_cute.png";
@@ -190,6 +191,9 @@ var myStation = function () {
         	myGameScore.healStationPenalize(view_cost);
         	draw_station();
         	eventLog(id, "heal");
+            if (autoHideAfterHeal){
+               hide_health();
+            }
     	}
 	}
     

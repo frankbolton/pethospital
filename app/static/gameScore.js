@@ -185,13 +185,23 @@
                 }
             }    
             if ((t_remaining>0)&&learnMode){
-             	context.fillStyle    = textColor;
-                context.font         = gameScoreText;
-            	context.textBaseline = "top";
-                context.fillText  ("Score: "+score, 75, textTopOffset );	
-                context.fillText ("In Training Mode",300,textTopOffset);
-                //context.fillText ("Time Remaining: "+ t_remaining,600,10);
-                context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
+                if (t_remaining % 60 > 30) {
+                    context.fillStyle    = textColor;
+                    context.font         = gameScoreText;
+                    context.textBaseline = "top";
+                    context.fillText  ("Score: "+score, 75, textTopOffset );
+                    context.fillText ("In Training Mode",300,textTopOffset);
+                    //context.fillText ("Time Remaining: "+ t_remaining,600,10);
+                    context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
+                }
+                else {
+                    context.fillStyle    = textColor;
+                    context.font         = gameScoreText;
+                    context.textBaseline = "top";
+                    //context.fillText ("Keep all health measures above zero and hidden to increase your score",20,textTopOffset);
+                    context.fillText ("Keep the health levels above zero and hidden.",20,textTopOffset);
+                    context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
+                }
             }
             
             if (t_remaining<0) {

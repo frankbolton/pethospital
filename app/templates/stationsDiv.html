@@ -19,12 +19,15 @@
     }
     #stationButton {
         width: 30em;  height: 3em;
-        border: none; 
+        border: none;
+        border-radius:2px;
+        
         
     }
     #watchButton {
         width: 30em;  height: 3em;
-        border: none;
+        border: 1px;
+        border-radius:2px;
         
     }
     </style>
@@ -58,6 +61,11 @@
         document.getElementById("watch").style.display = "none";
         document.getElementById("watchdiv").style.display = "none";
         console.log("in showstation")
+        //change button to show it's been selected / other deselected
+        document.getElementById("stationButton").style.boxShadow = "3px 4px 0px 0px #899599"
+        document.getElementById("watchButton").style.boxShadow = "0px 0px 0px 0px";
+        document.getElementById("watchButton").style.backgroundColor = "#9E9D9C";
+        document.getElementById("stationButton").style.backgroundColor = "#D5D5D5";
     }
 
     function showPhone() {
@@ -66,6 +74,10 @@
         document.getElementById("watch").style.display = "none";
         document.getElementById("watchdiv").style.display = "none";
         console.log("in showphone")
+        
+        //change button to show it's been selected / other deselected
+                
+                
     }
 
     function showWatch() {
@@ -74,6 +86,14 @@
         document.getElementById("watch").style.display = "block";
         document.getElementById("watchdiv").style.display = "block";
         console.log("in showWatch")
+        //change button to show it's been selected / other deselected
+        //document.getElementById("#watchButton").style.box-shadow="3px 4px 0px 0px #899599";
+        document.getElementById("watchButton").style.boxShadow = "3px 4px 0px 0px #899599"
+        document.getElementById("stationButton").style.boxShadow = "0px 0px 0px 0px";
+        document.getElementById("stationButton").style.backgroundColor = "#9E9D9C";
+        document.getElementById("watchButton").style.backgroundColor = "#D5D5D5";
+
+        
     }
 
     function init() {
