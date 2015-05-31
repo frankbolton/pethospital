@@ -1,3 +1,5 @@
+
+
 .smoothleft {
     position:absolute;
     top:0;
@@ -71,8 +73,10 @@
 
 #arrow {
     position:fixed;
-    left:70px;
-    top:140px;
+    /*left:70px;
+    top:140px;*/
+    left:30px;
+    top:80px;
 }
 
 .arrowleft {
@@ -135,14 +139,28 @@
     border-radius:20px;
 }
 
+
+
+
 .page h5 {
-    font-weight:700;
-    font-size:40px;
+    /*font-weight:700;
+    font-size:40px;*/
+    font-size:28px;
     text-decoration: underline;
 }
 
+h3 {
+    font-size:40px
+}
+
+h2 {
+    font-size:40px
+}
+
+
 p {
-    font-size:28px;
+    font-size:16px;
+    /*font-size:28px;*/
 }
 
 .fodalvis {

@@ -58,7 +58,7 @@ input{
 }
 
 input[type = submit] {
-    width:12em;  
+    width:12em;
 }
 
 input[type = number]{
@@ -97,10 +97,10 @@ input[type=checkbox]
 input[type=radio]
 {
   /* Double-sized Checkboxes */
-  -ms-transform: scale(1); /* IE */
-  -moz-transform: scale(1); /* FF */
-  -webkit-transform: scale(1); /* Safari and Chrome */
-  -o-transform: scale(1); /* Opera */
+  -ms-transform: scale(1.0); /* IE */
+  -moz-transform: scale(1.0); /* FF */
+  -webkit-transform: scale(1.0); /* Safari and Chrome */
+  -o-transform: scale(1.0); /* Opera */
   margin-right: 5px;
   margin-top:2px;
   margin-bottom:10px;

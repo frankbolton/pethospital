@@ -2,7 +2,7 @@
 
 uid = turkNickName.toString();
 sid = socket.socket.sessionid;
-var phoneHeader = "<h2>Pet Hospital Study - Mobile</h2>";
+var phoneHeader = "<h3>PetMobile Msnger</h3>";
 var debug = 0;
 function eventLog(stationNumber, stationEvent) {
 	if (debug ==1){
