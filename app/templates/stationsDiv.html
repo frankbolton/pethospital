@@ -5,74 +5,82 @@
     <title>Pethospital</title>
     <style>
         <style>
-        #watch {
-            position: relative;
-            top: 0px;
-            left: 0px;
+    #watch {
+        position: relative;
+        top: 0px;
+        left: 0px;
             
         }
-    #text {
+    #watchiframe {
         position: relative;
-        top: -470px;
-        left: 210px;
-        
+        bottom:200px;
+        left:-444px;
     }
-    #stationButton {
-        width: 30em;  height: 3em;
+     .tabButton {
+        width: 500px;
+        height: 50px;
         border: none;
-        border-radius:2px;
+        border-radius:0px;
         outline: none;
+        font-size:22px;
     }
     
-    #watchButton {
-        width: 30em;  height: 3em;
-        border: 1px;
-        border-radius:2px;
-        outline: none;
+    .div1 {
+        width: 1005px;
+        
     }
+    hr {
+        margin-top: 0em;
+        margin-bottom: 0em;
+        
+    }
+    
+    
     </style>
 </head>
-     <body onload="init()">
-         <p>By pressing the buttons below the views can be alternated:<br>
+<body onload="init()">
+Pressing the buttons to change the view:<br>
+<div class = "div1">
+    <button class="tabButton" onclick="showStation()" id="stationButton" value="Hospital">Hospital</button>
+    <!---<button onclick="showPhone()">Smartphone</button>--->
+    <button class="tabButton"  onclick="showWatch()" id="watchButton">Smartwatch</button>
+    <hr color = "#D5D5D5">
+</div>
+<div id="station">
+    <iframe id = "station" src="after_learn" width = "1000" height = "700">Your browser does not support inline frames.</iframe>
+</div>
 
-<button onclick="showStation()" id="stationButton">Look at Station</button>
-<!---<button onclick="showPhone()">Look at Smartphone</button>--->
-<button onclick="showWatch()" id="watchButton">Look at Smartwatch</button></p>
-
-<iframe id = "station" src="after_learn" width = "1024" height = "700"  style="position:absolute;Left:0;Bottom:-10"></iframe>
-
-<div id= "phone"></div>
 <!--
+ <div id= "phone"></div>
 <iframe id = "phone" src="/sockets#/mobile?uid={{uid}}" width = "600" height = "700" style="position:absolute;Left:15;Bottom:-10"></iframe> width = "300"
 -->
-    <div id="watch" >
-        <img src="static/watch3.gif"></div>
-            <div id="text">
-                <iframe id = "watchdiv" src="/sockets#/mobile?uid={{uid}}" width = "210" height = "260"></iframe>
-            </div>
-
+<div id="watch">
+    <img src="static/watch3.gif">
+            <iframe  id="watchiframe" src="/sockets#/mobile?uid={{uid}}"  width = "210" height = "260" allowTransparency="true" >Your browser does not support inline frames.</iframe>
+</div>
 <script type="text/javascript">
 
     var origin = window.location.origin;
 
     function showStation() {
         document.getElementById("station").style.display = "block";
-        document.getElementById("phone").style.display = "none";
+        //document.getElementById("phone").style.display = "none";
         document.getElementById("watch").style.display = "none";
-        document.getElementById("watchdiv").style.display = "none";
         console.log("in showstation")
         //change button to show it's been selected / other deselected
-        document.getElementById("stationButton").style.boxShadow = "3px 4px 0px 0px #899599"
-        document.getElementById("watchButton").style.boxShadow = "0px 0px 0px 0px";
+        //document.getElementById("stationButton").style.boxShadow = "3px 4px 0px 0px #899599"
+        //document.getElementById("watchButton").style.boxShadow = "0px 0px 0px 0px";
         document.getElementById("watchButton").style.backgroundColor = "#9E9D9C";
         document.getElementById("stationButton").style.backgroundColor = "#D5D5D5";
+        document.getElementById("stationButton").style.fontWeight = "bold"
+        document.getElementById("watchButton").style.fontWeight = "normal"
+        
     }
 
     function showPhone() {
-        document.getElementById("phone").style.display = "block";
+        //document.getElementById("phone").style.display = "block";
         document.getElementById("station").style.display = "none";
         document.getElementById("watch").style.display = "none";
-        document.getElementById("watchdiv").style.display = "none";
         console.log("in showphone")
         
         //change button to show it's been selected / other deselected
@@ -81,19 +89,19 @@
     }
 
     function showWatch() {
-        document.getElementById("phone").style.display = "none";
+        //document.getElementById("phone").style.display = "none";
         document.getElementById("station").style.display = "none";
         document.getElementById("watch").style.display = "block";
-        document.getElementById("watchdiv").style.display = "block";
         console.log("in showWatch")
         //change button to show it's been selected / other deselected
         //document.getElementById("#watchButton").style.box-shadow="3px 4px 0px 0px #899599";
-        document.getElementById("watchButton").style.boxShadow = "3px 4px 0px 0px #899599"
-        document.getElementById("stationButton").style.boxShadow = "0px 0px 0px 0px";
+        //document.getElementById("watchButton").style.boxShadow = "3px 4px 0px 0px #899599"
+        //document.getElementById("stationButton").style.boxShadow = "0px 0px 0px 0px";
         document.getElementById("stationButton").style.backgroundColor = "#9E9D9C";
         document.getElementById("watchButton").style.backgroundColor = "#D5D5D5";
+        document.getElementById("stationButton").style.fontWeight = "normal"
+        document.getElementById("watchButton").style.fontWeight = "bold"
 
-        
     }
 
     function init() {

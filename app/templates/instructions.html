@@ -5,24 +5,27 @@
 
 
 <div id="centered">
-<h1>Instructions to perform the study</h1>
+<h3>You will perform an experiment consisting of</h3>
 <p style="font-size:18px">
-Your objective is to maximize your score in each session. The higher your score- the greater your odds of winning a $5 bonus!
-</p>
-<h3>Method</h3>
-<p style="font-size:18px">To have your score increase, all of the stations must have a positive health level and the health of all the stations must be hidden. <br>
-The pet health levels decrease over time.<br>
-Topping up the health is done by pressing the heal "button" - don't do it excessively as it's costly to your score.<br></p>
+<ul>
+<li>One {{learntime}} minute training block <br>
+<li>{{numberOfSessions}} recorded sessions of {{exptime}} minutes each</p></ul>
 
-<h3>Study particulars</h3>
-<p style="font-size:18px">
-Before the study you will perform a {{learntime}} minute training block to show you how the system behaves.<br>
-The study will consist of {{numberOfSessions}} tasks of {{exptime}} minutes each.<br> 
-After each task you have a chance to answer a few questions about your experience.<br>
-Please answer these honestly based on your personal experience, there are no incorrect answers.<br>
-This makes for an allocated experiment time of {{totalTime}} minutes.<br><br>
-</p>
+1 Your objective in the experiment is to try maximize your score, this will be shown periodically on the top left hand corner of the screen.<br>
+<img src="static/training_block_score_arrow.gif" alt="arrow showing the score" height="150" ><br>
+    
+    2 To increase your score, you need to keep all of the health measures for the pets above 0% by performing a periodic "healing" action, this tops up the inputs that the pet needs to recover from it's illness.<br>
+    <img src="static/healthpositive.gif" alt="arrow showing the score" height="150" ><br>
+"Healing" costs you score, so don't press the heal button too frequently..<br>
+   The second condition to the score increasing is that the pet health levels are hidden.
+   The pet is automatically hidden when the "heal" button is pressed.
+   <i>insert insert animated gif where health levels are all healthy and the score increases </i>
+   
 
+
+
+<br>
+Press the button below to begin the training block
 <form  method="post" action="instructions">
 <input type="submit" id="submitbutton" name="submitbutton" value="Continue" />
 
