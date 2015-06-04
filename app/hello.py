@@ -8,6 +8,10 @@ basicPayment = "US$1"
 bonusPayment = "US$1"
 
 
+#how to generate the animated gif:
+# (1) record a mov file with quicktime screen recorder
+# (2) convert to gif with ffmpeg -ss 00:00:00.000 -i pethospital_vid1.mov -pix_fmt rgb24 -r 10 -s 640x480 -t 00:00:09.000 output2.gif
+
 from flask import Response, json, Flask, request, render_template, redirect, jsonify, session
 
 import os.path, time, random
