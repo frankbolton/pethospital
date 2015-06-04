@@ -4,6 +4,9 @@ debug = True
 myHost = '0.0.0.0'
 #AMT = True
 multipleDevices = False
+basicPayment = "US$1"
+bonusPayment = "US$1"
+
 
 from flask import Response, json, Flask, request, render_template, redirect, jsonify, session
 
@@ -88,7 +91,8 @@ def index():
     if request.method == 'GET':
         trackingLog('/',request.method)
         return render_template('agreement.html', exptime = exptime, learntime=learntime,\
-        numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1))
+        numberOfSessions=numberOfSessions, totalTime = learntime + numberOfSessions * (exptime+1),\
+        basicPay = basicPayment, bonusPay = bonusPayment)
     else:
         #Check if a user exists, if so increment UserID
         if not UserTracking.search(where('UserID')):
