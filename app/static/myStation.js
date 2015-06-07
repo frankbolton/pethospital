@@ -10,7 +10,7 @@ var myStation = function () {
     var HealthTextSize = "200 22px sans-serif";
     var stationSize = {x:280, y:280};
     var buttonSize = {x:60, y:40};
-    var TitlePosition = {x:85,y:10};
+    var TitlePosition = {x:100,y:10};
     var HealthPosition = {x:50, y:(stationSize.y - (buttonSize.y *2.5))};
   
     var showButtonpos = { x:40, y:(stationSize.y - (buttonSize.y *1.5))};
@@ -44,7 +44,7 @@ var myStation = function () {
 	imageSize.y = 128;
 	
 	imageLocation.x = stationSize.x / 2 - imageSize.x / 2;
-	imageLocation.y = stationSize.y / 2 - imageSize.y / 2 -10;
+	imageLocation.y = stationSize.y / 2 - imageSize.y / 2 - 30;
 	console.log("imagewidth" + helloWorldImage.width);
 	var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
 	var station_hDelta = typeof arguments[1] === 'number' ? arguments[1] : 1;
