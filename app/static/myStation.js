@@ -2,7 +2,7 @@ var myStation = function () {
 	//myStation becomes the closure function in which to place the station functionality.  
 	//it gives me the ability to add more station objects easily.
 	// arguments: [0] health level at the start, [1] station decrease rate (%/s),
-	// arguments_cont: [2] noise added, [3], viewing_cost, [4] stationID, [5] topOffset, [6] leftOffset 
+	// arguments_cont: [2] noise added, [3], viewing_cost, [3] stationID, [4] topOffset, [5] leftOffset , [6] gameScore
 	
 	//HTML constants
     var buttonTextSize = "200 18px sans-serif";
@@ -49,10 +49,10 @@ var myStation = function () {
 	var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
 	var station_hDelta = typeof arguments[1] === 'number' ? arguments[1] : 1;
 	var station_noise = typeof arguments[2] === 'number' ? arguments[2] :0;
-	var view_cost = typeof arguments[3] === 'number' ? arguments[3] :0;
-	var id = typeof arguments[4] !== "undefined" ? arguments[4] : "canvas"+MYAPP.newStation();
-	var topOffset = typeof arguments[5] === 'number' ? arguments[5] : 100;
-	var leftOffset = typeof arguments[6] === 'number' ? arguments[6] : 100;
+	//var view_cost = typeof arguments[3] === 'number' ? arguments[3] :0;
+	var id = typeof arguments[3] !== "undefined" ? arguments[3] : "canvas"+MYAPP.newStation();
+	var topOffset = typeof arguments[4] === 'number' ? arguments[4] : 100;
+	var leftOffset = typeof arguments[5] === 'number' ? arguments[5] : 100;
 	var drawcounter = 0;
     var buttonCounter = 0;
     var canvasHTML = "<div style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">";
@@ -64,7 +64,7 @@ var myStation = function () {
   context.scale(scale.x,scale.y);
 	var station_h_visible = false;
 	
-    var myGameScore = arguments[7];
+    var myGameScore = arguments[6];
     var that = this;
     
     
@@ -169,7 +169,7 @@ var myStation = function () {
 		if (timeRemaining){
 			console.log("in show_health");
         	station_h_visible = true;
-        	myGameScore.healthViewPenalize(view_cost);
+        	myGameScore.healthViewPenalize();
         	draw_station();
         	eventLog(id, "show");
         	}
@@ -188,7 +188,7 @@ var myStation = function () {
         if (timeRemaining) {
 			console.log("in hide_health");
         	station_health = 100;
-        	myGameScore.healStationPenalize(view_cost);
+        	myGameScore.healStationPenalize();
         	draw_station();
         	eventLog(id, "heal");
             if (autoHideAfterHeal){

@@ -1,8 +1,8 @@
  var gameScore = function() {
 	var score = 0;
-	var scoreIncrease = typeof arguments[0] === 'number' ? arguments[0] : 5;
-	var healCost = typeof arguments[0] === 'number' ? arguments[1] : 3;
-	var viewCost = typeof arguments[0] === 'number' ? arguments[2] : 1;
+	var scoreIncrease = 50;
+	var healCost = 30;
+	var viewCost = 10;
 	var id = "Score";
 	var topOffset = 5;
 	var leftOffset = 40;
@@ -128,6 +128,17 @@
             //t_Max = intimer;
             learnMode = true;
         },
+        //var scoreIncrease = 5;
+        //var healCost = 3;
+        //var viewCost = 1;
+       setScoreDeltas: function (i,j,k) {
+           scoreIncrease = i;
+           healCost = j;
+           viewCost = k;
+        },
+    getScoreDeltas: function () {
+        return [scoreIncrease, healCost, viewCost];
+    },
         getLearnMode: function () {
             return learnMode;
         },
@@ -231,9 +242,9 @@
 			context.strokeRect(5,  5, width-10, height-10);
         },
         
-        healthViewPenalize: function (view_cost) {
-            console.log("health view penalize, score %i, cost %i",score, view_cost);
-			score = score - view_cost;
+        healthViewPenalize: function () {
+            console.log("health view penalize, score %i, cost %i",score, viewCost);
+			score = score - viewCost;
 			this.drawScoreScreen();
 		},
         healStationPenalize: function () {
@@ -241,6 +252,7 @@
 			score = score - healCost;
 			this.drawScoreScreen();
         },
+        
         tick: function () {
             timer +=1;
             seconds = timer % 60;

@@ -7,6 +7,10 @@ multipleDevices = False
 basicPayment = "US$1"
 bonusPayment = "US$1"
 
+viewCost = 1;
+healCost = 4;
+scoreIncrease = 5;
+
 
 #how to generate the animated gif:
 # (1) record a mov file with quicktime screen recorder
@@ -169,7 +173,7 @@ def stationsLearn():
         iTimes = []
         iMessageVal = []
         interruptions = []
-        return render_template('stations.html', gameduration = gameduration, stations = json.dumps(data),  trainingMode = 1, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal, interruptions=json.dumps(interruptions), multipleDevices=multipleDevices)
+        return render_template('stations.html', gameduration = gameduration, stations = json.dumps(data),  trainingMode = 1, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal, interruptions=json.dumps(interruptions), multipleDevices=multipleDevices, viewCost = viewCost, healCost = healCost, scoreIncrease = scoreIncrease)
     #There is no condition for Post here as Station.html generates a confirm and redirects, so there are no post requests.
 
 @app.route('/after_learn', methods = ['GET', 'POST'])
@@ -244,7 +248,7 @@ def stations():
     
     print "just before render_template"
     #return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), iTimes=iTimes, iMessageVal=iMessageVal, interruptions=json.dumps(interruptions))
-    return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), interruptions=json.dumps(interruptions), multipleDevices=multipleDevices)
+    return render_template('stations.html', gameduration = gameduration, stations = json.dumps(station), trainingMode = 0, turkNickName=str(session['turkNickName']), interruptions=json.dumps(interruptions), multipleDevices=multipleDevices, viewCost = viewCost, healCost = healCost, scoreIncrease = scoreIncrease)
 
 
 

@@ -23,7 +23,17 @@ var gameduration = 300;
 {{gameduration|safe}};
 
 
+var i = 1;
+var j = 1;
+var k = 1;
+i = {{scoreIncrease}};
+j = {{healCost}};
+k = {{viewCost}};
+
+
 gameScore.setDuration(gameduration);
+gameScore.setScoreDeltas(i,j,k);
+
 
 var turkNickName = "-1";
 turkNickName = {{turkNickName}};
@@ -49,12 +59,11 @@ var started = false;
 //{{stationSetup|safe}}
 data = {{stations | safe}}
 
+
 var station = [];
 for (i in data){
-	station[i]= new myStation(data[i].station_health, data[i].station_hDelta, data[i].station_noise, data[i].viewcost, data[i].id, data[i].topOffset, data[i].leftOffset, gameScore, logging);
+	station[i]= new myStation(data[i].station_health, data[i].station_hDelta, data[i].station_noise, data[i].id, data[i].topOffset, data[i].leftOffset, gameScore, logging);
 }
-
-
 interruptions = {{interruptions | safe}};
 console.log ("Interruptions JSON: "+ interruptions);
 
