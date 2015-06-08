@@ -70,6 +70,10 @@ var myStation = function () {
     
     debugState = 1;
 	
+    function rand(min, max, whole) {
+        return void 0===whole||!1===whole?Math.random()*(max-min+1)+min:!isNaN(parseFloat(whole))&&0<=parseFloat(whole)&&20>=parseFloat(whole)?(Math.random()*(max-min+1)+min).toFixed(whole):Math.floor(Math.random()*(max-min+1))+min;
+    }
+    
     function eventLog(stationNumber, stationEvent) {
     	if (debugState ==1){
         	var LogObject = {};
@@ -288,7 +292,14 @@ var myStation = function () {
             }           
         },    
         decrement: function () {
+            var myRand = rand(-1-station_hDelta,station_hDelta+1,true)
+            //console.log("health before: " + station_health+", health delta: "+station_hDelta+", rand: "+myRand)
 			station_health -= station_hDelta ;
+            station_health += myRand;
+            
+
+            // the rand function never returns min or max, so I've pushed them out one more so we get the true range.
+            
             if (station_health < 0){
                 station_health = 0;
             }
