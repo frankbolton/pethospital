@@ -29,6 +29,10 @@
 	var t_Max = 30; //300: allow five minutes of game play per cycle
 	var t_remaining = t_Max;
     var scoreVisible = false;
+     
+     
+     var scoreVisibilityNumerator = 5; //5 of every x seconds the score will be visible
+     var scoreVisibilityDenominator = 20; //x out of every 20 seconds the score will be visible
     
 
     
@@ -163,8 +167,9 @@
 			t_remaining = t_Max - timer;
             //console.log("foo "+t_remaining);
             
+           
             if ((t_remaining>0)&&(!learnMode)) {
-                if (t_remaining % 60 > 55) {
+                if (t_remaining % scoreVisibilityDenominator > (scoreVisibilityDenominator-scoreVisibilityNumerator)) {
                 	context.fillStyle    = textColor;
                 	context.font         = gameScoreText;
                 	context.textBaseline = "top";
@@ -185,7 +190,7 @@
                 }
             }    
             if ((t_remaining>0)&&learnMode){
-                if (t_remaining % 60 > 30) {
+                if (t_remaining % scoreVisibilityDenominator > (scoreVisibilityDenominator-scoreVisibilityNumerator)) {
                     context.fillStyle    = textColor;
                     context.font         = gameScoreText;
                     context.textBaseline = "top";
