@@ -292,16 +292,24 @@ var myStation = function () {
             }           
         },    
         decrement: function () {
-            var myRand = rand(-1-station_hDelta,station_hDelta+1,true)
+            var myRand = rand(-1-station_noise,station_noise+1,true)
             //console.log("health before: " + station_health+", health delta: "+station_hDelta+", rand: "+myRand)
-			station_health -= station_hDelta ;
-            station_health += myRand;
-            
+			            
 
             // the rand function never returns min or max, so I've pushed them out one more so we get the true range.
             
+            if (station_health > 0){
+                station_health -= station_hDelta ;
+                station_health += myRand;
+            }
+            
             if (station_health < 0){
                 station_health = 0;
+            }
+                
+            
+            if (station_health > 100){
+                station_health = 100;
             }
             draw_station();
 		},
