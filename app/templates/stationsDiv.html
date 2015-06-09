@@ -26,19 +26,31 @@
     }
     
     .div1 {
-        width: 1005px;
-        
+        /*width: 1005px;
+        overflow:hidden:*/
     }
     hr {
-        margin-top: 0em;
-        margin-bottom: 0em;
+       /* margin-top: 0em;
+        margin-bottom: 0em;*/
         
     }
+    #station{
+        overflow:hidden;
+        overflow:hidden; /*width = "1000" height = "700"*/
+        width:1000px;
+        height:700px;
+    }
+    #b1 {
+        position: fixed;
+        /*overflow-y: scroll;*/
+        width: 100%;
+    }
+
     
     
     </style>
 </head>
-<body onload="init()">
+<body onload="init()" id = "b1">
 Press the buttons to alternate the view:<br>
 <div class = "div1">
     <button class="tabButton" onclick="showStation()" id="stationButton" value="Hospital">Hospital</button>
@@ -46,8 +58,8 @@ Press the buttons to alternate the view:<br>
     <button class="tabButton"  onclick="showWatch()" id="watchButton">Smartwatch</button>
     <hr color = "#D5D5D5">
 </div>
-<div id="station">
-    <iframe id = "station" src="after_learn" width = "1000" height = "700">Your browser does not support inline frames.</iframe>
+<div id="station" class = "station">
+    <iframe id = "station" src="after_learn">Your browser does not support inline frames.</iframe>
 </div>
 
 <!--
@@ -78,6 +90,7 @@ Press the buttons to alternate the view:<br>
     }
 
     function showPhone() {
+        //$("body").css("overflow", "hidden");
         //document.getElementById("phone").style.display = "block";
         document.getElementById("station").style.display = "none";
         document.getElementById("watch").style.display = "none";
