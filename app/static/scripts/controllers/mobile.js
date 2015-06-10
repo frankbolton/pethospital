@@ -65,6 +65,7 @@ angular.module('ktz')
 	      $scope.status = data.setStatus;
 	    }
 
+      //ringing screen
 	  if(data.notify){
 	  		//junk code to figure out why I'm not getting notifications
 	  		console.log("in notify");
@@ -224,7 +225,7 @@ angular.module('ktz')
 	  $scope.lastInt = now;
 	  $scope.swipesy();
       };
-
+    //after the swipesy is done
       $scope.fullMessage = function(){
 	  $scope.setlandmark('page', 'message');
 	  $scope.messageHeader = $scope.currentNotify.messageHeader;
