@@ -108,10 +108,22 @@ input[type=radio]
 }
 
 
+.myButton{
+    width: 500px;
+    height: 50px;
+    border: 2px;
+  /*outline: none;
+     outline: none;
+     font-size:22px;
+     border: 2px;
+    border-radius:5px;
+    outline: none;
+    font-size:22px;*/
 
+}
 
 form {
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   
 }
 

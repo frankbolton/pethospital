@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <title>Pethospital</title>
     <style>
-        <style>
     #watch {
         position: relative;
         top: 0px;
         left: 0px;
-            
         }
     #watchiframe {
         position: relative;
-        bottom:200px;
+        bottom:185px;
         left:-444px;
+        width:215px;
+        height:280px;
     }
      .tabButton {
         width: 500px;
@@ -27,7 +27,10 @@
     
     .div1 {
         width: 1005px;
-        /*overflow:hidden:*/
+        margin-left: auto;
+        margin-right: auto;
+        
+        
     }
     hr {
        margin-top: 0em;
@@ -38,10 +41,10 @@
         overflow:hidden;
         overflow:hidden; /*width = "1000" height = "700"*/
         width:1000px;
-        height:700px;
+        height:620px;
     }
+
     #b1 {
-        position: fixed;
         /*overflow-y: scroll;*/
         width: 100%;
     }
@@ -51,14 +54,15 @@
     </style>
 </head>
 <body onload="init()" id = "b1">
-Press the buttons to alternate the view:<br>
 <div class = "div1">
+    
+    Press the buttons to alternate the view:<br>
     <button class="tabButton" onclick="showStation()" id="stationButton" value="Hospital">Hospital</button>
     <!---<button onclick="showPhone()">Smartphone</button>--->
     <button class="tabButton"  onclick="showWatch()" id="watchButton">Smartwatch</button>
     <hr color = "#D5D5D5">
-</div>
-<div id="station" class = "station">
+
+<div>
     <iframe id = "station" src="after_learn">Your browser does not support inline frames.</iframe>
 </div>
 
@@ -68,7 +72,9 @@ Press the buttons to alternate the view:<br>
 -->
 <div id="watch">
     <img src="static/watch3.gif">
-            <iframe  id="watchiframe" src="/sockets#/mobile?uid={{uid}}"  width = "210" height = "260" allowTransparency="true" >Your browser does not support inline frames.</iframe>
+            <iframe  id="watchiframe" src="/sockets#/mobile?uid={{uid}}"  allowTransparency="true" >Your browser does not support inline frames.</iframe>
+</div>
+
 </div>
 <script type="text/javascript">
 
