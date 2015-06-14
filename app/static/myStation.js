@@ -74,7 +74,7 @@ var myStation = function () {
         return void 0===whole||!1===whole?Math.random()*(max-min+1)+min:!isNaN(parseFloat(whole))&&0<=parseFloat(whole)&&20>=parseFloat(whole)?(Math.random()*(max-min+1)+min).toFixed(whole):Math.floor(Math.random()*(max-min+1))+min;
     }
     
-    function eventLog(stationNumber, stationEvent) {
+    /*function eventLog(stationNumber, stationEvent) {
     	if (debugState ==1){
         	var LogObject = {};
         	LogObject['score']=gameScore.getscore();
@@ -90,7 +90,7 @@ var myStation = function () {
             console.log(myjson);
         	jQuery.ajax({type: "POST", url:'/eventLog/', data:myjson, contentType:'application/json'});
 		}
-    }    
+    } */
     
     function draw_station(){
         //console.log("time up? "+ myGameScore.time_up());
@@ -204,7 +204,7 @@ var myStation = function () {
 
          
     function onMouseClick(e)  {
-        eventLog();
+        //eventLog();
         mouseX=(e.clientX-theCanvas.offsetLeft)/scale.x;
         mouseY=(e.clientY-theCanvas.offsetTop)/scale.y;
         //text
@@ -229,6 +229,7 @@ var myStation = function () {
         if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(station_h_visible)){
             console.log("Heal");
             heal_station();
+            //hide_health();
         }
     }
         
