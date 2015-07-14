@@ -367,24 +367,13 @@ def userLogging():
 
 @app.route('/eventLog/', methods = ['POST'])
 def eventLogging():
-    #if request.method == 'GET':
-        #    console.log("get on event log")
-        #logData = request.get_json()
-        #    trackingLog('/eventLog',request.method, session['userID'])
-        #return('You\'re trying to do get on a function that only deals with POST requests')
-        #else:
     if request.method=='POST':
         print 'successful in post'
-        logData = {}
-        #trackingLog('/eventLog',request.method, session['userID'])
-        #logData = request.get_json()
-        #session['score']=logData["score"]
-        #print session['score']
-        logData["serverTime"] = time.asctime()
+        logData = request.json
+        logData["serverTime_acs"] = time.asctime()
+        logData["serverTime"] = time.time()
         logData["stageNumber"] = session['stageNumber']
         logData["userID"] = session['userID']
-        logData["postData"] = request.json
-        #logData["postData1"] = get_json(request.data)
         EventsTable.insert(logData)
         print logData
         return('successful run of post')
