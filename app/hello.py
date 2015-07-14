@@ -22,7 +22,9 @@ import os.path, time, random
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
+
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,4325'
+
 
 from flask.ext.socketio import SocketIO, emit, join_room, leave_room, send
 
@@ -396,15 +398,7 @@ def phone():
 
     
 
-@app.route('/results')
-def results():
-    #data = jsonify(users = UsersTable.all())#str(UsersTable.all())
-    #data += jsonify(feedback = FeedbackTable.all())#str(FeedbackTable.all())
-    #data += str(EventsTable.all())
-    #data += str(PeriodicLogsTable.all())
-    #data += str(ParametersTable.all())
-    #data += str(UserTracking.all())
-    return jsonify(users = UsersTable.all())
+
     
 @app.route('/showsession')
 def showsession(): 
