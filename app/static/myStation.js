@@ -73,24 +73,7 @@ var myStation = function () {
     function rand(min, max, whole) {
         return void 0===whole||!1===whole?Math.random()*(max-min+1)+min:!isNaN(parseFloat(whole))&&0<=parseFloat(whole)&&20>=parseFloat(whole)?(Math.random()*(max-min+1)+min).toFixed(whole):Math.floor(Math.random()*(max-min+1))+min;
     }
-    
-    /*function eventLog(stationNumber, stationEvent) {
-    	if (debugState ==1){
-        	var LogObject = {};
-        	LogObject['score']=gameScore.getscore();
-        	LogObject['secondsLeft']=gameScore.secondsLeft();
-        	LogObject['stationNumber']=stationNumber;
-        	LogObject['stationEvent']=stationEvent;
-        	for (x in station) {
-        	   LogObject['station '+x+' health'] = station[x].get_health();
-        	}
-        
-        	var myjson =JSON.stringify(LogObject, null, 2);
-            console.log("This is my json string");
-            console.log(myjson);
-        	jQuery.ajax({type: "POST", url:'/eventLog/', data:myjson, contentType:'application/json'});
-		}
-    } */
+
     
     function draw_station(){
         //console.log("time up? "+ myGameScore.time_up());

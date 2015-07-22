@@ -4,8 +4,8 @@ debug = True
 myHost = '0.0.0.0'
 #AMT = True
 multipleDevices = False
-basicPayment = "US$1"
-bonusPayment = "US$1"
+basicPayment = "NIS 30"
+bonusPayment = "NIS 100"
 
 viewCost = 1;
 healCost = 4;
@@ -291,15 +291,17 @@ def after_questions():
             
         if session['stageNumber']<1:
             session['stageNumber']+=1
-            if multipleDevices:
-                return redirect('/stations')
-            else:
-                return redirect('/stations')
+            return redirect('/nextBlock')
+
         else:
             return redirect('/end')
     #4 sets of logging functions- user, experiment, event and periodic
     
-    
+
+@app.route('/nextBlock')
+def nextBlock():
+    return "Thank you for filling in the questions. To start the next section press <a href='/stations'>here</a>"
+
 @app.route('/end')
 def end():
     try:

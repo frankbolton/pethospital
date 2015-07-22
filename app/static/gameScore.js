@@ -47,28 +47,7 @@
     	//return "this is a test";
     }
      
-     //function killTimeInner(){
-     //    t_remaining = 10;
-     //    return 10;
-     
-     //}
-    
-    function eventLog() {
-        var LogObject = {};
 
-        LogObject['score']=gameScore.getscore();
-        LogObject['secondsLeft']=gameScore.secondsLeft();
-        LogObject['stationNumber']="scoreStation";
-        LogObject['stationEvent']="ProceedToTLX";
-        for (x in station) {
-           LogObject['station '+x+' health'] = station[x].get_health();
-        }
-        
-        var myjson =JSON.stringify(LogObject, null, 2);
-        console.log(myjson);
-        $.ajax({type: "POST", url:'/eventLog', data:myjson, contentType:'application/json'});
-
-    }    
     
      
     
