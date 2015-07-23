@@ -379,6 +379,7 @@ def eventLogging():
         logData["turkNickName"] = session['turkNickName']
         logData["group"]=session['group']
         EventsTable.insert(logData)
+        session['score'] = logData["score"];
         print logData
         return('successful run of post')
 
