@@ -376,6 +376,8 @@ def eventLogging():
         logData["serverTime"] = time.time()
         logData["stageNumber"] = session['stageNumber']
         logData["userID"] = session['userID']
+        logData["turkNickName"] = session['turkNickName']
+        logData["group"]=session['group']
         EventsTable.insert(logData)
         print logData
         return('successful run of post')

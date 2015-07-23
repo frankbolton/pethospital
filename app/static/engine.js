@@ -47,7 +47,7 @@ function notify(n){
 socket.on('serverConnect',function(data){
   console.log("serverConnect success"+toString(data));
   socket.emit('identify',{socketid:socket.socket.sessionid, uid:turkNickName.toString(), device:2});
-  eventLog(-2, {function:'serverConnect', foo:'wer'});
+  eventLog(-2, {function:'serverConnect'});
 });
 
 socket.on('joinedroom', function(data){

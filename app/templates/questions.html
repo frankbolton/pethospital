@@ -21,7 +21,7 @@ function checkCheckBox(f){
 	//load some content into hidden variables
 	document.getElementById('touch').value = Modernizr.touch
 	document.getElementById('browserType').value = navigator.userAgent
-		
+
 	//now perform the tests.
     if (f.gender.value <1 ){
         alert('Please enter a gender value.');
@@ -35,9 +35,20 @@ function checkCheckBox(f){
         alert('Please enter a subject ID number or Mechanical Turk ID');
         return false;
     }
+     if ((parseInt(f.turkNickName.value).toString()).length!= f.turkNickName.value.length) {
+        alert('leading zeros are not allowed for this experiment, if your legitimate ID starts with zero, please start with a 1 before your ID');
+        return false;
+    }
+    if (f.country.value.length == 0) {
+        alert('Please enter a country name');
+        return false;
+    }
     else
         return true;
 }
+
+
+
 
 
 //-->
