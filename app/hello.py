@@ -259,7 +259,7 @@ def after_questions():
     trackingLog('/after_questions',request.method, session['userID'])
     if request.method == 'GET':
         session['TLXStartTime'] = time.asctime()
-        return render_template("after_tlx.html")
+        return render_template("after_tlx.html", gameScore=session['score'])
     else:
         #record the feedback from the user.
         print "request: " + str(request)

@@ -21,6 +21,8 @@
 <script language="JavaScript" type="text/javascript">
 <!--
 
+var gameScore = {{ gameScore }};
+
 //JSON string to return
 var datareturn = {};
 var JSONreturn = {};
@@ -303,11 +305,14 @@ height: 40px; //height control doesnt work :(
 
 <body onLoad="onLoad();">
 
+
 <div id="div_part1">
+
+    <!--<p>In the previous session you acheived a score of {{ gameScore }}.</p>-->
 
 <!--method="POST"-->
 <form name="after" method="POST" action="after_questions" onsubmit="return buttonPart1();">
-  <h2>Task Questionnaire - Part 1 </h2>
+  <h2>Task Load Questionnaire  </h2>
   <h4>
   Click on each scale at the point that best indicates your experience of the task</h4> 
   
