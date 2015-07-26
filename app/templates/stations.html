@@ -93,17 +93,19 @@ const FRAME_RATE =10;
 var intervalTime = 1000/FRAME_RATE;
 var loopCounter=0;
 var flag = false;
+var answer = false;
+var redirectStarted = false;
 
 function loop() {
 	//log();
-  started = true;
+    started = true;
     loopCounter +=1;
     timeNow = new Date().getTime(),
     	time = 0,
     	elapsed = '0.0';
     
     
-    if (loopCounter > FRAME_RATE-1) { //we are in a 10x per-second action
+    if (loopCounter > FRAME_RATE-1)  {//we are in a 10x per-second action
     
       // This block of code generates the interruptions on the mobile phone. 
       //The times are in the vector itimes and the messages are in the imessages vector.
@@ -131,37 +133,12 @@ function loop() {
             //    alert('session over, please close and press the CONTINUE button');
             //    flag = true;
             //}
-          	
-            var answer = confirm("Session over, press OK to continue")
-            if (answer){
-              eventLog();
-              if (!gameScore.getLearnMode()){
-                  if ("False" == "{{multipleDevices}}"){
-                      //parent.document.location.href="/after_questions";
-                      window.location.href="/after_questions";
-                  }
-                  else {
-                      window.location.href="/after_questions";
-                      //parent.document.location.href="/after_questions";
-                  }
-              }
-              else {
-                  //window.location.href="/after_learn";
-                  if ("False"=="{{multipleDevices}}"){
-                      window.location.href="/stations_mobile";
-                      
-                  }
-                  else {
-                      window.location.href = "/after_learn"
-                      
-                  }
-              }
+
+            if(!answer) {
+                answer = confirm("Session over, press OK to continue")
             }
-            else{
-              //alert("You have to press Continue to ");
-            }
-            
         }
+
         
         //increment score if all stations have positive health and are hidden.
         var inc = true;
@@ -178,7 +155,42 @@ function loop() {
         }
         loopCounter =0;       
     }
-	
+
+    if (answer&&!redirectStarted){
+              eventLog(-1, "session over and confirmed");
+              if (!gameScore.getLearnMode()){
+                  if ("False" == "{{multipleDevices}}"){
+                      console.log("1");
+                      window.location.assign("/after_questions")
+                      redirectStarted = true;
+                  }
+                  else {
+                      window.location.assign("/after_questions")
+                      console.log("2");
+                      redirectStarted = true;
+                  }
+              }
+              else {
+                  //window.location.href="/after_learn";
+                  if ("False"=="{{multipleDevices}}"){
+                      window.location.assign("/stations_mobile")
+                      console.log("3");
+                      redirectStarted = true;
+                  }
+                  else {
+                      window.location.assign("/after_learn");
+                      console.log("4");
+                      redirectStarted = true;
+                  }
+              }
+            console.log("5");
+            }
+            //else{
+              //alert("You have to press Continue to ");
+            //}
+
+        //}
+
     window.setTimeout(loop, intervalTime);
 }
 

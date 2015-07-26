@@ -310,10 +310,14 @@ def end():
         +session["turkNickName"]+str(session["userID"])+"\""
         
         endCode = session["turkNickName"]+str(session["userID"])
+
+        firstBlock = -1
+        secondBlock = -1
+
         print endCode
         session.clear()
-        #return(endStr)    
-        return render_template('expComplete.html', endCode = endCode)
+
+        return render_template('expComplete.html', endCode=endCode, firstBlock=firstBlock, secondBlock=secondBlock)
     except KeyError:
         print "else"
         return render_template('noSession.html')

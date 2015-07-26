@@ -204,16 +204,16 @@
                 context.fillStyle    = textColor;
                 context.font         = gameScoreText;
                 context.textBaseline = "top";
-                context.fillText  ("Score: "+score, 75, textTopOffset);	
-                context.fillText ("Time is up. Press ", 570, textTopOffset);
-                
+                context.fillText  ("Score: "+score, 75, textTopOffset);
+                context.fillText ("Next stage loading.", 570, textTopOffset);
+                //context.fillText ("Time is up. Press ", 570, textTopOffset);
                 //showButton
-                context.fillStyle = "#00ffee";
-                context.fillRect(790, 5, 100, 40);
-                context.fillStyle    = textColor;
-                context.font         = gameScoreText;
-                context.textBaseline = "middle";
-                context.fillText  ("continue", 800, 30);	
+                //context.fillStyle = "#00ffee";
+                ///context.fillRect(790, 5, 100, 40);
+                //context.fillStyle    = textColor;
+                //context.font         = gameScoreText;
+                //context.textBaseline = "middle";
+                //context.fillText  ("continue", 800, 30);
             }
             
   			//box
