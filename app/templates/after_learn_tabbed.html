@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<script type="text/javascript" src="static/vendor/qrcode.js"></script>
-
+<script type="application/javascript" src="static/vendor/gifffer.min.js"></script>
 <div id="centered">
 <h3>Congratulations, training done... Read this carefully before starting the experiment</h3>
 In the experiment you will have to do two tasks:
@@ -16,12 +15,17 @@ In the experiment you will have to do two tasks:
     <li>Messages come with audible notification, so please put on your <b>headphones</b>.<br>
     <li>To access the content of the message, you must click and drag on the arrows.</li>
     see the video below to see what you need to do
-    <img src="static/swipe1.gif" alt"animated GIF showing how to swipe" border="2" align="center" height =480></li>
+    <!--<img src="static/swipe1.gif" alt="animated GIF showing how to swipe" border="2" align="center" height =480>-->
+    <img data-gifffer="static/swipe1.gif" border="2" align="center" height =480/>
+
+    </li>
 
 
-<p><br><br><br>
+<p><br>
 <li>To start, please follow the instructions in the animation below</p>
-<img src = "static/gameStart5.gif" alt"animated GIF showing how to begin the experiment" border="2" align="center" height =480></li>
+<!--<img src = "static/gameStart5.gif" alt="animated GIF showing how to begin the experiment" border="2" align="center" height =480>-->
+    <img data-gifffer="static/gameStart5.gif" border="2" align="center" height =480/>
+    </li>
 </ul>
 
 <br>
@@ -33,6 +37,12 @@ In the experiment you will have to do two tasks:
 
 </div>
 
+    <script type="application/javascript">
+
+     window.onload = function() {
+    Gifffer();
+}
+    </script>
 
 
 
