@@ -60,8 +60,8 @@ order  = [[0,1],[1,0]]
 def makeStation (parameter) :
     return 'this is my python function'
 
-exptime = 1 # in minutes
-learntime = 1 #in minutes
+exptime = 5 # in minutes
+learntime = 3 #in minutes
 
 
 numberOfSessions = 2
