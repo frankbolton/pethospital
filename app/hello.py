@@ -60,8 +60,8 @@ order  = [[0,1],[1,0]]
 def makeStation (parameter) :
     return 'this is my python function'
 
-exptime = 5 # in minutes
-learntime = 3 #in minutes
+exptime = 1 # in minutes
+learntime = 1 #in minutes
 
 
 numberOfSessions = 2
@@ -305,47 +305,122 @@ def nextBlock():
 @app.route('/end')
 def end():
     try:
+        print "inside TRY"
         trackingLog('/end',request.method, session['userID'])
         endStr = "Experiment complete, thank you. Please enter the code into mechanical turk: \""\
         +session["turkNickName"]+str(session["userID"])+"\""
-        
         endCode = session["turkNickName"]+str(session["userID"])
-
-        firstBlock = -1
-        secondBlock = -1
-
         print endCode
-        session.clear()
+        print session['userID']
+        #a1 = EventsTable.search((where('userID')==session['userID'])&(where('learnMode')==0)&(where('stationEvent')=="session over and confirmed")&(where('stageNumber')==1))
+        a0 = EventsTable.search((where('userID')==session['userID']))
+        a1 = EventsTable.search((where('userID')==session['userID'])&(where('stationEvent')=="session over and confirmed"))
+        a2 = EventsTable.search((where('userID')==session['userID'])&(where('stationEvent')=="session over and confirmed")&(where('learnMode')==0))
+        a3 = EventsTable.search((where('userID')==session['userID'])&(where('stationEvent')=="session over and confirmed")&(where('learnMode')==0)&(where('stageNumber')==0))
+        a4 = EventsTable.search((where('userID')==session['userID'])&(where('stationEvent')=="session over and confirmed")&(where('learnMode')==0)&(where('stageNumber')==1))
+        print "a0: "
+        print a0
+        print "a1: "
+        print a1
+        print "a2: "
+        print a2
+        print "a3: "
+        print a3
+        print "a4: "
+        print a4
+        a2_v = a2[0]
+        print a2_v
+        print a2_v[u'score']
 
-        return render_template('expComplete.html', endCode=endCode, firstBlock=firstBlock, secondBlock=secondBlock)
-    except KeyError:
+        a3_v = a3[0]
+        a4_v = a4[0]
+
+
+        firstBlock = a3_v[u'score']
+        secondBlock = a4_v[u'score']
+        #print endCode
+        print "firstBlock" + str(firstBlock)
+        session.clear()
+        return render_template('expComplete.html', endCode=endCode, firstBlock=str(firstBlock), secondBlock=secondBlock)
+
+    except:
         print "else"
         return render_template('noSession.html')
-    
+
+
+
+
+@app.route('/end2')
+def end2():
+    try:
+        print "Inside end2"
+        return "end2"
+
+    except KeyError:
+        print "else"
+        return "No key"
+
+
 @app.route('/end3')
 def end3():
     if request.method == 'GET':
-        #trackingLog('/end',request.method, session['userID'])
+          userIDs = str(session['userID'])
+          print "session " + userIDs
+          session["userID"] = '31'
+          #EventsTable.search((where('userID')==session['userID'])&(where('learnMode')==0)&(where('stationEvent')=="session over and confirmed")&(where('stageNumber')==1))
+
+
+          #a1 = EventsTable.search((where('userID')==session["userID"])&(where('learnMode')==0)&(where('stationEvent')=="session over and confirmed")&(where('stageNumber')==0))
+        #a1s = a1[1]
+        #firstBlock = a1s[u'score']
+
+          #print("sessionID " + session['userID'])
+          #session["userID1"]=session['userID']
+          a1 = {}
+          a1 = EventsTable.search((where('userID')==session['userID'])&(where('learnMode')==0)&(where('stationEvent')=="session over and confirmed")&(where('stageNumber')==0))
+          #a1 = EventsTable.search(where('userID')==session['userID'])
+          #a2 = EventsTable.search((where('userID')==session['userID'])&(where('learnMode')==0)&(where('stationEvent')=="session over and confirmed")&(where('stageNumber')==1))[0]
+
+          #a1= a1[0]
+          #a2= a2[0]
+
+          #print a1[u'score']
+          #print a2[u'score']
+          #a = EventsTable.search((where('userID')==session['userID1'])&(where('stationEvent')=="session over and confirmed"))
+          #print a
+          #b = a[0]
+          #print b
+          #print b['score']
+          #r = {}
+          #for c in a:
+              #r.update(len(c), c[u'score'])
+          #    print c
+          #print r
+          #return jsonify(results = a[u'score'])
+          #return ("test_1234 " +str(session["userID"]))
+          return jsonify(results=a1)
+
+#
+# #trackingLog('/end',request.method, session['userID'])
         #endStr = "Experiment complete, thank you. Please enter the code into mechanical turk"
         #print endstr
-        turkNickName = session['turkNickName']
-        userID=session['userID'] 
-        strlong = str(turkNickName)+str(userID)
-        session.pop('fullName', None)
-        session.pop('idnumber', None)
-        session.pop('address', None)    
-        session.pop('name1', None)
-        session.pop('date', None)
-        session.pop('agree', None)
-        session.pop('userID', None)
-        session.pop('turkNickName', None)
-        session.pop('age', None)
-        session.pop('date', None)    
-        session.pop('sex', None)
-        session.pop('salaryRange', None)
-        session.pop('stageNumber', None)
-        
-    return render_template('expComplete.html', turkNickName = turkNickName, userID=userID, strlong = strlong)
+        #turkNickName = session['turkNickName']
+        #userID=session['userID']
+        #strlong = str(turkNickName)+str(userID)
+        #session.pop('fullName', None)
+        #session.pop('idnumber', None)
+        #session.pop('address', None)
+        #session.pop('name1', None)
+        #session.pop('date', None)
+        #session.pop('agree', None)
+        #session.pop('userID', None)
+        #session.pop('turkNickName', None)
+        #session.pop('age', None)
+        #session.pop('date', None)
+        #session.pop('sex', None)
+        #session.pop('salaryRange', None)
+        #session.pop('stageNumber', None)
+        #return render_template('expComplete.html', turkNickName = turkNickName, userID=userID, strlong = strlong)
   
  #--------------------------------------------------------------------------------------
  #  Results paths
