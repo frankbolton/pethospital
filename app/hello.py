@@ -295,10 +295,12 @@ def after_questions():
             print session['userID']
             
         if session['stageNumber']<numberOfSessions:
+            print "current stage: " + str(session['stageNumber'])+", go until: "+numberOfSessions
             session['stageNumber']+=1
             return redirect('/nextBlock')
 
         else:
+            print "sessions over, go to the end"
             return redirect('/end')
     #4 sets of logging functions- user, experiment, event and periodic
     
