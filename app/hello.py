@@ -54,17 +54,17 @@ ParametersTable = dbExperimentParameters.table('Parameters')
 UserTracking = dbExperimentParameters.table('TrackUsers')
 #------DO NOT REMOVE --------------------------------------------------------------
 
-#order = [[0,1,2],[1,2,0],[2,0,1]]
-order  = [[0,1],[1,0]]
+order = [[0,1,2],[1,2,0],[2,0,1]]
+#order  = [[0,1],[1,0]]
 #This is the set of times required in the experiment. 
 def makeStation (parameter) :
     return 'this is my python function'
 
-exptime = 5 # in minutes
+exptime = 1 # in minutes
 learntime = 3 #in minutes
 
 
-numberOfSessions = 2
+numberOfSessions = 3
 
 numberOfGroups = 3 #this is used for setting up the random manipulation,  we have 2 groups with interruptions 
 
@@ -217,20 +217,25 @@ def stations():
     for ix in range(len(blocks)):
         blocks[ix] = stationsExperimentTable.search(where('block_number')==blockNumbers[ix])   
         print blocks[ix]
-        
-    print "userid mod 30 = " + str(session['userID']%2)
-    presenationOrder = order[session['userID']%2]
+    print "userid = "+str(session['userID'])+" number of Sessions: "+str(session['userID'])
+    print "userid mod 30 = " + str(session['userID']%numberOfSessions)
+    presenationOrder = order[session['userID']%numberOfSessions]
     print presenationOrder
     i = session['stageNumber'] 
     print i
     if presenationOrder[i] == 0: 
         session['stationCount'] = len(blocks[0])
         station = blocks[0]
-        print 'present 2 stations first'
+        print 'present 2 stations '
     elif presenationOrder[i] == 1:
         session['stationCount'] = len(blocks[1])
         station = blocks[1]
-        print 'present 6 stations first'
+        print 'present 4 stations '
+    elif presenationOrder[i] == 2:
+        session['stationCount'] = len(blocks[2])
+        station = blocks[2]
+        print 'present 6 stations '
+
     
     session['stationSetup'] = station
     print session['stageNumber']
@@ -289,7 +294,7 @@ def after_questions():
             print "userID"
             print session['userID']
             
-        if session['stageNumber']<1:
+        if session['stageNumber']<numberOfSessions:
             session['stageNumber']+=1
             return redirect('/nextBlock')
 
