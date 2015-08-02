@@ -294,8 +294,8 @@ def after_questions():
             print "userID"
             print session['userID']
             
-        if session['stageNumber']<numberOfSessions:
-            print "current stage: " + str(session['stageNumber'])+", go until: "+numberOfSessions
+        if session['stageNumber']<(numberOfSessions-1): #subtract one as we start at 0
+            print "current stage: " + str(session['stageNumber'])+", go until: "+str(numberOfSessions-1)
             session['stageNumber']+=1
             return redirect('/nextBlock')
 
@@ -325,6 +325,8 @@ def end():
         a2 = EventsTable.search((where('userID')==session['userID'])&(where('stationEvent')=="session over and confirmed")&(where('learnMode')==0))
         a3 = EventsTable.search((where('userID')==session['userID'])&(where('stationEvent')=="session over and confirmed")&(where('learnMode')==0)&(where('stageNumber')==0))
         a4 = EventsTable.search((where('userID')==session['userID'])&(where('stationEvent')=="session over and confirmed")&(where('learnMode')==0)&(where('stageNumber')==1))
+        a5 = EventsTable.search((where('userID')==session['userID'])&(where('stationEvent')=="session over and confirmed")&(where('learnMode')==0)&(where('stageNumber')==2))
+
         print "a0: "
         print a0
         print "a1: "
@@ -335,20 +337,26 @@ def end():
         print a3
         print "a4: "
         print a4
+        print "a5: "
+        print a5
+
         a2_v = a2[0]
         print a2_v
         print a2_v[u'score']
 
         a3_v = a3[0]
         a4_v = a4[0]
-
+        a5_v = a5[0]
 
         firstBlock = a3_v[u'score']
         secondBlock = a4_v[u'score']
+        thirdBlock = a5_v[u'score']
         #print endCode
-        print "firstBlock" + str(firstBlock)
+        print "firstBlock: " + str(firstBlock)
+        print "secondBlock: " + str(secondBlock)
+        print "thirdBlock" + str(thirdBlock)
         session.clear()
-        return render_template('expComplete.html', endCode=endCode, firstBlock=str(firstBlock), secondBlock=secondBlock)
+        return render_template('expComplete.html', endCode=endCode, firstBlock=str(firstBlock), secondBlock=str(secondBlock), thirdBlock=str(thirdBlock))
 
     except:
         print "else"
@@ -458,6 +466,8 @@ def eventLogging():
     if request.method=='POST':
         print 'successful in post'
         logData = request.json
+        session['score'] = logData["score"];
+
         logData["serverTime_acs"] = time.asctime()
         logData["serverTime"] = time.time()
         logData["stageNumber"] = session['stageNumber']
@@ -465,7 +475,6 @@ def eventLogging():
         logData["turkNickName"] = session['turkNickName']
         logData["group"]=session['group']
         EventsTable.insert(logData)
-        session['score'] = logData["score"];
         print logData
         return('successful run of post')
 
