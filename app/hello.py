@@ -6,7 +6,7 @@ myHost = '0.0.0.0'
 multipleDevices = False
 basicPayment = "NIS 30"
 bonusPayment = "NIS 100"
-
+#temporary
 viewCost = 1;
 healCost = 4;
 scoreIncrease = 5;
