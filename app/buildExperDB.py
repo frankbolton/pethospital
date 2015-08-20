@@ -13,4 +13,4 @@ ParametersTable = dbExperimentParameters.table('Parameters')
 UserTracking = dbExperimentParameters.table('TrackUsers')
 
 #start with a single group with a single subject.
-ParametersTable.insert({groupID: 1})
+ParametersTable.insert({'groupID': 1})
