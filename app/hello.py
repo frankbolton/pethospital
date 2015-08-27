@@ -29,6 +29,8 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,4325'
 from flask.ext.socketio import SocketIO, emit, join_room, leave_room, send
 
 from tinydb import TinyDB, where
+from tinydb.storages import JSONStorage
+from tinydb.middlewares import CachingMiddleware
 dbUsers = TinyDB(os.path.join(basedir,'dbUsers.json'))
 UsersTable = dbUsers.table('Users')
 
@@ -38,7 +40,7 @@ PageTracking = dbCatch.table('catch')
 dbTLX = TinyDB(os.path.join(basedir,'dbTLX.json'))
 FeedbackTable = dbTLX.table('TLXQuestions')
 
-dbEvents = TinyDB(os.path.join(basedir,'dbEvents.json'))
+dbEvents = TinyDB(os.path.join(basedir,'dbEvents.json'),storage=CachingMiddleware(JSONStorage))
 EventsTable = dbEvents.table('Events')
 
 db = TinyDB(os.path.join(basedir, 'dbExperimentConfiguration.json'))
@@ -605,19 +607,19 @@ def msg(data):
 
 
         
-@socketio.on('my event', namespace='/test')
-def test_message(message):
-    emit('my response', {'data': message['data']})
+#@socketio.on('my event', namespace='/test')
+#def test_message(message):
+#    emit('my response', {'data': message['data']})
 
-@socketio.on('my broadcast event', namespace='/test')
-def test_message(message):
-    emit('my response', {'data': message['data']}, broadcast=True)
+#@socketio.on('my broadcast event', namespace='/test')
+#def test_message(message):
+#    emit('my response', {'data': message['data']}, broadcast=True)
 
 
 
-@socketio.on('disconnect', namespace='/test')
-def test_disconnect():
-    print('Client disconnected')
+#@socketio.on('disconnect', namespace='/test')
+#def test_disconnect():
+#    print('Client disconnected')
         
 #--------------------------------------------------------------------------------------
 #   Run code 

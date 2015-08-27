@@ -13,8 +13,8 @@ function eventLog(stationNumber, stationEvent) {
         	      LogObject['station '+x+' health'] = station[x].get_health();
         	    }
             }
-        	LogObject['stationNumber']=stationNumber;
-        	LogObject['stationEvent']=stationEvent;
+			LogObject['stationNumber'] = stationNumber;
+			LogObject['stationEvent']=stationEvent;
             LogObject['browserTime']=new Date().getTime();
         	var myjson =JSON.stringify(LogObject, null, 2);
             console.log("This is my json string");
