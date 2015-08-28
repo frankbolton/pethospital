@@ -4,8 +4,8 @@ debug = True
 myHost = '0.0.0.0'
 #AMT = True
 multipleDevices = False
-basicPayment = "NIS 30"
-bonusPayment = "NIS 100"
+basicPayment = "$3"#"NIS 30"
+bonusPayment = "$5"#"NIS 100"
 #temporary
 viewCost = 1;
 healCost = 4;
