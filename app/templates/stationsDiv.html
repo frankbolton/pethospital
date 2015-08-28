@@ -96,7 +96,7 @@
         document.getElementById("stationButton").style.backgroundColor = "#D5D5D5";
         document.getElementById("stationButton").style.fontWeight = "bold";
         document.getElementById("watchButton").style.fontWeight = "normal";
-        eventLog(-1, "viewHospital");
+        eventLogNS("viewHospital");
         
     }
 
@@ -106,7 +106,7 @@
         document.getElementById("station").style.display = "none";
         document.getElementById("watch").style.display = "none";
         console.log("in showphone");
-        eventLog(-1, "viewPhone");
+        eventLogNS("viewPhone");
         //change button to show it's been selected / other deselected
                 
                 
@@ -125,7 +125,7 @@
         document.getElementById("watchButton").style.backgroundColor = "#D5D5D5";
         document.getElementById("stationButton").style.fontWeight = "normal";
         document.getElementById("watchButton").style.fontWeight = "bold";
-        eventLog(-1, "viewWatch");
+        eventLogNS("viewWatch");
     }
 
     function init() {

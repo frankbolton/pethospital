@@ -454,16 +454,26 @@ def userLogging():
     return('successful user insert?')
 
 
-#@app.route('/eventLog', methods = ['GET','POST'])
-#def eventLogging():
-#    if request.method == 'GET':
-#        return ('test123456')
-#        trackingLog('/eventLog',request.method, session['userID'])
-#    else:
-#        trackingLog('/eventLog',request.method, session['userID'])
+@app.route('/eventLogNS/', methods = ['GET','POST'])
+def eventLogging123():
+    if request.method=='POST':
+        print 'successful in post'
+        logData = request.json
+        #session['score'] = logData["score"];
 
+        logData["serverTime_acs"] = time.asctime()
+        logData["serverTime"] = time.time()
+        #logData["stageNumber"] = session['stageNumber']
+        #logData["userID"] = session['userID']
+        #logData["turkNickName"] = session['turkNickName']
+        #logData["group"]=session['group']
+        EventsTable.insert(logData)
+        print logData
+        return('/eventLog POST success')
+    else:
+        return ('/eventLog GET')
 
-@app.route('/eventLog/', methods = ['POST'])
+@app.route('/eventLog/', methods = ['POST', 'GET'])
 def eventLogging():
     if request.method=='POST':
         print 'successful in post'
@@ -478,7 +488,9 @@ def eventLogging():
         logData["group"]=session['group']
         EventsTable.insert(logData)
         print logData
-        return('successful run of post')
+        return('/eventLog/ POST success')
+    else:
+        return ('/eventLog/ GET')
 
 
 

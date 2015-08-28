@@ -22,3 +22,21 @@ function eventLog(stationNumber, stationEvent) {
         	jQuery.ajax({type: "POST", url:'/eventLog/', data:myjson, contentType:'application/json'});
 		//}
     }
+
+function eventLogNS(stationEvent) {
+    	//if (debugState ==1){
+        	var LogObject = {};
+        	if (typeof gameScore != 'undefined') {
+                LogObject['score']=gameScore.getscore();
+                LogObject['secondsLeft']=gameScore.secondsLeft();
+        	    LogObject['learnMode'] = gameScore.getLearnMode();
+
+            }
+			LogObject['stationEvent']=stationEvent;
+            LogObject['browserTime']=new Date().getTime();
+        	var myjson =JSON.stringify(LogObject, null, 2);
+            console.log("This is my json string");
+            console.log(myjson);
+        	jQuery.ajax({type: "POST", url:'/eventLogNS/', data:myjson, contentType:'application/json'});
+		//}
+    }

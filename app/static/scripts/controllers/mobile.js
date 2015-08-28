@@ -27,7 +27,7 @@ angular.module('ktz')
 	        $scope.setTurkUID = function(){
 	          //socket.emit('identify', {uid:$scope.turkuid});
 	          socket.emit('identify', {uid:$scope.turkuid,  socketid:socket.socket.sessionid, device:1});
-              $scope.headerHTML = '<p>... and now please press "Continue" in the Hospital view</p>';
+              $scope.headerHTML = '<p>... now tab to the <b>Hospital</b> view and press "Continue"</p>';
 	          document.getElementsByTagName('audio')[0].volume=1;
 	          
 	          document.getElementsByTagName('audio')[0].play();
