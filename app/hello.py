@@ -20,13 +20,15 @@ from flask import Response, json, Flask, request, render_template, redirect, jso
 
 import os.path, time, random
 basedir = os.path.abspath(os.path.dirname(__file__))
-
+print 'at basedir'
+print basedir
 app = Flask(__name__)
 
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,4325'
 
 
-from flask.ext.socketio import SocketIO, emit, join_room, leave_room, send
+#from flask.ext.socketio import SocketIO, emit, join_room, leave_room, send
+from flask_socketio import SocketIO
 
 from tinydb import TinyDB, where
 from tinydb.storages import JSONStorage
