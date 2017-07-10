@@ -36,4 +36,5 @@ foo = interruptionsExperimentTable.all()
 #print foo
 
 interruptions = interruptionsExperimentTable.search(where('group_number')==1)
-print interruptions
+print(interruptions)
+
