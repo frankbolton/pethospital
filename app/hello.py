@@ -27,8 +27,8 @@ app = Flask(__name__)
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,4325'
 
 
-#from flask.ext.socketio import SocketIO, emit, join_room, leave_room, send
-from flask_socketio import SocketIO
+from flask.ext.socketio import SocketIO, emit, join_room, leave_room, send
+#from flask_socketio import SocketIO
 
 from tinydb import TinyDB, where
 from tinydb.storages import JSONStorage
