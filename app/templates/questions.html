@@ -35,10 +35,6 @@ function checkCheckBox(f){
         alert('Please enter a subject ID number or Mechanical Turk ID');
         return false;
     }
-     if ((parseInt(f.turkNickName.value).toString()).length!= f.turkNickName.value.length) {
-        alert('leading zeros are not allowed for this experiment, if your legitimate ID starts with zero, please start with a 1 before your ID');
-        return false;
-    }
     if (f.country.value.length == 0) {
         alert('Please enter a country name');
         return false;
@@ -59,7 +55,7 @@ function checkCheckBox(f){
     <tr>
 <td style="width:40%" >Participant ID / Please enter the numbers that are part of your AMT WorkerID, leave out the letters:
 <!--<label><td style="width:50%" >Mechanical Turk WorkerId</label> -->
- </td><td><input type="number" name="turkNickName"></td></tr>
+ </td><td><input type="string" name="turkNickName"></td></tr>
 
 <tr><td>Age:</td><td><!--<input type="string" name="age">-->
 <select name="age">
