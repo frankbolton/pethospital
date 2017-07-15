@@ -23,6 +23,10 @@ function checkCheckBox(f){
 	document.getElementById('browserType').value = navigator.userAgent
 
 	//now perform the tests.
+    if (f.turkNickName.length == 0) {
+        alert('Please enter a Participant ID')
+        return false;
+    }
     if (f.gender.value <1 ){
         alert('Please enter a gender value.');
         return false;
