@@ -1,0 +1,57 @@
+<!doctype html>
+
+<head>
+
+<script src="./static/myStation.js"></script>
+<script src="./static/gameScore.js"></script>
+<script type="text/javascript">
+    
+//data = '{"_default": {}, "stations": {"1": {"leftOffset": 35.0, "block_number": 1.0, "station_health": 100.0, "station_id": 1.0, "station_hDelta": 2.0, "topOffset": 60.0, "station_noise": 2.0, "id": "Pet 1"}, "2": {"leftOffset": 340.0, "block_number": 1.0, "station_health": 100.0, "station_id": 2.0, "station_hDelta": 2.0, "topOffset": 60.0, "station_noise": 2.0, "id": "Pet 2"}, "3": {"leftOffset": 645.0, "block_number": 1.0, "station_health": 100.0, "station_id": 3.0, "station_hDelta": 4.0, "topOffset": 60.0, "station_noise": 2.0, "id": "Pet 3"}}}'
+//var station = [];
+//for (i in data){
+//    console.log(i);
+//	station[i]= new myStation(data[i].station_health, data[i].station_hDelta, data[i].station_noise, data[i].id, data[i].topOffset, data[i].leftOffset, gameScore);//, logging);
+//}
+
+var gameduration = 300;
+var i = 1;
+var j = 1;
+var k = 1;
+
+
+gameScore.setDuration(gameduration);
+gameScore.setScoreDeltas(i,j,k);
+
+
+var station =[];
+station[1] = new myStation(100, 1, 0, "ID", 50,50, gameScore)
+var timeNow = new Date().getTime();
+
+loop();
+
+var FRAME_RATE =1;
+var intervalTime = 1000/FRAME_RATE;
+var loopCounter=0;
+
+function loop() {
+    //loopCounter = loopCounter+1;
+    timeNow = new Date().getTime();
+    console.log(timeNow);
+
+    station[i].decrement();
+    if (station[1].OK &&!station[1].get_vis())
+    {
+        gameScore.inc();
+    }
+    window.setTimeout(loop, intervalTime);
+    
+}
+
+</script>
+
+</head>>
+
+<body>
+<H1>This is a test</H1>
+
+</body>

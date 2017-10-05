@@ -1,14 +1,12 @@
-{% block content %}
-
+<html>
 <!doctype html>
 
 <body>
-<base target="_parent" />
     
-<script src="/static/jquery.js"></script>
-<script src="/static/gameScore.js"></script>
-<script src="/static/myStation.js"></script>
-<script src="/static/eventLog.js"></script>
+<script src="./static/jquery.js"></script>
+<script src="./static/gameScore.js"></script>
+<script src="./static/myStation.js"></script>
+<script src="./static/eventLog.js"></script>
 <style>
 body {
     overflow: hidden;
@@ -20,15 +18,15 @@ body {
 //default parameters (to allow the templating engine to automatically build the experiment if it decides to.
 //var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
 var gameduration = 300;
-{{gameduration|safe}};
+//{{gameduration|safe}};
 
 
 var i = 1;
 var j = 1;
 var k = 1;
-i = {{scoreIncrease}};
-j = {{healCost}};
-k = {{viewCost}};
+//i = {{scoreIncrease}};
+//j = {{healCost}};
+//k = {{viewCost}};
 
 
 gameScore.setDuration(gameduration);
@@ -36,9 +34,9 @@ gameScore.setScoreDeltas(i,j,k);
 
 
 var turkNickName = "-1";
-turkNickName = {{turkNickName}};
+//turkNickName = {{turkNickName}};
 
-var socket= io.connect('/a');
+//var socket= io.connect('/a');
 
 
 
@@ -57,30 +55,30 @@ var station =[];
 var logging = [];
 var started = false;
 //{{stationSetup|safe}}
-data = {{stations | safe}}
-
+//data = {{stations | safe}}
+data = '{"_default": {}, "stations": {"1": {"leftOffset": 35.0, "block_number": 1.0, "station_health": 100.0, "station_id": 1.0, "station_hDelta": 2.0, "topOffset": 60.0, "station_noise": 2.0, "id": "Pet 1"}, "2": {"leftOffset": 340.0, "block_number": 1.0, "station_health": 100.0, "station_id": 2.0, "station_hDelta": 2.0, "topOffset": 60.0, "station_noise": 2.0, "id": "Pet 2"}, "3": {"leftOffset": 645.0, "block_number": 1.0, "station_health": 100.0, "station_id": 3.0, "station_hDelta": 4.0, "topOffset": 60.0, "station_noise": 2.0, "id": "Pet 3"}}}'
 
 var station = [];
 for (i in data){
 	station[i]= new myStation(data[i].station_health, data[i].station_hDelta, data[i].station_noise, data[i].id, data[i].topOffset, data[i].leftOffset, gameScore, logging);
 }
-interruptions = {{interruptions | safe}};
-console.log ("Interruptions JSON: "+ interruptions);
+//interruptions = {{interruptions | safe}};
+//console.log ("Interruptions JSON: "+ interruptions);
 
-var itimes=[];
-var imessageVal=[];
-var iswipesyCount=[];
-for (i in interruptions){
-    itimes[i] = interruptions[i].time;
-    imessageVal[i]= interruptions[i].value;
-    iswipesyCount[i]=interruptions[i].swipesyCount;
+//var itimes=[];
+//var imessageVal=[];
+//var iswipesyCount=[];
+//for (i in interruptions){
+//    itimes[i] = interruptions[i].time;
+ //   imessageVal[i]= interruptions[i].value;
+//    iswipesyCount[i]=interruptions[i].swipesyCount;
 	
-}
+//}
 
 
 var jstrainingMode = false;
 
-var PytrainingMode = {{trainingMode}};
+var PytrainingMode = false;
 if (PytrainingMode) {
     jstrainingMode = true;
     gameScore.setLearnMode(true);
@@ -108,10 +106,10 @@ function loop() {
     
       // This block of code generates the interruptions on the mobile phone. 
       //The times are in the vector itimes and the messages are in the imessages vector.
-      if((timeNow - startTime) >= itimes[messageindex]){
-        genInteruption(messageindex);
-    		messageindex++;
-    	}
+      //if((timeNow - startTime) >= itimes[messageindex]){
+      //  genInteruption(messageindex);
+    //		messageindex++;
+    //	}
        //logging.push("peridic logging, "+gameScore.secondsLeft()+", "+stationdata); 
 		//code to set a "time-is-up" state within the station objects
 		if (gameScore.timeLeft() == false){
@@ -194,39 +192,10 @@ function loop() {
 }
 
 
-function genInteruption(messageindex){
-  console.log("Interruption generated- index:  "+messageindex + ". currentInterruptVal: " + imessageVal[messageindex]);
-    if (imessageVal[messageindex])
-  { 
-    for (i2=0; i2<station.length; i2+=1) {
-        healths[i2]=station[i2].get_health();
-      }
-    var indexMax = healths.indexOf(Math.max.apply(Math, healths));
-    console.log("healths before: " + healths+". Imax: "+ indexMax);
-    //kill the max station
-    //if (indexMax ==0) indexMax = 1;
-    station[indexMax].killstation();
-    
-    //test code
-    for (i2=0; i2<station.length; i2+=1) {
-        healths[i2]=station[i2].get_health();
-    }
-    console.log("healths after: " + healths+". Imax: "+ indexMax);
-    //end test code
-    
-    var ValidNotification = interruptions[messageindex];
-    ValidNotification.full = "Pet "+(indexMax+1)+" needs help. get to it.";
-    notify(ValidNotification);
-	}
-    else {
-      console.log("bogus message");
-      var Bogusnotification = interruptions[messageindex]
-      Bogusnotification.full = "Lunch special today on Hamburger";
-      notify(Bogusnotification);
-    }
-}
 
 </script>
+
 <body>
 </body>
-{% endblock %}
+</body>
+</html>

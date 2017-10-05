@@ -56,12 +56,12 @@
         mouseX=e.clientX-theCanvas.offsetLeft;
         mouseY=e.clientY-theCanvas.offsetTop;
         console.log("gameScore mouse: "+mouseX+" , y: "+mouseY);
-        eventLogNS("gameScore mouse: "+mouseX+" , y: "+mouseY);
+        //eventLogNS("gameScore mouse: "+mouseX+" , y: "+mouseY);
         var l = leftOffset+790;
         var t = topOffset+ 5;
         if ((mouseX > l)&&(mouseX < l+100)&&(mouseY > t)&&(mouseY < t+40)){ //over the button
             if (!(t_remaining>0)) { //button is visible. This is the redirect... 
-            	eventLogNS("ContinueButtonPressed");
+            	//eventLogNS("ContinueButtonPressed");
                 if (!learnMode){
                     window.location.href="/after_questions";
                 }
@@ -136,7 +136,7 @@
         },
     killTime: function() {
             timer = t_Max-10;
-            eventLogNS("killTime invoked")
+            //eventLogNS("killTime invoked")
     
         },
         

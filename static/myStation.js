@@ -50,8 +50,9 @@ var myStation = function () {
 	var station_hDelta = typeof arguments[1] === 'number' ? arguments[1] : 1;
 	var station_noise = typeof arguments[2] === 'number' ? arguments[2] :0;
 	//var view_cost = typeof arguments[3] === 'number' ? arguments[3] :0;
-	var id = typeof arguments[3] !== "undefined" ? arguments[3] : "canvas"+MYAPP.newStation();
-	var topOffset = typeof arguments[4] === 'number' ? arguments[4] : 100;
+	//var id = typeof arguments[3] !== "undefined" ? arguments[3] : "canvas"+MYAPP.newStation();
+    var id = arguments[3];
+    var topOffset = typeof arguments[4] === 'number' ? arguments[4] : 100;
 	var leftOffset = typeof arguments[5] === 'number' ? arguments[5] : 100;
 	var drawcounter = 0;
     var buttonCounter = 0;
@@ -158,8 +159,8 @@ var myStation = function () {
         	station_h_visible = true;
         	myGameScore.healthViewPenalize();
         	draw_station();
-        	eventLog(id, "show");
-        	}
+        	//eventLog(id, "show");
+       	}
 		}
             
     function hide_health() {
@@ -167,7 +168,7 @@ var myStation = function () {
 			console.log("in hide_health");
         	station_h_visible = false;
         	draw_station();
-        	eventLog(id, "hide");
+        	//eventLog(id, "hide");
         }
     }
         
@@ -177,7 +178,7 @@ var myStation = function () {
         	station_health = 100;
         	myGameScore.healStationPenalize();
         	draw_station();
-        	eventLog(id, "heal");
+        	//eventLog(id, "heal");
             if (autoHideAfterHeal){
                hide_health();
             }

@@ -19,7 +19,7 @@ function eventLog(stationNumber, stationEvent) {
         	var myjson =JSON.stringify(LogObject, null, 2);
             console.log("This is my json string");
             console.log(myjson);
-        	jQuery.ajax({type: "POST", url:'/eventLog/', data:myjson, contentType:'application/json'});
+        	//jQuery.ajax({type: "POST", url:'/eventLog/', data:myjson, contentType:'application/json'});
 		//}
     }
 
@@ -37,6 +37,6 @@ function eventLogNS(stationEvent) {
         	var myjson =JSON.stringify(LogObject, null, 2);
             console.log("This is my json string");
             console.log(myjson);
-        	jQuery.ajax({type: "POST", url:'/eventLogNS/', data:myjson, contentType:'application/json'});
+        	//jQuery.ajax({type: "POST", url:'/eventLogNS/', data:myjson, contentType:'application/json'});
 		//}
     }
