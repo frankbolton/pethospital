@@ -27,7 +27,7 @@ app = Flask(__name__)
 app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/,4325'
 
 
-from flask.ext.socketio import SocketIO, emit, join_room, leave_room, send
+#from flask.ext.socketio import SocketIO, emit, join_room, leave_room, send
 #from flask_socketio import SocketIO
 
 from tinydb import TinyDB, where
@@ -77,9 +77,9 @@ def trackingLog(path, method,uuid=''):
     PageTracking.insert({'path':path, 'uuid':uuid,'method':method, 'time':time.asctime()})
     return
 
-socketio = SocketIO(app)
-rooms = {}
-usrs = {}
+#socketio = SocketIO(app)
+#rooms = {}
+#usrs = {}
 
 def find_element_in_list(element,list_element):
     print(element)
@@ -94,10 +94,10 @@ def find_element_in_list(element,list_element):
 
 
 
-@app.route('/sockets')
-def socketindex():
-    print('INDEX')
-    return render_template('index.html')
+#@app.route('/sockets')
+#def socketindex():
+#    print('INDEX')
+#    return render_template('index.html')
 
 #the index pate is the agreement... It's the first page that the participant encounters
 @app.route('/', methods = ['GET','POST'])
@@ -541,83 +541,83 @@ def resultsEvents():
  #  Socket paths
  #-------------------------------------------------------------------------------------- 
   
-@app.route('/rooms')
-def roomspage():
-    return jsonify(results = rooms)
+#@app.route('/rooms')
+#def roomspage():
+#    return jsonify(results = rooms)
     
-@socketio.on('connect', namespace='/a')
-def test_connect(): #tested and works okay to get the phone and browser screens to show the UID questions
-    print('Client connected')
-    emit('serverConnect')#, {'data':' hello world'})
+#@socketio.on('connect', namespace='/a')
+#def test_connect(): #tested and works okay to get the phone and browser screens to show the UID questions
+#    print('Client connected')
+#    emit('serverConnect')#, {'data':' hello world'})
     
-@socketio.on('identify', namespace='/a')
-def identify_f(data):
-    userID = data['uid']
-    device = data['device']
-    socketID = str(device)#data['socketid'] #request.namespace.socket.sessid
+#@socketio.on('identify', namespace='/a')
+#def identify_f(data):
+#    userID = data['uid']
+#    device = data['device']
+#    socketID = str(device)#data['socketid'] #request.namespace.socket.sessid
     
-    print('_________________________')
+#    print('_________________________')
     
-    print('compare different sources, 1 data socketid'+str(data['socketid'])+', 2: request sessid:'+request.namespace.socket.sessid)
-    print('in identify, data: '+str(data))   
-    print('Uid: '+userID) #data['uid'])
-    print('socketID: '+socketID)
+#    print('compare different sources, 1 data socketid'+str(data['socketid'])+', 2: request sessid:'+request.namespace.socket.sessid)
+#    print('in identify, data: '+str(data))   
+#    print('Uid: '+userID) #data['uid'])
+#    print('socketID: '+socketID)
       #request.namespace.socket.sessid #+data['socketid']
-    print('Len(uid): '+str(len(data['uid'])))
-    print('rooms: ')
-    print(rooms)
-    print('usrs')
-    print(usrs)
+#    print('Len(uid): '+str(len(data['uid'])))
+#    print('rooms: ')
+#    print(rooms)
+#    print('usrs')
+#    print(usrs)
     
     
-    if data['uid'] in rooms: 
-        print('in rooms already')
+#    if data['uid'] in rooms: 
+#        print('in rooms already')
         #if find_element_in_list(request.namespace.socket.sessid, rooms[data['uid']])>-1:
-        if find_element_in_list(socketID, rooms[data['uid']])>-1:  
-            print('after "if"')
-            join_room(data['uid'])  #join_room() is part of flask socketio
-            usrs[socketID] = data['uid']
-            emit('joinedroom', data)
-        elif len(rooms[data['uid']])>1: #this is for the third and subsequent connection to the room
-            print('after elseif')
-            emit('failed', {'err':'already two connections'})
-        else: #this is for the third and subsequent connection to the room
-            print('final else- this is where we have the second socket of the pair')
-            join_room(data['uid'])  #join_room() is part of flask socketio
-            rooms[data['uid']].append(socketID)#data['socketid'])
-            usrs[socketID] = data['uid']
-            emit('joinedroom', data)
+#        if find_element_in_list(socketID, rooms[data['uid']])>-1:  
+#            print('after "if"')
+#            join_room(data['uid'])  #join_room() is part of flask socketio
+#            usrs[socketID] = data['uid']
+#            emit('joinedroom', data)
+#        elif len(rooms[data['uid']])>1: #this is for the third and subsequent connection to the room
+#            print('after elseif')
+#            emit('failed', {'err':'already two connections'})
+#        else: #this is for the third and subsequent connection to the room
+#            print('final else- this is where we have the second socket of the pair')
+#            join_room(data['uid'])  #join_room() is part of flask socketio
+#            rooms[data['uid']].append(socketID)#data['socketid'])
+#            usrs[socketID] = data['uid']
+#            emit('joinedroom', data)
        
     
-    else: #this is for the first connection to the room
-        print('not yet in rooms')
-        join_room(data['uid'])  #join_room() is part of flask socketio
+#    else: #this is for the first connection to the room
+#        print('not yet in rooms')
+#        join_room(data['uid'])  #join_room() is part of flask socketio
         #print socket.id
         #if data['uid'] not in rooms:
         #    rooms[data['uid']]=[]
         #rooms[data['uid']].append(data['socketid'])
-        rooms[data['uid']] = [socketID]#[data['socketid']]
-        usrs[socketID] = data['uid']
-        emit('joinedroom', data)
-        print('socketio'+str(socketio))
-        print('rooms'+ str(rooms))
+#        rooms[data['uid']] = [socketID]#[data['socketid']]
+#        usrs[socketID] = data['uid']
+#        emit('joinedroom', data)
+#        print('socketio'+str(socketio))
+#        print('rooms'+ str(rooms))
 
 
-@socketio.on('msg', namespace='/a')
-def msg(data):
-    device = data['device']
-    socketID = str(device)#data['socketid'] #request.namespace.socket.sessid
-    print('message received')
-    print(data)
-    print(request.namespace)
-    print(request)
-    print(request.namespace.socket.sessid)
-    print(rooms[data['uid']])
-    if find_element_in_list(socketID, rooms[data['uid']])>-1:
-        print('room :')
-        emit('msg', data, broadcast=True, room=data['uid'])
-    else:
-        print('computer sez no')
+#@socketio.on('msg', namespace='/a')
+#def msg(data):
+#    device = data['device']
+#    socketID = str(device)#data['socketid'] #request.namespace.socket.sessid
+#    print('message received')
+#    print(data)
+#    print(request.namespace)
+#    print(request)
+#    print(request.namespace.socket.sessid)
+#    print(rooms[data['uid']])
+#    if find_element_in_list(socketID, rooms[data['uid']])>-1:
+#        print('room :')
+#        emit('msg', data, broadcast=True, room=data['uid'])
+#    else:
+#        print('computer sez no')
 
 
 
@@ -642,6 +642,3 @@ def msg(data):
     
   
     
-if __name__ == '__main__':
-    #app.run(host= '0.0.0.0', port=portNumber, debug=debug)
-    socketio.run(app, host=myHost, port=portNumber)

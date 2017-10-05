@@ -9,7 +9,7 @@ b = wb.sheet_by_name('stationsExperiment')
 d = wb.sheet_by_name('interruptionsExperiment')
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-db = TinyDB(os.path.join(basedir, 'app/dbExperimentConfiguration.json'))
+db = TinyDB(os.path.join(basedir, 'dbExperimentConfiguration.json'))
 stationsLearnTable = db.table('stationsLearn')
 stationsExperimentTable = db.table('stationsExperiment')
 #interruptionsLearnTable = db.table('interruptionsLearn')
