@@ -1,5 +1,5 @@
 @charset "UTF-8";
-@import "styles.css";
+
 
 
 #pet_area {
@@ -9,13 +9,13 @@
 }
 
 .pets {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana,  Tahoma, sans-serif;
     background-color: lightcoral;
     font-size: 18pt;
     padding: 10pt;
     margin: 10pt;
     float: left;
-    width: 200 px;
+    width: 200px;
 }
 
 

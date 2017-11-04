@@ -36,7 +36,7 @@ var myStation = function () {
     var autoHideAfterHeal = true;
    
     var helloWorldImage = new Image();
-	helloWorldImage.src = "static/1410447967_rabbit_animal_pink_cute.png";
+	helloWorldImage.src = "helloworld.gif";
 	var imageLocation = {};//{x:40, y:60};
 	var imageSize = {x:helloWorldImage.width, y:helloWorldImage.height}; 
 	//image size read doesn't work... perhaps need to wait for the image to load??
@@ -61,20 +61,17 @@ var myStation = function () {
 	console.log("writing CanvasHTML to the page");
     var theCanvas = document.getElementById(id);
 	var context = theCanvas.getContext("2d"); 
-  context.scale(scale.x,scale.y);
+    context.scale(scale.x,scale.y);
 	var station_h_visible = false;
-	
     var myGameScore = arguments[6];
     var that = this;
-    
-    
+        
     debugState = 1;
 	
     function rand(min, max, whole) {
         return void 0===whole||!1===whole?Math.random()*(max-min+1)+min:!isNaN(parseFloat(whole))&&0<=parseFloat(whole)&&20>=parseFloat(whole)?(Math.random()*(max-min+1)+min).toFixed(whole):Math.floor(Math.random()*(max-min+1))+min;
     }
 
-    
     function draw_station(){
         //console.log("time up? "+ myGameScore.time_up());
         drawcounter +=1;
@@ -145,7 +142,7 @@ var myStation = function () {
             context.textBaseline = "top";
             context.fillText ("Health Level: " + parseInt(station_health) + "%", HealthPosition.x ,HealthPosition.y);
             
-            lastTimeVisible = timeNow;
+            //lastTimeVisible = timeNow;
         }
     }
     helloWorldImage.onload = function() {
@@ -159,8 +156,8 @@ var myStation = function () {
         	myGameScore.healthViewPenalize();
         	draw_station();
         	eventLog(id, "show");
-        	}
-		}
+        }
+    }
             
     function hide_health() {
         if (timeRemaining) {
@@ -183,18 +180,17 @@ var myStation = function () {
             }
     	}
 	}
-    
-
          
     function onMouseClick(e)  {
         //eventLog();
         mouseX=(e.clientX-theCanvas.offsetLeft)/scale.x;
         mouseY=(e.clientY-theCanvas.offsetTop)/scale.y;
-        //text
-        console.log("mouse: "+mouseX+", "+mouseY);
         //showButtonpos
         var l = showButtonpos.x+leftOffset;
         var t = showButtonpos.y+topOffset;
+        //text
+        console.log("mouse: "+mouseX+", "+mouseY+" and L="+l+" and t="+t);
+        
         if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(!station_h_visible)){
             console.log("Show");
             show_health();
@@ -278,30 +274,22 @@ var myStation = function () {
         decrement: function () {
             var myRand = rand(-1-station_noise,station_noise+1,true)
             //console.log("health before: " + station_health+", health delta: "+station_hDelta+", rand: "+myRand)
-			            
-
-            // the rand function never returns min or max, so I've pushed them out one more so we get the true range.
-            
+            // the rand function never returns min or max, so I've pushed them out one more so we get the true range.            
             if (station_health > 0){
                 station_health -= station_hDelta ;
                 station_health += myRand;
             }
-            
             if (station_health < 0){
                 station_health = 0;
             }
-                
-            
             if (station_health > 100){
                 station_health = 100;
             }
             draw_station();
-		},
-    
-     killstation: function() {
-      station_health = 0;
-    
-    },
+        },
+        killstation: function() {
+            station_health = 0;
+        },
 		get_health: function () {
 			return station_health;
 		},
@@ -323,9 +311,9 @@ var myStation = function () {
 		timeIsUp: function(){
 			timeRemaining = false;
 		},
-    lastVisibleTime: function () {
-      return (timeNow-lastTimeVisible)/1000;
-    },
+        lastVisibleTime: function () {
+            return (timeNow-lastTimeVisible)/1000;
+        },
 	};
 };
 

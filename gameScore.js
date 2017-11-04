@@ -36,15 +36,11 @@
     
 
     
-    //var myIcon = new Image();
-    //myIcon.source = "1410452410_game-theme_hospital.png";
-    
+      
     function getMinSec(){
     	var minutes = "0" + Math.floor(t_remaining / 60);
 		var seconds = "0" + (t_remaining - minutes * 60);
 		return minutes.substr(-2) + ":" + seconds.substr(-2);
-
-    	//return "this is a test";
     }
      
 
@@ -75,8 +71,7 @@
     
     //This is only drawn at the start of the running the function
     function drawScoreScreen() {
-    		
-            
+          
 			//background
  			context.fillStyle = bgColor_unSel;
   			context.fillRect(0, 0, width, height);
@@ -116,28 +111,33 @@
            healCost = j;
            viewCost = k;
         },
-    getScoreDeltas: function () {
-        return [scoreIncrease, healCost, viewCost];
-    },
+    
+        getScoreDeltas: function () {
+            return [scoreIncrease, healCost, viewCost];
+        },
+        
         getLearnMode: function () {
             return learnMode;
         },
-		getscore: function () {
+        
+        getscore: function () {
 			return score;
 		},
-		timeLeft: function () {
+        
+        timeLeft: function () {
             return t_remaining>0;
         },
+        
         secondsLeft: function () {
             return t_remaining;
         },
+        
         minutessecondsLeft: function () {
         	return getMinSec(t_remaining);
         },
-    killTime: function() {
+        killTime: function() {
             timer = t_Max-10;
             eventLogNS("killTime invoked")
-    
         },
         
         //this seems to be the one called mostly.

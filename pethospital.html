@@ -16,24 +16,45 @@
         <section id="pet_area">
             <div class = "pets" id="1">pet1</div>
             <div class = "pets" id="2">pet2</div>
-            <div class = "pets" id="3">pet3</div>
-            <div class = "pets" id="4">pet4</div>
-            <div class = "pets" id="5">pet5</div>
-            <div class = "pets" id="6">pet6</div>
-        </section>
+            </section>
 
         <section id="test_pet_area">
 
         </section>
+
+
         <script src="pethospital.js"></script>
         <script src="myStation.js"></script>
         <script src="gameScore.js"></script>
         <script type="text/javascript">
-            var mys = new myStation(100,1,1,"fe",400,400,score);
-            var scores = new gameScore();
+            var mys = new myStation(100,1,1,"fe",150,200,gameScore);
+            //var scores = new gameScore();
 
             gameScore.setDuration(60);
             gameScore.setScoreDeltas(1,1,1);
+
+            var previousTime = 0;
+
+            function drawScreen() {
+                var currentTime = Date.now();
+                if ((currentTime - previousTime ) > 1000)
+                {
+                    gameScore.tick();
+                    //myStation.tick();
+                    mys.decrement();
+                    if (mys.OK()){
+                        gameScore.inc()
+                    }
+                    previousTime = currentTime;
+                }
+            }
+
+            function gameLoop() {
+                window.setTimeout(gameLoop, 20);
+                drawScreen();
+            }
+
+            gameLoop();
 
         </script>
     </body>
