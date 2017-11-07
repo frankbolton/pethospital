@@ -2,7 +2,8 @@ var myStation = function () {
 	//myStation becomes the closure function in which to place the station functionality.  
 	//it gives me the ability to add more station objects easily.
 	// arguments: [0] health level at the start, [1] station decrease rate (%/s),
-	// arguments_cont: [2] noise added, [3], viewing_cost, [3] stationID, [4] topOffset, [5] leftOffset , [6] gameScore
+    // arguments_cont: [2] noise added, [3], viewing_cost, [3] stationID, [4] topOffset, [5] leftOffset , [6] gameScore
+   
 	
 	//HTML constants
     var buttonTextSize = "200 18px sans-serif";
@@ -36,7 +37,7 @@ var myStation = function () {
     var autoHideAfterHeal = true;
    
     var helloWorldImage = new Image();
-	helloWorldImage.src = "helloworld.gif";
+	helloWorldImage.src = "rabbit.png";
 	var imageLocation = {};//{x:40, y:60};
 	var imageSize = {x:helloWorldImage.width, y:helloWorldImage.height}; 
 	//image size read doesn't work... perhaps need to wait for the image to load??
@@ -64,12 +65,17 @@ var myStation = function () {
     context.scale(scale.x,scale.y);
 	var station_h_visible = false;
     var myGameScore = arguments[6];
+    
     var that = this;
         
     debugState = 1;
 	
     function rand(min, max, whole) {
         return void 0===whole||!1===whole?Math.random()*(max-min+1)+min:!isNaN(parseFloat(whole))&&0<=parseFloat(whole)&&20>=parseFloat(whole)?(Math.random()*(max-min+1)+min).toFixed(whole):Math.floor(Math.random()*(max-min+1))+min;
+    }
+
+    function eventLog(id, toLog){
+        logEvents.logText(toLog, id);
     }
 
     function draw_station(){
@@ -281,6 +287,8 @@ var myStation = function () {
             }
             if (station_health < 0){
                 station_health = 0;
+                console.log("at health zero");
+                eventLog(id, "health zero");
             }
             if (station_health > 100){
                 station_health = 100;

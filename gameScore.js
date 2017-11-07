@@ -120,7 +120,7 @@
             return learnMode;
         },
         
-        getscore: function () {
+        getScore: function () {
 			return score;
 		},
         

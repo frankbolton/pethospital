@@ -1,23 +1,14 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
     <head>
         <meta charset="utf-8"/>
-        <title>Title</title>
+        <title>Pethospital Task</title>
         <link rel="stylesheet" href="pethospital.css"/>
     </head>
   
     <body>
-        <section id="score">
-            This is the section where the sc
-            <code>this section looks like code</code>
-        </section>
-        <hr/>
-        <section id="pet_area">
-            <div class = "pets" id="1">pet1</div>
-            <div class = "pets" id="2">pet2</div>
-            </section>
-
+       
         <section id="test_pet_area">
 
         </section>
@@ -25,32 +16,56 @@
 
         <script src="pethospital.js"></script>
         <script src="myStation.js"></script>
+        <script src="logEvents.js"></script>
         <script src="gameScore.js"></script>
+        
         <script type="text/javascript">
-            var mys = new myStation(100,1,1,"fe",150,200,gameScore);
+
+            //(start health / health delta / noise / name / pos_h / pos_w / handle to gameScrore)
+            
+            var myStation1 = new myStation(100, 10, 0, "Tinky", 60, 50, gameScore);
+            var myStation2 = new myStation(100, 1, 1, "Dinky", 60, 350, gameScore);
+            var myStation3 = new myStation(100, 1, 1, "Loony", 60, 650, gameScore);
+            var myStation4 = new myStation(100, 1, 1, "Shoony",360,50, gameScore);
+            var myStation5 = new myStation(100, 1, 1, "Zoomy", 360, 350, gameScore);
+            var myStation6 = new myStation(100, 1, 1, "Timmy", 360, 650, gameScore);
+
+
             //var scores = new gameScore();
 
             gameScore.setDuration(60);
             gameScore.setScoreDeltas(1,1,1);
 
             var previousTime = 0;
+            var previousMod = 999;
+            var startTime = Date.now();
+            var currentTime = 0;
+            var currentMod = 0;
+
 
             function drawScreen() {
-                var currentTime = Date.now();
-                if ((currentTime - previousTime ) > 1000)
+                currentTime = Date.now();
+//                if ((currentTime - previousTime ) > 1000)
+                currentMod = currentTime % 1000;
+                //console.log("the current mod is" + currentMod + " and the previous mod is " + previousMod);
+                if (currentMod < previousMod)
                 {
+                    
                     gameScore.tick();
                     //myStation.tick();
-                    mys.decrement();
-                    if (mys.OK()){
+                    myStation1.decrement();
+                    myStation2.decrement();
+                    if (myStation1.OK() && myStation2.OK()) {
                         gameScore.inc()
                     }
                     previousTime = currentTime;
                 }
+
+                previousMod = currentMod;
             }
 
             function gameLoop() {
-                window.setTimeout(gameLoop, 20);
+                window.setTimeout(gameLoop, 100);
                 drawScreen();
             }
 
