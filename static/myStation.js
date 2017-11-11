@@ -37,7 +37,7 @@ var myStation = function () {
     var autoHideAfterHeal = true;
    
     var helloWorldImage = new Image();
-	helloWorldImage.src = "rabbit.png";
+	helloWorldImage.src = "/static/rabbit.png";
 	var imageLocation = {};//{x:40, y:60};
 	var imageSize = {x:helloWorldImage.width, y:helloWorldImage.height}; 
 	//image size read doesn't work... perhaps need to wait for the image to load??
@@ -56,7 +56,7 @@ var myStation = function () {
 	var leftOffset = typeof arguments[5] === 'number' ? arguments[5] : 100;
 	var drawcounter = 0;
     var buttonCounter = 0;
-    var canvasHTML = "<div style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">";
+    var canvasHTML = "<div style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\" class=\"pets\">";
 	canvasHTML +="<canvas id=\""+id+"\" width=\""+stationSize.x+"\" height=\""+stationSize.y+"\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
 	document.writeln(canvasHTML);
 	console.log("writing CanvasHTML to the page");

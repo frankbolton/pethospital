@@ -10,7 +10,6 @@
 
 .pets {
     font-family: Verdana,  Tahoma, sans-serif;
-    background-color: lightcoral;
     font-size: 18pt;
     padding: 10pt;
     margin: 10pt;
@@ -22,4 +21,13 @@
 
 #score {
     font-size: 24pt;
+}
+
+#submitButton {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 18pt;
+    padding: 10pt;
+    margin: 10pt;
+    top: 500px;
+    left: 200px;
 }

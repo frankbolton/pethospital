@@ -4,21 +4,21 @@
     <head>
         <meta charset="utf-8"/>
         <title>Pethospital Task</title>
-        <link rel="stylesheet" href="pethospital.css"/>
+        <link rel="stylesheet" type="text/css" href="/static/pethospital.css"/>
     </head>
   
     <body>
        
-        <section id="test_pet_area">
+        <section id="test_pet_area" hidden=false>
 
+
+
+
+            <script type="text/javascript" src="/static/pethospital.js"></script>
+            <script type="text/javascript" src="/static/myStation.js"></script>
+            <script type="text/javascript" src="/static/logEvents.js"></script>
+            <script  type="text/javascript" src="/static/gameScore.js"></script>
         </section>
-
-
-        <script src="pethospital.js"></script>
-        <script src="myStation.js"></script>
-        <script src="logEvents.js"></script>
-        <script src="gameScore.js"></script>
-        
         <script type="text/javascript">
 
             //parts to replace using templating from Flask
@@ -26,6 +26,7 @@
             //logEvents.setParticipantID({{id}});
 
             var station = [];
+            var returnThis = "";
             //(start health / health delta / noise / name / pos_h / pos_w / handle to gameScrore)
             
 
@@ -75,10 +76,19 @@
             function gameLoop() {
                 window.setTimeout(gameLoop, 100);
                 drawScreen();
+                returnThis = encodeURIComponent(logEvents.printLog());
+                document.getElementsByTagName('logs').value = returnThis;
             }
 
             gameLoop();
-
+            
         </script>
+
+        <div id="endsession" hidden = "false">
+            <form name="myform" action="experiment" method="POST">
+                <input type="hidden" name="logs"/>
+                <input type="submit" value="Continue" id ="submitButton"/>
+            </form>
+        </div>
     </body>
 </html>

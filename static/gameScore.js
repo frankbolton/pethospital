@@ -16,7 +16,7 @@
     var lineColor = "#a0a0a0"
     var textColor = "#404040";
     
-    var gameScoreText = "200 26px sans-serif"
+    var gameScoreText = "200 24px sans-serif"
     var textTopOffset = 14;
     
 	var canvasHTML = "<div id=\"gameScores\" style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">"
@@ -208,14 +208,9 @@
                 context.textBaseline = "top";
                 context.fillText  ("Score: "+score, 75, textTopOffset);
                 context.fillText ("Next stage loading.", 570, textTopOffset);
-                //context.fillText ("Time is up. Press ", 570, textTopOffset);
-                //showButton
-                //context.fillStyle = "#00ffee";
-                ///context.fillRect(790, 5, 100, 40);
-                //context.fillStyle    = textColor;
-                //context.font         = gameScoreText;
-                //context.textBaseline = "middle";
-                //context.fillText  ("continue", 800, 30);
+                document.getElementById("gameScores").hidden=true;
+                document.getElementById("endsession").hidden = false;
+               
             }
             
   			//box
@@ -243,7 +238,7 @@
         inc: function() {
             if (t_remaining>0){
                 score += scoreIncrease; 
-                }
+            }
         }, 	
 	};
 }();
