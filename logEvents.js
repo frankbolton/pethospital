@@ -10,7 +10,7 @@ var logEvents = function() {
 
     return {
 
-        setParticipantID(id) {
+        setParticipantID: function(id) {
             participantID = id;
         },
 
