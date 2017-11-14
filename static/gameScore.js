@@ -19,7 +19,7 @@
     var gameScoreText = "200 24px sans-serif"
     var textTopOffset = 14;
     
-	var canvasHTML = "<div id=\"gameScores\" style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">"
+	var canvasHTML = "<div id=\"gameScores1\" style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">"
 	canvasHTML +="<canvas id=\""+id+"\"  width=\""+width+"\" height=\""+height+"\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
 	document.writeln(canvasHTML);
 	var theCanvas = document.getElementById(id);
@@ -208,8 +208,8 @@
                 context.textBaseline = "top";
                 context.fillText  ("Score: "+score, 75, textTopOffset);
                 context.fillText ("Next stage loading.", 570, textTopOffset);
-                document.getElementById("gameScores").hidden=true;
-                document.getElementById("endsession").hidden = false;
+                //document.getElementById("gameScores").hidden=true;
+                //document.getElementById("endsession").hidden = false;
                
             }
             
