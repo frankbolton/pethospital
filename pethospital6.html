@@ -29,18 +29,18 @@
             //(start health / health delta / noise / name / pos_h / pos_w / handle to gameScrore)
             
 
-            station[0] = new myStation(100, 10, 0, "Tinky", 60, 50, gameScore);
-            station[1] = new myStation(100, 4, 1, "Dinky", 60, 350, gameScore);
-            station[2] = new myStation(100, 4, 1, "Loony", 60, 650, gameScore);
-            station[3] = new myStation(100, 10, 1, "Shoony",360,50, gameScore);
-            station[4] = new myStation(100, 4, 1, "Zoomy", 360, 350, gameScore);
-            station[5] = new myStation(100, 10, 1, "Timmy", 360, 650, gameScore);
+            station[0] = new myStation(100, 6, 0, "Tinky", 60, 50, gameScore);
+            station[1] = new myStation(100, 3, 1, "Dinky", 60, 350, gameScore);
+            station[2] = new myStation(100, 3, 1, "Loony", 60, 650, gameScore);
+            station[3] = new myStation(100, 6, 1, "Shoony",360,50, gameScore);
+            station[4] = new myStation(100, 3, 1, "Zoomy", 360, 350, gameScore);
+            station[5] = new myStation(100, 6, 1, "Timmy", 360, 650, gameScore);
 
 
             //var scores = new gameScore();
 
-            gameScore.setDuration(60);
-            gameScore.setScoreDeltas(1,1,1);
+            gameScore.setDuration(300);
+            gameScore.setScoreDeltas(2,1,1);
 
             var previousTime = 0;
             var previousMod = 999;
@@ -52,9 +52,9 @@
             function drawScreen() {
                 currentTime = Date.now();
 //                if ((currentTime - previousTime ) > 1000)
-                currentMod = currentTime % 1000;
+                //currentMod = currentTime % 1000;
                 //console.log("the current mod is" + currentMod + " and the previous mod is " + previousMod);
-                if (currentMod < previousMod)
+                if (currentTime > previousTime+1000)
                 {
                     var allOK = true;
                     gameScore.tick();
@@ -73,7 +73,7 @@
             }
 
             function gameLoop() {
-                window.setTimeout(gameLoop, 100);
+                window.setTimeout(gameLoop, 50);
                 drawScreen();
             }
 
