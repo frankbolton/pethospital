@@ -194,8 +194,10 @@ var myStation = function () {
         //showButtonpos
         var l = showButtonpos.x+leftOffset;
         var t = showButtonpos.y+topOffset;
-        //text
-        console.log("mouse: "+mouseX+", "+mouseY+" and L="+l+" and t="+t);
+        var lp = l + buttonSize.x;
+        var tp = t + buttonSize.y;
+        console.log("show - X: "+ l + " < " + mouseX + " < "+ lp + " and Y: "+t+" < "+mouseY+" < "+tp);
+//        console.log("mouse: "+mouseX+", "+mouseY+". L="+l+"< "+lp+" and t="+t+"< "+tp);
         
         if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(!station_h_visible)){
             console.log("Show");
@@ -204,6 +206,9 @@ var myStation = function () {
         //hideButtonpos
         l = hideButtonpos.x+leftOffset;
         t = hideButtonpos.y+topOffset;
+        lp = l + buttonSize.x;
+        tp = t + buttonSize.y;
+        console.log("hide - X: "+ l + " < " + mouseX + " < "+ lp + " and Y: "+t+" < "+mouseY+" < "+tp);
         if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(station_h_visible)){
             console.log("Hide");
             hide_health();
@@ -211,6 +216,9 @@ var myStation = function () {
         //healButtonpos
         l = healButtonpos.x+leftOffset;
         t = healButtonpos.y+topOffset;
+        lp = l + buttonSize.x;
+        tp = t + buttonSize.y;
+        console.log("heal - X: "+ l + " < " + mouseX + " < "+ lp + " and Y: "+t+" < "+mouseY+" < "+tp);
         if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(station_h_visible)){
             console.log("Heal");
             heal_station();
