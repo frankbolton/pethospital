@@ -33,3 +33,12 @@ def experiment():
         print('inside else')
         return render_template("pethospital.html")
 
+
+@app.route("/logging", methods = ['POST'])
+def logging():
+    if request.method == 'POST':
+        print('logging request made')
+        data = request.form
+        print(data)
+        return redirect('/')
+        

@@ -37,6 +37,16 @@ var logEvents = function() {
             return myStringOutput = JSON.stringify(eventLog);    
         },
 
+        pushLog: function() {
+            var myStringOutput = JSON.stringify(eventLog);
+            console.log(myStringOutput);
+            var request = new XMLHttpRequest();
+            request.open('POST', '/logging', true);
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            request.send(myStringOutput);
+            //var myjson = printLog();
+            //return jQuery.ajax({type: "POST", url:'/logging/', data:myjson, contentType:'application/json'});
+        },
 
 
         

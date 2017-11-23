@@ -189,8 +189,8 @@ var myStation = function () {
          
     function onMouseClick(e)  {
         //eventLog();
-        mouseX=(e.clientX-theCanvas.offsetLeft)/scale.x;
-        mouseY=(e.clientY-theCanvas.offsetTop)/scale.y;
+        mouseX=-10+(e.clientX-theCanvas.offsetLeft)/scale.x;
+        mouseY=-10+(e.clientY-theCanvas.offsetTop)/scale.y;
         //showButtonpos
         var l = showButtonpos.x+leftOffset;
         var t = showButtonpos.y+topOffset;
@@ -199,7 +199,7 @@ var myStation = function () {
         console.log("show - X: "+ l + " < " + mouseX + " < "+ lp + " and Y: "+t+" < "+mouseY+" < "+tp);
 //        console.log("mouse: "+mouseX+", "+mouseY+". L="+l+"< "+lp+" and t="+t+"< "+tp);
         
-        /*if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(!station_h_visible)){
+        if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(!station_h_visible)){
             console.log("Show");
             show_health();
         }
@@ -223,7 +223,7 @@ var myStation = function () {
             console.log("Heal");
             heal_station();
             //hide_health();
-        }*/
+        }
     }
         
     theCanvas.addEventListener("click", onMouseClick, false);   
