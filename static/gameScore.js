@@ -52,19 +52,12 @@
         mouseX=e.clientX-theCanvas.offsetLeft;
         mouseY=e.clientY-theCanvas.offsetTop;
         console.log("gameScore mouse: "+mouseX+" , y: "+mouseY);
-        eventLogNS("gameScore mouse: "+mouseX+" , y: "+mouseY);
+        
         var l = leftOffset+790;
         var t = topOffset+ 5;
-        if ((mouseX > l)&&(mouseX < l+100)&&(mouseY > t)&&(mouseY < t+40)){ //over the button
-            if (!(t_remaining>0)) { //button is visible. This is the redirect... 
-            	eventLogNS("ContinueButtonPressed");
-                if (!learnMode){
-                    window.location.href="/after_questions";
-                }
-                else{
-                    window.location.href="/after_learn";
-                }
-            }
+        if (t_remaining<=0)
+        {
+            console.log("area pressed, time over");
         }
     }
     theCanvas.addEventListener("click", onMouseClick, false); 
@@ -207,7 +200,7 @@
                 context.font         = gameScoreText;
                 context.textBaseline = "top";
                 context.fillText  ("Score: "+score, 75, textTopOffset);
-                context.fillText ("Next stage loading.", 570, textTopOffset);
+                context.fillText ("This section time is up", 570, textTopOffset);
                 //document.getElementById("gameScores").hidden=true;
                 //document.getElementById("endsession").hidden = false;
                

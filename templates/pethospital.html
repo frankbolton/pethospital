@@ -8,8 +8,7 @@
     </head>
   
     <body>
-       
-        <section id="test_pet_area">
+    <section id="test_pet_area">
 
 
 
@@ -27,15 +26,28 @@
 
             var station = [];
             var returnThis = "";
+            var writeLogToServer = false;
+            var logsWrittenToServer = false;
+
             //(start health / health delta / noise / name / pos_h / pos_w / handle to gameScrore)
             
+            var count = 6;
+            count = {{count}};
 
-            station[0] = new myStation(100, 10, 0, "Tinky", 40, 50, gameScore);
-            station[1] = new myStation(100, 4, 1, "Dinky", 40, 350, gameScore);
-            station[2] = new myStation(100, 4, 1, "Loony", 40, 650, gameScore);
-            station[3] = new myStation(100, 10, 1, "Shoony",340,50, gameScore);
-            station[4] = new myStation(100, 4, 1, "Zoomy", 340, 350, gameScore);
-            station[5] = new myStation(100, 10, 1, "Timmy", 340, 650, gameScore);
+            if(count>1){
+                station[0] = new myStation(100, 10, 1, "Tinky", 40, 50, gameScore);
+                station[1] = new myStation(100, 4, 1, "Dinky", 40, 350, gameScore);
+            }
+
+            if(count > 3){
+                station[2] = new myStation(100, 4, 1, "Loony", 40, 650, gameScore);
+                station[3] = new myStation(100, 10, 1, "Shoony",340,50, gameScore);
+            }
+
+            if (count > 5){
+                station[4] = new myStation(100, 4, 1, "Zoomy", 340, 350, gameScore);
+                station[5] = new myStation(100, 10, 1, "Timmy", 340, 650, gameScore);
+            }
 
 
             //var scores = new gameScore();
@@ -51,6 +63,13 @@
 
 
             function drawScreen() {
+                if(writeLogToServer){
+                    if(!logsWrittenToServer)
+                    {
+                        logEvents.pushLog();
+                        logsWrittenToServer = true;
+                    }                    
+                }
                 currentTime = Date.now();
 //                if ((currentTime - previousTime ) > 1000)
                 currentMod = currentTime % 1000;
@@ -63,6 +82,7 @@
                     for (i in station)  {
                         if (!timeleft){
                             station[i].timeIsUp();
+                            writeLogToServer = true;   
                         }
                         else {
                             station[i].decrement();
@@ -73,6 +93,8 @@
                         gameScore.inc();
                         
                     }
+
+                
                     previousTime = currentTime;
                 }
 

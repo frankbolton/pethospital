@@ -24,7 +24,7 @@ var logEvents = function() {
                 currentData.stationID = stationID;
             }            
             if (typeof score !="undefined"){
-                currentData.participantScore;
+                currentData.participantScore = score;
             }
 //             = gameScore.getScore();
             currentData.eventTime = Date.now();

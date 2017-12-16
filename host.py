@@ -9,7 +9,10 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 # activate venv:    source venv/bin/activate
 # add program to the environment variable and then run
 #  FLASK_APP=host.py flask run
-#
+#  FLASK_APP=host.py  FLASK_DEBUG=1 flask run
+
+
+
 #To run in windows 10:
 # activate venv:    venv/scripts/activate
 # set up environment variable:  set FLASK_APP=host.py
@@ -34,17 +37,10 @@ def hello():
         #return "hello world"
         return render_template("index.html")
 
-@app.route("/experiment", methods=['GET', 'POST'])
-def experiment():
-    if request.method == 'POST':
-        print('inside post')
-        #do some post action.... save the logs to the database and continue with experiment flow
-        print(request.form['logs'])
-        return redirect('/')
+@app.route("/experiment/<count>")
+def experiment(count=None):
+    return render_template("pethospital.html", count=count)
 
-    else:
-        print('inside else')
-        return render_template("pethospital.html")
 
 
 @app.route("/logging", methods = ['POST'])
@@ -53,7 +49,7 @@ def logging():
         print('logging request made')
         data = request.form
         EventsTable.insert(data)
-        #print(data)
+        print(data)
         return redirect('/')
         
 
