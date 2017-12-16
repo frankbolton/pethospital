@@ -15,7 +15,7 @@ var logEvents = function() {
         },
 
 
-        logText: function(i, stationID) {
+        logText: function(i, stationID, score) {
             //eventLog.push(i);
             currentData = {};
             currentData.participantID = participantID;
@@ -23,7 +23,10 @@ var logEvents = function() {
             if (typeof stationID !== "undefined"){
                 currentData.stationID = stationID;
             }            
-            currentData.participantScore = gameScore.getScore();
+            if (typeof score !="undefined"){
+                currentData.participantScore;
+            }
+//             = gameScore.getScore();
             currentData.eventTime = Date.now();
             eventLog.push(currentData);
             //add pulling in the health statuses for the stations....

@@ -23,11 +23,56 @@
     font-size: 24pt;
 }
 
-#submitButton {
+.submitButton {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
-    font-size: 18pt;
+    font-size: 1em;
     padding: 10pt;
     margin: 10pt;
     top: 500px;
     left: 200px;
+}
+
+
+
+#header {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 2em;
+    padding: 10pt;
+    text-align: center;
+}
+
+#form {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 1em;
+    padding: 10pt;
+
+}
+
+input[type=number],
+fieldset {
+/* required to properly style form 
+   elements on WebKit based browsers */
+  -webkit-appearance: none;
+  
+  width : 100%;
+  border: 1px solid #333;
+  margin: 0;
+  
+  font-family: inherit;
+  font-size: 90%;
+  
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+input:invalid {
+    border: 2px dashed grey;
+  }
+  
+input:valid {
+    outline: none;
+}
+
+p > label {
+    display: block;
 }

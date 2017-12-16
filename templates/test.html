@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+            <script type="text/javascript" src="/static/logEvents.js"></script>
+            <script type="text/javascript">
+            var t_Max = 30; //300: allow five minutes of game play per cycle
+	        </script>
+    </head>
+    <body>
+        <div id="heading" class="h1">
+            Test page
+        </div>
+
+        <div id = "eventSimulator">
+            <button onclick="Javascript:logEvents.logText('buttonPressed');">
+                Log Text
+            </button>
+            <button onclick="Javascript:document.getElementById('textArea').innerHTML = logEvents.printLog();">
+                print Text
+            </button>
+            <div id=textArea>
+                text goes here
+            </div>
+    
+
+        </div>
+    </body>
+</html>

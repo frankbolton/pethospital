@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Pethospital Start</title>
+        <link rel="stylesheet" type="text/css" href="/static/pethospital.css"/>
+    
+       
+    
+    </head>
+    <body>
+        <div id="header">
+            Welcome to the pethospital experiment.
+            Please enter the following information.
+        </div>
+        <div id="form">
+        <form id= "RegisterUser" name="RegisterUser" 
+                method="POST" action="/" onsubmit="return">
+            <p>
+                <label for="id">Participant ID (from your form)</label>
+                <input id="id" type="number" required>
+            </p>
+            <p>
+                <label for="age">Age: </label>    
+                <input id="age" type="number" required min="18" max="120">
+            </p>
+            <p>
+                <fieldset>
+                <label for="gender">Gender: </label>
+                <input type="radio" required name="gender" id="male">
+                <label for="male">Male</label>
+                <input type="radio" required name="gender" id="female">
+                <label for="female">Female</label>
+                <input type="radio" required name="gender" id="other">
+                <label for="other">Other / Prefer not to disclose</label>
+                </fieldset>
+                
+            </p>
+            <p>
+                <button>Submit</button>
+            </p>                
+            </table>    
+        </form>
+    </div>
+    </body>
+    </html>

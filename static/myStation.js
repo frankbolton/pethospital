@@ -75,7 +75,7 @@ var myStation = function () {
     }
 
     function eventLog(id, toLog){
-        logEvents.logText(toLog, id);
+        logEvents.logText(toLog, id, gameScore.getScore());
     }
 
     function draw_station(){
@@ -86,7 +86,10 @@ var myStation = function () {
         //clear canvas
         context.clearRect(0, 0, 300, 350);
         
-        if (!station_h_visible ){
+
+        
+
+        if (timeRemaining&&(!station_h_visible)){
             //background
             context.fillStyle = bgColor_unSel;
             context.fillRect(0, 0, stationSize.x, stationSize.y);
@@ -108,7 +111,7 @@ var myStation = function () {
             context.textBaseline = "middle";
             context.fillText  ("Show", showButtonpos.x+7, showButtonpos.y + buttonSize.y/2);	
         }
-        if (station_h_visible){
+        else if (timeRemaining&&station_h_visible){
             //background
             context.fillStyle = bgColor_sel;
             context.fillRect(0, 0, stationSize.x, stationSize.y);
@@ -150,6 +153,48 @@ var myStation = function () {
             
             //lastTimeVisible = timeNow;
         }
+        else if(!timeRemaining){
+            console.log("time is up");
+
+            //background
+            context.fillStyle = bgColor_sel;
+            context.fillRect(0, 0, stationSize.x, stationSize.y);
+
+            //text
+            context.fillStyle    = textColor;
+            context.font         = TitleTextSize;
+            context.textBaseline = "top";
+            context.fillText  (id, TitlePosition.x, TitlePosition.y );	
+            context.drawImage(helloWorldImage, imageLocation.x, imageLocation.y);
+            context.strokeStyle = lineColor; 
+            context.strokeRect(5,  5, stationSize.x-10, stationSize.y-10);
+            
+            //healthLevel
+            context.fillStyle    = textColor;
+            context.font         = HealthTextSize;
+            context.textBaseline = "top";
+            context.fillText ("Health Level: " + parseInt(station_health) + "%", HealthPosition.x ,HealthPosition.y);
+        }
+       /* else{ 
+            //background
+            context.fillStyle = bgColor_sel;
+            context.fillRect(0, 0, stationSize.x, stationSize.y);
+
+            //text
+            context.fillStyle    = textColor;
+            context.font         = TitleTextSize;
+            context.textBaseline = "top";
+            context.fillText  (id, TitlePosition.x, TitlePosition.y );	
+            context.drawImage(helloWorldImage, imageLocation.x, imageLocation.y);
+            context.strokeStyle = lineColor; 
+            context.strokeRect(5,  5, stationSize.x-10, stationSize.y-10);
+            
+            //healthLevel
+            context.fillStyle    = textColor;
+            context.font         = HealthTextSize;
+            context.textBaseline = "top";
+            context.fillText ("Final Health Level: " + parseInt(station_health) + "%", HealthPosition.x ,HealthPosition.y);
+        }*/
     }
     helloWorldImage.onload = function() {
     	draw_station();
@@ -163,6 +208,10 @@ var myStation = function () {
         	draw_station();
         	eventLog(id, "show");
         }
+        else {
+            draw_station();
+            console.log("showhealth pressed with no time left");
+        }
     }
             
     function hide_health() {
@@ -171,6 +220,10 @@ var myStation = function () {
         	station_h_visible = false;
         	draw_station();
         	eventLog(id, "hide");
+        }
+        else {
+            draw_station();
+            console.log("hidehealth pressed with no time left");
         }
     }
         
@@ -196,8 +249,8 @@ var myStation = function () {
         var t = showButtonpos.y+topOffset;
         var lp = l + buttonSize.x;
         var tp = t + buttonSize.y;
-        console.log("show - X: "+ l + " < " + mouseX + " < "+ lp + " and Y: "+t+" < "+mouseY+" < "+tp);
-//        console.log("mouse: "+mouseX+", "+mouseY+". L="+l+"< "+lp+" and t="+t+"< "+tp);
+        //console.log("show - X: "+ l + " < " + mouseX + " < "+ lp + " and Y: "+t+" < "+mouseY+" < "+tp);
+
         
         if ((mouseX > l)&&(mouseX < l+buttonSize.x)&&(mouseY > t)&&(mouseY < t+buttonSize.y)&&(!station_h_visible)){
             console.log("Show");

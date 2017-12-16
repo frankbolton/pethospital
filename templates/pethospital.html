@@ -40,7 +40,7 @@
 
             //var scores = new gameScore();
 
-            gameScore.setDuration(60);
+            gameScore.setDuration(10);
             gameScore.setScoreDeltas(1,1,1);
 
             var previousTime = 0;
@@ -59,11 +59,17 @@
                 {
                     var allOK = true;
                     gameScore.tick();
+                    var timeleft = gameScore.timeLeft();
                     for (i in station)  {
-                        station[i].decrement();
-                        allOK = allOK + station[i].OK();
+                        if (!timeleft){
+                            station[i].timeIsUp();
+                        }
+                        else {
+                            station[i].decrement();
+                            allOK = allOK + station[i].OK();
+                        }
                     }
-                    if (allOK) {
+                    if (allOK&&timeleft) {
                         gameScore.inc();
                         
                     }
