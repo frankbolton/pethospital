@@ -15,23 +15,23 @@
         </div>
         <div id="form">
         <form id= "RegisterUser" name="RegisterUser" 
-                method="POST" action="/" onsubmit="return">
+                method="POST"  onsubmit="return">
             <p>
                 <label for="id">Participant ID (from your form)</label>
-                <input id="id" type="number" required>
+                <input name="id" id="id" type="number" required>
             </p>
             <p>
                 <label for="age">Age: </label>    
-                <input id="age" type="number" required min="18" max="120">
+                <input name="age" id="age" type="number" required min="18" max="120">
             </p>
             <p>
                 <fieldset>
                 <label for="gender">Gender: </label>
-                <input type="radio" required name="gender" id="male">
+                <input type="radio" required name="gender" id="male" value="male">
                 <label for="male">Male</label>
-                <input type="radio" required name="gender" id="female">
+                <input type="radio" required name="gender" id="female" value="female">
                 <label for="female">Female</label>
-                <input type="radio" required name="gender" id="other">
+                <input type="radio" required name="gender" id="other" value="other">
                 <label for="other">Other / Prefer not to disclose</label>
                 </fieldset>
                 

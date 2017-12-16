@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session, escape
 from tinydb import TinyDB
 import os.path
 
 app = Flask(__name__, static_url_path='/static')
 basedir = os.path.abspath(os.path.dirname(__file__))
+
+app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/987s'
 
 #to run on linux
 # activate venv:    source venv/bin/activate
@@ -28,19 +30,24 @@ EventsTable = dbEvents.table('Events')
 
 
 @app.route("/", methods=['GET', 'POST'])
-def hello():
+def index():
     if request.method == 'POST':
-        print('inside post')
-        #print(request.form.RegisterUser)
-        return redirect(url_for('experiment'))
+        #print('inside post')
+        print("gender " + request.form['gender'])
+        print("id " + request.form['id'])
+        print("age " + request.form['age'])
+        session['id'] = request.form['id']
+        return redirect("/")
     else:
         #return "hello world"
         return render_template("index.html")
 
 @app.route("/experiment/<count>")
 def experiment(count=None):
-    return render_template("pethospital.html", count=count)
-
+    if 'id' in session:
+        uid = escape(session['id'])
+        return render_template("pethospital.html", count=count, id=uid)
+    return redirect(url_for('index'))
 
 
 @app.route("/logging", methods = ['POST'])
@@ -58,3 +65,9 @@ def logging():
 def test():
     if request.method == 'GET':
         return render_template("test.html")
+
+
+@app.route("/end")
+def end():
+    session.pop('id', None)
+    return redirect(url_for('index'))

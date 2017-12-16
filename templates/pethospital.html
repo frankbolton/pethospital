@@ -34,6 +34,10 @@
             var count = 6;
             count = {{count}};
 
+            var id={{id}};
+            logEvents.setParticipantID(id);
+
+
             if(count>1){
                 station[0] = new myStation(100, 10, 1, "Tinky", 40, 50, gameScore);
                 station[1] = new myStation(100, 4, 1, "Dinky", 40, 350, gameScore);

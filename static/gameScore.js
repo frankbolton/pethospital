@@ -130,7 +130,7 @@
         },
         killTime: function() {
             timer = t_Max-10;
-            eventLogNS("killTime invoked")
+            
         },
         
         //this seems to be the one called mostly.
