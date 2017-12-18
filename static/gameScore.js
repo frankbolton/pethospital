@@ -26,7 +26,7 @@
 	var context = theCanvas.getContext("2d"); 
     context.font = "Arial, Helvetica, sans-serif"
 	var timer = 0;
-	var t_Max = 30; //300: allow five minutes of game play per cycle
+	var t_Max = 300; //300: allow five minutes of game play per cycle
 	var t_remaining = t_Max;
     var scoreVisible = false;
      

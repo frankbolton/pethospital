@@ -35,6 +35,12 @@
             count = {{count}};
 
             var id={{id}};
+
+            var duration = 300;
+            duration = {{duration}};
+            gameScore.setDuration(300);
+            gameScore.setScoreDeltas(1,1,1);
+
             logEvents.setParticipantID(id);
 
 
@@ -56,8 +62,6 @@
 
             //var scores = new gameScore();
 
-            gameScore.setDuration(10);
-            gameScore.setScoreDeltas(1,1,1);
 
             var previousTime = 0;
             var previousMod = 999;
