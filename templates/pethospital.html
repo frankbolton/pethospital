@@ -38,25 +38,25 @@
 
             var duration = 300;
             duration = {{duration}};
-            gameScore.setDuration(300);
+            gameScore.setDuration(duration);
             gameScore.setScoreDeltas(1,1,1);
 
             logEvents.setParticipantID(id);
 
 
             if(count>1){
-                station[0] = new myStation(100, 10, 1, "Tinky", 40, 50, gameScore);
-                station[1] = new myStation(100, 4, 1, "Dinky", 40, 350, gameScore);
+                station[0] = new myStation(100, 6, 3, "Tinky", 40, 50, gameScore);
+                station[1] = new myStation(100, 2, 1, "Dinky", 40, 350, gameScore);
             }
-
+            if(count>2){
+                station[2] = new myStation(100, 2, 1, "Loony", 40, 650, gameScore);
+            }
             if(count > 3){
-                station[2] = new myStation(100, 4, 1, "Loony", 40, 650, gameScore);
-                station[3] = new myStation(100, 10, 1, "Shoony",340,50, gameScore);
+                station[3] = new myStation(100, 6, 3, "Shoony",340,50, gameScore);
             }
-
             if (count > 5){
-                station[4] = new myStation(100, 4, 1, "Zoomy", 340, 350, gameScore);
-                station[5] = new myStation(100, 10, 1, "Timmy", 340, 650, gameScore);
+                station[4] = new myStation(100, 2, 1, "Zoomy", 340, 350, gameScore);
+                station[5] = new myStation(100, 6, 3, "Timmy", 340, 650, gameScore);
             }
 
 

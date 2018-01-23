@@ -46,8 +46,8 @@ def index():
 def experiment(count=None):
     if 'id' in session:
         uid = escape(session['id'])
-        # run for 5 minutes
-        return render_template("pethospital.html", count=count, id=uid, duration = 60*5)
+        # run for 2 minutes
+        return render_template("pethospital.html", count=count, id=uid, duration = 60*2)
     return redirect(url_for('index'))
 
 
