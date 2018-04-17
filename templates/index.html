@@ -4,7 +4,13 @@
         <meta charset="utf-8"/>
         <title>Pethospital Start</title>
         <link rel="stylesheet" type="text/css" href="/static/pethospital.css"/>
-    
+        
+        <script type="text/javascript">
+            window.onload = function(e){
+                document.getElementById('eventTime').value = Date.now()
+            } 
+            
+        </script>
        
     
     </head>
@@ -36,6 +42,7 @@
                 </fieldset>
                 
             </p>
+               <input type="hidden" name = "eventTime" id="eventTime" value=1234>
             <p>
                 <button>Submit</button>
             </p>                

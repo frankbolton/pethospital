@@ -25,7 +25,9 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/987s'
 #setup the database connections
 dbEvents = TinyDB(os.path.join(basedir,'dbEvents.json'))
 EventsTable = dbEvents.table('Events')
-
+dbHighLevelResults = TinyDB(os.path.join(basedir,'HighLevel.json'))
+DemographicsTable = dbHighLevelResults.table('Demographics')
+SessionSummaryTable = dbHighLevelResults.table('SessionSummary')
 
 
 
@@ -33,6 +35,8 @@ EventsTable = dbEvents.table('Events')
 def index():
     if request.method == 'POST':
         #print('inside post')
+        print(request.form)
+        DemographicsTable.insert(request.form)
         print("gender " + request.form['gender'])
         print("id " + request.form['id'])
         print("age " + request.form['age'])
@@ -60,7 +64,11 @@ def logging():
         print(data)
         return redirect('/')
         
-
+@app.route('/summary', methods = ['POST'])
+def summary():
+    if request.method == 'POST':
+        print('summary request form')
+        
 
 @app.route("/test", methods = ['GET'])
 def test():
