@@ -61,14 +61,17 @@ def logging():
         print('logging request made')
         data = request.form
         EventsTable.insert(data)
-        print(data)
         return redirect('/')
         
 @app.route('/summary', methods = ['POST'])
 def summary():
+    print ('Inside /summary')
     if request.method == 'POST':
-        print('summary request form')
-        
+        print ('Inside /summary - POST')
+        content = request.json
+        print(type(content))
+        SessionSummaryTable.insert(content)
+        return ('', 204)
 
 @app.route("/test", methods = ['GET'])
 def test():
@@ -80,3 +83,4 @@ def test():
 def end():
     session.pop('id', None)
     return redirect(url_for('index'))
+

@@ -8,18 +8,16 @@
     </head>
   
     <body>
-    <section id="test_pet_area">
-
-
-
-
+        <section id="test_pet_area">
             <script type="text/javascript" src="/static/pethospital.js"></script>
             <script type="text/javascript" src="/static/myStation.js"></script>
             <script type="text/javascript" src="/static/logEvents.js"></script>
             <script  type="text/javascript" src="/static/gameScore.js"></script>
         </section>
         <script type="text/javascript">
+                
 
+            
             //parts to replace using templating from Flask
             //var id = -1;
             //logEvents.setParticipantID({{id}});
@@ -69,11 +67,34 @@
             var currentTime = 0;
             var currentMod = 0;
 
+            //Log the time the activity starts to the Summary Database
+            var summaryLog = new Object();
+            summaryLog.eventType = "pethospital start";
+            summaryLog.count = count;
+            summaryLog.eventTime = Date.now();
+            summaryLog.gameScore = gameScore.getScore();
+            var myStringOutput2 = JSON.stringify(summaryLog);
+            console.log(myStringOutput2);
+            var request2 = new XMLHttpRequest();
+            request2.open('POST', '/summary', true);
+            request2.setRequestHeader('Content-Type', 'application/json');
+            request2.send(myStringOutput2);
 
             function drawScreen() {
                 if(writeLogToServer){
                     if(!logsWrittenToServer)
                     {
+                        var summaryLog = new Object();
+                        summaryLog.eventType = "pethospital end";
+                        summaryLog.count = count;
+                        summaryLog.eventTime = Date.now();
+                        summaryLog.gameScore = gameScore.getScore();
+                        //var myStringOutput2 = JSON.stringify(summaryLog);
+                        //console.log(myStringOutput2);
+                        var request2 = new XMLHttpRequest();
+                        request2.open('POST', '/summary', true);
+                        request2.setRequestHeader('Content-Type', 'application/json');
+                        request2.send(JSON.stringify(summaryLog));
                         logEvents.pushLog();
                         logsWrittenToServer = true;
                     }                    

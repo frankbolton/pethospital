@@ -1,10 +1,7 @@
 console.log("success importing the logEvents code");    
 
 var logEvents = function() {
-    //var baseData = {};
-    //baseData.startTime = Date.now(); 
     var eventLog = new Array();
-
     var participantID = "-1";
 
 
@@ -15,9 +12,9 @@ var logEvents = function() {
         },
 
 
+
         logText: function(i, stationID, score) {
-            //eventLog.push(i);
-            currentData = {};
+            var currentData = {};
             currentData.participantID = participantID;
             currentData.eventDescription = i;
             if (typeof stationID !== "undefined"){
@@ -30,6 +27,9 @@ var logEvents = function() {
             currentData.eventTime = Date.now();
             eventLog.push(currentData);
             //add pulling in the health statuses for the stations....
+
+            
+            
 
         },
 
@@ -45,13 +45,12 @@ var logEvents = function() {
             console.log(myStringOutput);
             var request = new XMLHttpRequest();
             request.open('POST', '/logging', true);
+            //request.setRequestHeader('Content-Type', 'application/json');
             request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
             request.send(myStringOutput);
-            //var myjson = printLog();
-            //return jQuery.ajax({type: "POST", url:'/logging/', data:myjson, contentType:'application/json'});
         },
 
-
+       
         
 
     };
