@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, escape
 from tinydb import TinyDB
 import os.path
+import NeurosteerLogin as nl
 
 app = Flask(__name__, static_url_path='/static')
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -29,7 +30,7 @@ dbHighLevelResults = TinyDB(os.path.join(basedir,'HighLevel.json'))
 DemographicsTable = dbHighLevelResults.table('Demographics')
 SessionSummaryTable = dbHighLevelResults.table('SessionSummary')
 
-
+[creds, bluetooth] = nl.login()
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -51,6 +52,9 @@ def experiment(count=None):
     if 'id' in session:
         uid = escape(session['id'])
         # run for 2 minutes
+        text = "event: Start " + count + ", participant: "+session['id']
+
+        nl.logEvent(creds, bluetooth, text)
         return render_template("pethospital.html", count=count, id=uid, duration = 60*2)
     return redirect(url_for('index'))
 
@@ -59,6 +63,9 @@ def experiment(count=None):
 def logging():
     if request.method == 'POST':
         print('logging request made')
+        text = "event: End Session, participant: "+session['id']
+        nl.logEvent(creds, bluetooth, text)
+
         data = request.form
         EventsTable.insert(data)
         return redirect('/')
