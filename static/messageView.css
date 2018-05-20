@@ -1,0 +1,55 @@
+#mV {
+
+    height: 14cm;
+    width: 8cm;
+    margin-left: 12cm;
+    margin-top: 0cm;
+    background-color:wheat;
+    outline: dotted thin;
+    outline-color: steelblue;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    position: absolute;
+    z-index: 999;
+    
+}
+#heading{
+    font-size: 20pt;
+    margin-top: 1cm;
+    margin-left: 0.5cm;
+    width: 7cm;
+    position: absolute;
+}
+#subheading {
+    font-size: 16pt;
+    margin-top: 2cm;
+    margin-left: 0.25cm;
+    width: 7.5cm;
+    position: absolute;
+}
+#messageText{
+    font-size: 14pt;
+    margin-top: 5cm;
+    margin-left: 0.25cm;
+    width:7.5cm;
+    position: absolute;
+}
+#buttons{
+    font-size: 14pt;
+    position: absolute;
+    margin-top: 7.2cm;  
+    margin-left:1cm; 
+}
+button{
+    font-size: 14pt;
+    padding: 0.2cm;
+}
+.shape{
+    margin-left: 2cm;
+    margin-top: 4cm;
+    position: absolute;   
+}
+#shapebuttons{
+    margin-top: 7cm;
+    margin-left: 0.5cm;
+    position: absolute;   
+}
