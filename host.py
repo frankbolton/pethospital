@@ -97,3 +97,6 @@ def end():
     session.pop('id', None)
     return redirect(url_for('index'))
 
+@app.route("/message")
+def message():
+    return render_template('messageView.html')

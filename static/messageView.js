@@ -14,9 +14,6 @@ var sound = document.getElementById('beep');
 */    
 function start(){
 
-    var c = document.getElementById("c").getContext("2d");
-    c.fillStyle = "rgba(255, 200, 200, 1)";
-    c.fillRect(0, 0, c.canvas.width, c.canvas.height);
     mV = document.getElementById("mV");
     console.log("on start has run.");
     for(var i=0; i< costgenerators.length; i++){
@@ -31,6 +28,7 @@ function start(){
     for(var i=0; i<messagetext.length;i++){
         messagetext[i].hidden=true;
     }
+    mV.hidden = true;
 }
 
 /*
@@ -95,8 +93,10 @@ function closeButtonPressed(){
     }
     for(var i=0; i< buttons.length; i++){
         buttons[i].hidden=true;
-    }
-    
+    }    
+}
 
-    
+function checkToSendMessage(){
+    var time = Date.now();
+    console.log(".");
 }
