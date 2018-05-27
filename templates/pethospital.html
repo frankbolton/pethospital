@@ -19,7 +19,7 @@
         </section>
         
         <div id="mV">
-            <audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
+            <audio id="audio" src="/static/beep-07.wav" autostart="false" ></audio>
             <div class="alwayson" id=heading>
             myChat application
             </div>
@@ -52,45 +52,13 @@
             </div>
         </div>
 
-        <!-- <div id="mV">
-            <audio id="audio" src="/static/beep-07.wav" autostart="false" ></audio>
-            <div class="alwayson" id=heading>
-            myChat application
-            </div>
-            <div class="notify" id=subheading>
-                Incoming message:<br>Number witheld.
-            </div>
-            <div class="messagetext" id=messageText >
-                <b>Pet needs attention</b>
-                <p>The pet number 4 seems to need attention more frequently than it's neighbors.
-                
-                </p>
-
-            </div>
-
-            <div class="buttons" id=buttons>
-                <button onclick="readButtonPressed()" id=read>Read</button>
-                <button onclick="delayButtonPressed()" id=delay>Delay</button>
-                <button onclick="closeButtonPressed()" id=close>Close</button>
-            </div>
-            <div class="cost" id=shapes>
-                <img class="shape" id = "circle" src="/static/circle.gif">
-                <img class="shape"  id="triangle" src="/static/triangle.gif">
-                <img class="shape"  id="square" src="/static/square.gif">
-                
-                <div id="shapebuttons">
-                    <button onclick = "shapeButtonPressed()" id="square">Square</button>
-                    <button id="triange">Triangle</button>
-                    <button id="circle">Circle</button>
-                </div>
-            </div>
-        </div> -->
+        
 
 
         <script type="text/javascript">
                 
-            notificationTimes = [50,30,20,5];
-            notificationHeadings = ['message 4', 'message 3', 'message 2','message 1']
+            var notificationTimes = [50,30,20,5];
+            var notificationHeadings = ['message 4', 'message 3', 'message 2','Incoming Pet Hospital Message']
             notificationTexts = ['444','333','222','111']
             
             nextNotification = [notificationTimes.pop(), notificationHeadings.pop(), notificationTexts.pop()];

@@ -42,9 +42,11 @@ function start(){
 * This function also produces the audible notification.
 */
 function showChat(){
+    logEvents.neurosteer_log("interruption start");
     mV.hidden=false;
 }
 function hideChat(){
+    logEvents.neurosteer_log("interruption end");
     mV.hidden=true;
 }
 

@@ -27,3 +27,4 @@ def logEvent(accessToken, sensorID, text):
     headers = {'path':path, 'authorization':'Bearer '+accessToken}
     data['description'] = text
     r = requests.post(url=url, json=data, headers = headers)
+    print(r)

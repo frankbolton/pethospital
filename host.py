@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, session, escape
 from tinydb import TinyDB
 import os.path
-nl = False
+nl = True
 
 if (nl):
     import NeurosteerLogin as nl
@@ -100,3 +100,11 @@ def end():
 @app.route("/message")
 def message():
     return render_template('messageView.html')
+
+@app.route("/ns_logger", methods = ['POST'])
+def logger():
+    print(request.form['msg'])
+    if (nl):
+            nl.logEvent(creds, bluetooth, request.form['msg'])
+    return(jsonify())
+
