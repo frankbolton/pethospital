@@ -1,8 +1,8 @@
 #mV {
 
     height: 14cm;
-    width: 8cm;
-    margin-left: 12cm;
+    width: 20cm;
+    margin-left: 4cm;
     margin-top: 0cm;
     background-color:wheat;
     outline: dotted thin;
@@ -48,7 +48,7 @@ button{
     margin-top: 4cm;
     position: absolute;   
 }
-#shapebuttons{
+#shapeButtons{
     margin-top: 7cm;
     margin-left: 0.5cm;
     position: absolute;   

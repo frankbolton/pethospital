@@ -15,11 +15,45 @@
             <script type="text/javascript" src="/static/myStation.js"></script>
             <script type="text/javascript" src="/static/logEvents.js"></script>
             <script  type="text/javascript" src="/static/gameScore.js"></script>
-            <script  type="text/javascript" src="/static/messageView.js"></script>
+            <script defer type="text/javascript" src="/static/messageView.js"></script>
         </section>
         
         <div id="mV">
             <audio id="audio" src="http://www.soundjay.com/button/beep-07.wav" autostart="false" ></audio>
+            <div class="alwayson" id=heading>
+            myChat application
+            </div>
+            <div class="notify" id=subheading>
+                Incoming message:<br>Number witheld.
+            </div>
+            <div class="messagetext" id=messageText >
+                <b>Pet needs attention</b>
+                <p>The pet number 4 seems to need attention more frequently than it's neighbors.
+                
+                </p>
+
+            </div>
+
+            <div class="buttons" id=buttons>
+                <button id="readButton" onclick="readButtonPressed()"  >Read</button>
+                <button id="delayButton" onclick="delayButtonPressed()"  >Delay</button>
+                <button id="closeButton" onclick="closeButtonPressed()"  >Close</button>
+            </div>
+            <div class="cost" id=shapes>
+                <img class="shape" id = "circle" src="/static/circle.gif">
+                <img class="shape"  id="triangle" src="/static/triangle.gif">
+                <img class="shape"  id="square" src="/static/square.gif">
+                
+                <div id="shapeButtons">
+                    <button id="square" onclick="shapeButtonPressed(this.id)" >Square</button>
+                    <button id="triangle"onclick="shapeButtonPressed(this.id)"  >Triangle</button>
+                    <button id="circle" onclick="shapeButtonPressed(this.id)" >Circle</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div id="mV">
+            <audio id="audio" src="/static/beep-07.wav" autostart="false" ></audio>
             <div class="alwayson" id=heading>
             myChat application
             </div>
@@ -45,17 +79,21 @@
                 <img class="shape"  id="square" src="/static/square.gif">
                 
                 <div id="shapebuttons">
-                    <button id="square">Square</button>
+                    <button onclick = "shapeButtonPressed()" id="square">Square</button>
                     <button id="triange">Triangle</button>
                     <button id="circle">Circle</button>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 
         <script type="text/javascript">
                 
-
+            notificationTimes = [50,30,20,5];
+            notificationHeadings = ['message 4', 'message 3', 'message 2','message 1']
+            notificationTexts = ['444','333','222','111']
+            
+            nextNotification = [notificationTimes.pop(), notificationHeadings.pop(), notificationTexts.pop()];
             
             //parts to replace using templating from Flask
             //var id = -1;
@@ -106,6 +144,8 @@
             var currentTime = 0;
             var currentMod = 0;
 
+
+
             //Log the time the activity starts to the Summary Database
             var summaryLog = new Object();
             summaryLog.eventType = "pethospital start";
@@ -147,6 +187,7 @@
                     var allOK = true;
                     gameScore.tick();
                     var timeleft = gameScore.timeLeft();
+                    var secondsLeft = gameScore.secondsLeft();
                     for (i in station)  {
                         if (!timeleft){
                             station[i].timeIsUp();
@@ -165,6 +206,17 @@
                         
                         gameScore.inc();
                         
+                    }
+
+                    //Check if it's time to notify.
+                    //if it is- generate the notification and prepare the next one.
+                    gameSeconds = duration-secondsLeft;
+                    console.log("clock = "+ gameSeconds + " and next notification is at "+nextNotification[0]);
+                    if ((duration- secondsLeft)>= nextNotification[0]){
+                        notification(nextNotification[1],nextNotification[2]);
+                        console.log("generate interruption");
+                        nextNotification = [notificationTimes.pop(), notificationHeadings.pop(), notificationTexts.pop()];
+
                     }
 
                 
