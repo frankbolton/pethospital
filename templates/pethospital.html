@@ -56,12 +56,24 @@
 
 
         <script type="text/javascript">
-                
-            var notificationTimes = [50,30,20,5];
-            var notificationHeadings = ['message 4', 'message 3', 'message 2','Incoming Pet Hospital Message']
-            notificationTexts = ['444','333','222','111']
+            var duration = 60*4;  //currently set the experiment to 4 minutes
+            //duration = {{duration}};
             
-            nextNotification = [notificationTimes.pop(), notificationHeadings.pop(), notificationTexts.pop()];
+            //Notify almost every 30 seconds with some unpredictable offset (7 interruptions)
+            var notificationTimes = [211,179,150,118,91,62,29];
+            var headStr = 'Incoming Pet Hospital Message';
+            var notificationHeadings = [headStr,headStr,headStr,headStr,headStr,headStr,headStr];
+            var notificationTexts = [];
+            notificationTexts.push('Remember to keep the health levels positive.')
+            notificationTexts.push('Your current score is ')
+            notificationTexts.push('Your current score is ');
+            notificationTexts.push('Not all of the pets get ill at the same rate.');
+            notificationTexts.push('Your current score is ');
+            notificationTexts.push('Remember to keep focussed on your pets.');
+            notificationTexts.push('Your current score is ');
+            var displayScore = [false, true, true, false,true,false, true];
+
+            nextNotification = [notificationTimes.pop(), notificationHeadings.pop(), notificationTexts.pop(),displayScore.pop()];
             
             //parts to replace using templating from Flask
             //var id = -1;
@@ -79,8 +91,7 @@
 
             var id={{id}};
 
-            var duration = 300;
-            duration = {{duration}};
+            
             gameScore.setDuration(duration);
             gameScore.setScoreDeltas(1,1,1);
 
@@ -181,9 +192,9 @@
                     gameSeconds = duration-secondsLeft;
                     console.log("clock = "+ gameSeconds + " and next notification is at "+nextNotification[0]);
                     if ((duration- secondsLeft)>= nextNotification[0]){
-                        notification(nextNotification[1],nextNotification[2]);
+                        notification(nextNotification[1],nextNotification[2], nextNotification[3]);
                         console.log("generate interruption");
-                        nextNotification = [notificationTimes.pop(), notificationHeadings.pop(), notificationTexts.pop()];
+                        nextNotification = [notificationTimes.pop(), notificationHeadings.pop(), notificationTexts.pop(), displayScore.pop()];
 
                     }
 

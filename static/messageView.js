@@ -50,7 +50,21 @@ function hideChat(){
     mV.hidden=true;
 }
 
-function notification(subheading, newMessage){
+function notification(subheading, newMessage, displayScore){
+    //start with hiding all the things in case the user didn't click close 
+    shapeButtons.hidden=true;
+    readButton.hidden=true;
+    delayButton.hidden=true;
+    closeButton.hidden=true;
+    for(var i=0; i<notify.length;i++){
+        notify[i].hidden=true;
+    }
+    for(var i=0; i<messagetext.length;i++){
+        messagetext[i].hidden=true;
+    }
+    for(var i=0; i<shapes.length; i++){
+        shapes[i].hidden = true;
+    }
     showChat();
     audio.play();
     if (subheading){
@@ -64,7 +78,12 @@ function notification(subheading, newMessage){
     //closeButton.hidden=false
     
     if (newMessage){
-        messagetext[0].innerHTML = newMessage;
+        var text = newMessage;
+        if(displayScore){
+            text = text + gameScore.getScore();
+        }
+        messagetext[0].innerHTML = text;
+        
     }
 }
 

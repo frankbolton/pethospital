@@ -60,7 +60,7 @@ def experiment(count=None):
 
         if (nl):
             nl.logEvent(creds, bluetooth, text)
-        return render_template("pethospital.html", count=count, id=uid, duration = 60*2)
+        return render_template("pethospital.html", count=count, id=uid)
     return redirect(url_for('index'))
 
 
