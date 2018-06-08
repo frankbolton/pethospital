@@ -10,6 +10,7 @@
     </head>
   
     <body  onload="start()">
+        <div hidden=true id=participantID>{{id}}</div>
         <section id="test_pet_area">
             <script type="text/javascript" src="/static/pethospital.js"></script>
             <script type="text/javascript" src="/static/myStation.js"></script>
@@ -76,9 +77,8 @@
             nextNotification = [notificationTimes.pop(), notificationHeadings.pop(), notificationTexts.pop(),displayScore.pop()];
             
             //parts to replace using templating from Flask
-            //var id = -1;
             //logEvents.setParticipantID({{id}});
-
+            
             var station = [];
             var returnThis = "";
             var writeLogToServer = false;
@@ -89,7 +89,8 @@
             var count = 6;
             count = {{count}};
 
-            var id={{id}};
+            var id=-1;
+            id= {{id}};
 
             
             gameScore.setDuration(duration);

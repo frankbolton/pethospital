@@ -6,10 +6,11 @@ var delayButton = document.getElementById("delayButton");
 var closeButton = document.getElementById("closeButton");
 var messagetext = document.getElementsByClassName("messagetext");
 var shapeButtons = document.getElementById("shapeButtons");
-var shapes = document.getElementsByClassName("shape");
+var shapes = document.getElementsByClassName("shape");''
 
 var sound = document.getElementById('beep');
 var shapeIndex = -1;  
+var participantId = document.getElementById("participantID").innerHTML;
 /*
 * This function is run when the body loads. 
 * It performs the initial setup of hiding most of the messaging too interface.
@@ -42,11 +43,11 @@ function start(){
 * This function also produces the audible notification.
 */
 function showChat(){
-    logEvents.neurosteer_log("interruption start");
+    logEvents.neurosteer_log("interrutionstart "+participantId );
     mV.hidden=false;
 }
 function hideChat(){
-    logEvents.neurosteer_log("interruption end");
+    logEvents.neurosteer_log("interruptionend "+participantId );
     mV.hidden=true;
 }
 

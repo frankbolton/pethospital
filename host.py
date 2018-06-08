@@ -56,7 +56,7 @@ def experiment(count=None):
     if 'id' in session:
         uid = escape(session['id'])
         # run for 2 minutes
-        text = "event: Start " + count + ", participant: "+session['id']
+        text = "Start" + count + " "+session['id']
 
         if (nl):
             nl.logEvent(creds, bluetooth, text)
@@ -68,7 +68,7 @@ def experiment(count=None):
 def logging():
     if request.method == 'POST':
         print('logging request made')
-        text = "event: End Session, participant: "+session['id']
+        text = "End "+session['id']
         if (nl):
             nl.logEvent(creds, bluetooth, text)
 
@@ -106,5 +106,5 @@ def logger():
     print(request.form['msg'])
     if (nl):
             nl.logEvent(creds, bluetooth, request.form['msg'])
-    return(jsonify())
+    return(request.form)
 
