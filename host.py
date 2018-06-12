@@ -33,6 +33,8 @@ dbHighLevelResults = TinyDB(os.path.join(basedir,'HighLevel.json'))
 DemographicsTable = dbHighLevelResults.table('Demographics')
 SessionSummaryTable = dbHighLevelResults.table('SessionSummary')
 
+creds =''
+bluetooth =''
 if (nl):
     [creds, bluetooth] = nl.login()
 
@@ -63,6 +65,10 @@ def experiment(count=None):
         return render_template("pethospital.html", count=count, id=uid)
     return redirect(url_for('index'))
 
+
+@app.route("/eegFeedback")
+def eegFeedback():
+    return render_template("neurofeedbackTest.html", creds=creds, bluetooth=bluetooth)
 
 @app.route("/logging", methods = ['POST'])
 def logging():
