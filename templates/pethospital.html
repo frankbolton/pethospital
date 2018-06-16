@@ -6,16 +6,20 @@
         <title>Pethospital Task</title>
         <link rel="stylesheet" type="text/css" href="/static/pethospital.css"/>
         <link rel="stylesheet" type="text/css" href="/static/messageView.css"/>
-        
+        <link rel="stylesheet" type="text/css" href="/static/neuroFeedbackDisplay.css"/>
+        <script defer type="text/javascript" src="/static/neuroFeedback.js"></script>
     </head>
   
     <body  onload="start()">
         <div hidden=true id=participantID>{{id}}</div>
+        <div hidden=true id="creds" >{{creds}}</div>
+        <div hidden=true id="bluetooth">{{bluetooth}}</div>
         <section id="test_pet_area">
             <script type="text/javascript" src="/static/pethospital.js"></script>
             <script type="text/javascript" src="/static/myStation.js"></script>
             <script type="text/javascript" src="/static/logEvents.js"></script>
             <script  type="text/javascript" src="/static/gameScore.js"></script>
+            
             <script defer type="text/javascript" src="/static/messageView.js"></script>
         </section>
         
@@ -53,7 +57,16 @@
             </div>
         </div>
 
-        
+        <div id="workloadIndicator">
+            <div id="workloadLabelText">
+                Current Workload:
+            </div>
+            <div id = "c1">
+
+            </div>
+            
+
+        </div>
 
 
         <script type="text/javascript">
