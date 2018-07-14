@@ -18,7 +18,8 @@
     
     var gameScoreText = "200 24px sans-serif"
     var textTopOffset = 14;
-    
+    var mentalDemand = 1;
+
 	var canvasHTML = "<div id=\"gameScores1\" style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">"
 	canvasHTML +="<canvas id=\""+id+"\"  width=\""+width+"\" height=\""+height+"\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
 	document.writeln(canvasHTML);
@@ -85,6 +86,10 @@
     
     
 	return {
+        setMentalDemand: function(C){
+            mentalDemand = C;
+
+        },
         setDuration: function (intimer) {
         //var station_health = typeof arguments[0] === 'number' ? arguments[0] : 100;
 	        t_Max =  typeof intimer === 'number' ? intimer : 30;
@@ -152,14 +157,24 @@
 			t_remaining = t_Max - timer;
             //console.log("foo "+t_remaining);
             
-           
+            bar_width = 300;
+            //console.log(record.features);
+            bar_fill = 3*mentalDemand;
+            context.fillStyle = buttonColor;
+            context.fillRect(260,textTopOffset, bar_width, textTopOffset+10);
+            context.fillStyle    = textColor;
+            context.font         = gameScoreText;
+            //context.fillText("EEG: "+mentalDemand, 200, textTopOffset);
+            context.fillText("EEG: ", 200, textTopOffset);
+            context.fillRect(260,textTopOffset, bar_fill, textTopOffset+10);
+            
             if ((t_remaining>0)&&(!learnMode)) {
                 if (t_remaining % scoreVisibilityDenominator > (scoreVisibilityDenominator-scoreVisibilityNumerator)) {
                 	context.fillStyle    = textColor;
                 	context.font         = gameScoreText;
                 	context.textBaseline = "top";
                     context.fillText  ("Score: "+score, 75, textTopOffset );	
-                    context.fillText ("In Experiment Mode",300,textTopOffset);
+                    //context.fillText ("In Experiment Mode",300,textTopOffset);
                     //context.fillText ("Time Remaining: "+ t_remaining,600,10);
                     context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
                 	
@@ -170,7 +185,7 @@
                 	context.font         = gameScoreText;
                 	context.textBaseline = "top";
                     //context.fillText ("Keep all health measures above zero and hidden to increase your score",20,textTopOffset);
-                    context.fillText ("Keep the health levels above zero and hidden.",20,textTopOffset);
+                    //context.fillText ("Keep the health levels above zero and hidden.",20,textTopOffset);
                     context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
                 }
             }    
@@ -180,7 +195,7 @@
                     context.font         = gameScoreText;
                     context.textBaseline = "top";
                     context.fillText  ("Score: "+score, 75, textTopOffset );
-                    context.fillText ("In Training Mode",300,textTopOffset);
+                    //context.fillText ("In Training Mode",300,textTopOffset);
                     //context.fillText ("Time Remaining: "+ t_remaining,600,10);
                     context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
                 }
@@ -189,7 +204,7 @@
                     context.font         = gameScoreText;
                     context.textBaseline = "top";
                     //context.fillText ("Keep all health measures above zero and hidden to increase your score",20,textTopOffset);
-                    context.fillText ("Keep the health levels above zero and hidden.",20,textTopOffset);
+                    //context.fillText ("Keep the health levels above zero and hidden.",20,textTopOffset);
                     context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
                 }
             }
