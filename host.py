@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, escape
+from flask import Flask, render_template, request, redirect, url_for, session, escape, jsonify
 from tinydb import TinyDB
 import os.path
 nl = True
@@ -32,6 +32,8 @@ EventsTable = dbEvents.table('Events')
 dbHighLevelResults = TinyDB(os.path.join(basedir,'HighLevel.json'))
 DemographicsTable = dbHighLevelResults.table('Demographics')
 SessionSummaryTable = dbHighLevelResults.table('SessionSummary')
+dbTLX = TinyDB(os.path.join(basedir,'dbTLX.json'))
+TLXTable = dbTLX.table('TLXQuestions')
 
 creds =''
 bluetooth =''
@@ -59,12 +61,36 @@ def experiment(count=None):
         uid = escape(session['id'])
         # run for 2 minutes
         text = "Start" + count + " "+session['id']
+        session['count'] = count
 
         if (nl):
             nl.logEvent(creds, bluetooth, text)
         return render_template("pethospital.html", count=count, id=uid,  creds=creds, bluetooth=bluetooth)
     return redirect(url_for('index'))
 
+
+@app.route("/TLXquestions", methods=['GET', 'POST'])
+def TLXquestions():
+    if request.method == 'POST':
+        print("in tlx questions POST")
+        JSON_sent = request.get_json()
+        JSON_sent['id']=session['id']
+        JSON_sent['count']=session['count']
+        TLXTable.insert(JSON_sent)
+        #if (a.get("Mental Demand")!=0):
+        #    FeedbackTable.insert({'id':session['id'],  \
+            # 'turkNickName':session['turkNickName'], \
+            #'stageNumber':session['stageNumber'], 'score':session['score'], \
+        #    'Temporal Demand':a.get('Temporal Demand'), 'Performance':a.get('Performance'), \
+        #    'Effort':a.get('Effort'), 'Frustration':a.get('Frustration'),\
+        #    'Physical Demand':a.get('Physical Demand'), 'Mental Demand':a.get('Mental Demand'),\
+            #'TLXStartTime':session['TLXStartTime'], 'TLXEndTime':time.asctime(),\
+            #'stationSetup':session['stationSetup'], 'stationCount':session['stationCount'], \
+            #'SessionStartTime':session['SessionStartTime'], 'gameDuration':exptime*60 \
+        #    })
+        return jsonify(JSON_sent)
+    else:
+        return render_template("after_tlx.html")
 
 @app.route("/eegFeedback")
 def eegFeedback():
@@ -114,3 +140,16 @@ def logger():
             nl.logEvent(creds, bluetooth, request.form['msg'])
     return(request.form)
 
+
+@app.route('/ajax-route', methods=['POST'])
+def ajax_route():
+    try:
+        JSON_sent = request.get_json()
+        print(JSON_sent)
+        # handle your JSON_sent here
+        # Pass JSON_received to the frontend
+        JSON_received = JSON_sent
+        return jsonify(JSON_received)
+    except Exception as e:
+        print("AJAX excepted " + str(e))
+        return str(e)

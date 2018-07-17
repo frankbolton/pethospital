@@ -19,7 +19,8 @@ function start(){
 
     //mV = document.getElementById("mV");
     console.log("on start has run.");
-    
+    toLog = "messageView Script started";
+    logEvents.logText(toLog);
 
     for(var i=0; i<notify.length;i++){
         notify[i].hidden=true;
@@ -52,6 +53,7 @@ function hideChat(){
 }
 
 function notification(subheading, newMessage, displayScore){
+    
     //start with hiding all the things in case the user didn't click close 
     shapeButtons.hidden=true;
     readButton.hidden=true;
@@ -86,6 +88,10 @@ function notification(subheading, newMessage, displayScore){
         messagetext[0].innerHTML = text;
         
     }
+    //log the time that the notification is displayed
+    toLog = "messageView Script started";
+    logEvents.logText(toLog);
+
 }
 
 function readButtonPressed(){
@@ -97,6 +103,11 @@ function readButtonPressed(){
     readButton.hidden=true;   
     shapeButtons.hidden=false;
     shapes[shapeIndex].hidden=false;
+
+    //log the time that the read button is pressed
+    toLog = "messageView read button pressed";
+    logEvents.logText(toLog);
+
     
 }
 
@@ -105,6 +116,14 @@ function shapeButtonPressed(buttonID){
     console.log(buttonID);
     if(buttonID == shapes[shapeIndex].id){
         correctShapePressed();
+        //log the time that the correct shape button is pressed
+        toLog = "messageView correct shape";
+        logEvents.logText(toLog);
+    }
+    else{
+        //log the time that the incorrect shape button is pressed
+        toLog = "messageView incorrect shape";
+        logEvents.logText(toLog);
     }
 }
 
@@ -117,6 +136,9 @@ function correctShapePressed(){
     for(var i=0; i<messagetext.length;i++){
         messagetext[i].hidden=false;
     }
+    //log the time that the message is displayed
+    toLog = "messageView message displayed";
+    logEvents.logText(toLog);
 }
 
 
@@ -129,6 +151,9 @@ function delayButtonPressed(){
     closeButton.hidden=true;
     readButton.hidden=true;
     hideChat();
+    //log the time that the delay button is pressed
+    toLog = "messageView message delay pressed";
+    logEvents.logText(toLog);
 }
 
 function closeButtonPressed(){
@@ -143,6 +168,9 @@ function closeButtonPressed(){
     closeButton.hidden=true;
     readButton.hidden=true;
     hideChat();
+    //log the time that the close button is pressed
+    toLog = "messageView message closed pressed";
+    logEvents.logText(toLog);
 }
 
 function checkToSendMessage(){
