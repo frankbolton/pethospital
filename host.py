@@ -29,7 +29,10 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/987s'
 #setup the database connections
 dbEvents = TinyDB(os.path.join(basedir,'dbEvents.json'))
 EventsTable = dbEvents.table('Events')
-dbHighLevelResults = TinyDB(os.path.join(basedir,'HighLevel.json'))
+dbPeridic = TinyDB(os.path.join(basedir,'dbPeriodic.json'))
+PeriodicEventsTable = dbPeridic.table('Periodic')
+
+dbHighLevelResults = TinyDB(os.path.join(basedir,'dbHighLevel.json'))
 DemographicsTable = dbHighLevelResults.table('Demographics')
 SessionSummaryTable = dbHighLevelResults.table('SessionSummary')
 dbTLX = TinyDB(os.path.join(basedir,'dbTLX.json'))
@@ -103,10 +106,23 @@ def logging():
         text = "End "+session['id']
         if (nl):
             nl.logEvent(creds, bluetooth, text)
-
-        data = request.form
-        EventsTable.insert(data)
+        content = request.get_json()
+        data = content['data']
+        for s in data:
+            EventsTable.insert(s)
         return redirect('/')
+
+@app.route("/logPeriodic", methods = ['POST'])
+def loggingPeriodic():
+    if request.method == 'POST':
+        print('Peridoc request made')
+        text = "End "+session['id']
+        content = request.get_json()
+        data = content['data']
+        for s in data:
+            PeriodicEventsTable.insert(s)
+        return ""
+
         
 @app.route('/summary', methods = ['POST'])
 def summary():

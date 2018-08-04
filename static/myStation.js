@@ -37,7 +37,9 @@ var myStation = function () {
     var autoHideAfterHeal = true;
    
     var helloWorldImage = new Image();
-	helloWorldImage.src = "/static/rabbit.png";
+    helloWorldImage.src = typeof arguments[7]==='string' ? arguments[7]: "/static/rabbit.png";
+    //console.log("arguments");
+    //console.log(arguments);
 	var imageLocation = {};//{x:40, y:60};
 	var imageSize = {x:helloWorldImage.width, y:helloWorldImage.height}; 
 	//image size read doesn't work... perhaps need to wait for the image to load??
@@ -65,6 +67,7 @@ var myStation = function () {
     context.scale(scale.x,scale.y);
 	var station_h_visible = false;
     var myGameScore = arguments[6];
+    var stationID = arguments[8];
     
     var that = this;
         
@@ -75,7 +78,8 @@ var myStation = function () {
     }
 
     function eventLog(id, toLog){
-        logEvents.logText(toLog, id, gameScore.getScore());
+//        logEvents.logText(toLog, id, gameScore.getScore());
+        logEvents.logText(toLog, stationID,gameScore.getScore());
     }
 
     function draw_station(){
@@ -98,7 +102,7 @@ var myStation = function () {
             context.font         = TitleTextSize;
             context.textBaseline = "top";
             context.fillText  (id, TitlePosition.x, TitlePosition.y );	
-            context.drawImage(helloWorldImage, imageLocation.x, imageLocation.y);
+            context.drawImage(helloWorldImage, imageLocation.x, imageLocation.y,128,128);
             context.strokeStyle = lineColor; 
             context.strokeRect(5,  5, stationSize.x-10, stationSize.y-10);
             //showButton
@@ -121,7 +125,7 @@ var myStation = function () {
             context.textBaseline = "top";
             context.fillText  (id, TitlePosition.x, TitlePosition.y );
             context.globalAlpha = 0.5;	
-            context.drawImage(helloWorldImage, imageLocation.x, imageLocation.y);
+            context.drawImage(helloWorldImage, imageLocation.x, imageLocation.y,128,128);
             context.globalAlpha = 1;
             context.strokeStyle = lineColor; 
             context.strokeRect(5,  5, stationSize.x-10, stationSize.y-10);
@@ -165,7 +169,7 @@ var myStation = function () {
             context.font         = TitleTextSize;
             context.textBaseline = "top";
             context.fillText  (id, TitlePosition.x, TitlePosition.y );	
-            context.drawImage(helloWorldImage, imageLocation.x, imageLocation.y);
+            context.drawImage(helloWorldImage, imageLocation.x, imageLocation.y,128,128);
             context.strokeStyle = lineColor; 
             context.strokeRect(5,  5, stationSize.x-10, stationSize.y-10);
             

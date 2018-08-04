@@ -157,23 +157,23 @@
 			t_remaining = t_Max - timer;
             //console.log("foo "+t_remaining);
             
-            bar_width = 300;
+            bar_width = 280;
             //console.log(record.features);
-            bar_fill = 3*mentalDemand;
+            bar_fill = 2.8*mentalDemand;
             context.fillStyle = buttonColor;
-            context.fillRect(260,textTopOffset, bar_width, textTopOffset+10);
+            context.fillRect(280,textTopOffset, bar_width, textTopOffset+10);
             context.fillStyle    = textColor;
             context.font         = gameScoreText;
             //context.fillText("EEG: "+mentalDemand, 200, textTopOffset);
-            context.fillText("EEG: ", 200, textTopOffset);
-            context.fillRect(260,textTopOffset, bar_fill, textTopOffset+10);
+            context.fillText("Workload: ", 160, textTopOffset);
+            context.fillRect(280,textTopOffset, bar_fill, textTopOffset+10);
             
             if ((t_remaining>0)&&(!learnMode)) {
                 if (t_remaining % scoreVisibilityDenominator > (scoreVisibilityDenominator-scoreVisibilityNumerator)) {
                 	context.fillStyle    = textColor;
                 	context.font         = gameScoreText;
                 	context.textBaseline = "top";
-                    context.fillText  ("Score: "+score, 75, textTopOffset );	
+                    context.fillText  ("Score: "+score, 40, textTopOffset );	
                     //context.fillText ("In Experiment Mode",300,textTopOffset);
                     //context.fillText ("Time Remaining: "+ t_remaining,600,10);
                     context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
@@ -194,7 +194,7 @@
                     context.fillStyle    = textColor;
                     context.font         = gameScoreText;
                     context.textBaseline = "top";
-                    context.fillText  ("Score: "+score, 75, textTopOffset );
+                    context.fillText  ("Score: "+score, 40, textTopOffset );
                     //context.fillText ("In Training Mode",300,textTopOffset);
                     //context.fillText ("Time Remaining: "+ t_remaining,600,10);
                     context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
@@ -214,7 +214,7 @@
                 context.fillStyle    = textColor;
                 context.font         = gameScoreText;
                 context.textBaseline = "top";
-                context.fillText  ("Score: "+score, 75, textTopOffset);
+                context.fillText  ("Score: "+score, 40, textTopOffset);
                 context.fillText ("This section time is up", 570, textTopOffset);
                 //document.getElementById("gameScores").hidden=true;
                 //document.getElementById("endsession").hidden = false;

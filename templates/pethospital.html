@@ -100,21 +100,22 @@
             gameScore.setScoreDeltas(1,1,1);
 
             logEvents.setParticipantID(id);
+            logEvents.setStationCount(count);
 
 
             if(count>1){
-                station[0] = new myStation(100, 6, 3, "Tinky", 40, 50, gameScore);
-                station[1] = new myStation(100, 2, 1, "Dinky", 40, 350, gameScore);
+                station[0] = new myStation(100, 6, 3, "Tinky", 40, 50, gameScore,"/static/pet1.jpg","pet1");
+                station[1] = new myStation(100, 2, 1, "Dinky", 40, 350, gameScore,"/static/pet2.jpg","pet2");
             }
             if(count>2){
-                station[2] = new myStation(100, 2, 1, "Loony", 40, 650, gameScore);
+                station[2] = new myStation(100, 2, 1, "Loony", 40, 650, gameScore,"/static/pet3.jpg","pet3");
             }
             if(count > 3){
-                station[3] = new myStation(100, 6, 3, "Shoony",340,50, gameScore);
+                station[3] = new myStation(100, 6, 3, "Shoony",340,50, gameScore,"/static/pet4.jpg","pet4");
             }
             if (count > 5){
-                station[4] = new myStation(100, 2, 1, "Zoomy", 340, 350, gameScore);
-                station[5] = new myStation(100, 6, 3, "Timmy", 340, 650, gameScore);
+                station[4] = new myStation(100, 2, 1, "Zoomy", 340, 350, gameScore,"/static/pet3.jpg","pet5");
+                station[5] = new myStation(100, 6, 3, "Timmy", 340, 650, gameScore,"/static/pet2.jpg","pet6");
             }
 
 
@@ -133,6 +134,7 @@
             var summaryLog = new Object();
             summaryLog.eventType = "pethospital start";
             summaryLog.count = count;
+            summaryLog.participantID = id;
             summaryLog.eventTime = Date.now();
             summaryLog.gameScore = gameScore.getScore();
             var myStringOutput2 = JSON.stringify(summaryLog);
@@ -149,6 +151,7 @@
                         var summaryLog = new Object();
                         summaryLog.eventType = "pethospital end";
                         summaryLog.count = count;
+                        summaryLog.participantID = id;
                         summaryLog.eventTime = Date.now();
                         summaryLog.gameScore = gameScore.getScore();
                         //var myStringOutput2 = JSON.stringify(summaryLog);
@@ -201,6 +204,20 @@
                         nextNotification = [notificationTimes.pop(), notificationHeadings.pop(), notificationTexts.pop(), displayScore.pop()];
 
                     }
+                    
+                    //This section of the code logs the score and health every second
+                    try {
+                        var pet1=station[0].get_health();
+                        var pet2=station[1].get_health();
+                        var pet3=station[2].get_health();
+                        var pet4=station[3].get_health();
+                        var pet5=station[4].get_health();
+                        var pet6=station[5].get_health();
+                    }
+                    catch{
+                        console.log("exception due to stationcount")
+                    }
+                    logEvents.logPeriodic(gameScore.getScore(),pet1,pet2,pet3,pet4,pet5,pet6);
 
                 
                     previousTime = currentTime;
