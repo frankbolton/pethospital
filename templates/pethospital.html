@@ -94,11 +94,11 @@
 
             var id=-1;
             id= {{id}};
-
+            show_eeg = {{show_eeg}}
             
             gameScore.setDuration(duration);
             gameScore.setScoreDeltas(1,1,1);
-
+            gameScore.setEEG(show_eeg);
             logEvents.setParticipantID(id);
             logEvents.setStationCount(count);
 

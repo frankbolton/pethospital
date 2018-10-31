@@ -52,11 +52,13 @@ def index():
         print("gender " + request.form['gender'])
         print("id " + request.form['id'])
         print("age " + request.form['age'])
+        session['show_eeg'] = request.form['show_eeg']
+        print("show_eeg " + session['show_eeg'])
         session['id'] = request.form['id']
         return redirect("/")
     else:
         #return "hello world"
-        return render_template("index.html")
+        return render_template("index.html", id=session['id'])
 
 @app.route("/experiment/<count>")
 def experiment(count=None):
@@ -68,7 +70,7 @@ def experiment(count=None):
 
         if (nl):
             nl.logEvent(creds, bluetooth, text)
-        return render_template("pethospital.html", count=count, id=uid,  creds=creds, bluetooth=bluetooth)
+        return render_template("pethospital.html", count=count, id=uid,  creds=creds, bluetooth=bluetooth, show_eeg=session['show_eeg'])
     return redirect(url_for('index'))
 
 

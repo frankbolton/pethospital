@@ -18,7 +18,7 @@
     
     var gameScoreText = "200 24px sans-serif"
     var textTopOffset = 14;
-    var mentalDemand = 1;
+    var mentalDemand = 0;
 
 	var canvasHTML = "<div id=\"gameScores1\" style=\"position: absolute; top: "+topOffset+"px; left: "+leftOffset+"px;\">"
 	canvasHTML +="<canvas id=\""+id+"\"  width=\""+width+"\" height=\""+height+"\" style=\"border:1px solid #000000;\">Your browser does not support HTML 5 Canvas. </canvas></div>";
@@ -32,10 +32,10 @@
     var scoreVisible = false;
      
      
-     var scoreVisibilityNumerator = 5; //5 of every x seconds the score will be visible
-     var scoreVisibilityDenominator = 20; //x out of every 20 seconds the score will be visible
+    var scoreVisibilityNumerator = 5; //5 of every x seconds the score will be visible
+    var scoreVisibilityDenominator = 20; //x out of every 20 seconds the score will be visible
     
-
+    var show_eeg = false;
     
       
     function getMinSec(){
@@ -86,8 +86,13 @@
     
     
 	return {
+        setEEG: function(show_eeg_v){
+            show_eeg = show_eeg_v;
+        },
         setMentalDemand: function(C){
-            mentalDemand = C;
+            if(show_eeg){
+                mentalDemand = C;
+            }
 
         },
         setDuration: function (intimer) {

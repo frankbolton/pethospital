@@ -10,7 +10,21 @@
                 document.getElementById('eventTime').value = Date.now()
             }      
         </script>
-       
+        <style type="text/css">
+
+            form{
+                padding-left: 40mm;
+                padding-right: 40mm;
+            }
+            #header{                
+                padding-left: 40mm;
+                padding-right: 40mm;
+            }
+            #link{
+                padding-left: 40mm;
+                padding-right: 40mm;
+            }
+        </style>   
     
     </head>
     <body>
@@ -18,9 +32,9 @@
             Welcome to the pethospital experiment.
             Please enter the following information.
         </div>
-        <div id="form">
+        <div id="form" >
         <form id= "RegisterUser" name="RegisterUser" 
-                method="POST"  onsubmit="return">
+                method="POST"  onsubmit="return" >
             <p>
                 <label for="id">Participant ID (from your form)</label>
                 <input name="id" id="id" type="number" required>
@@ -39,7 +53,16 @@
                 <input type="radio" required name="gender" id="other" value="other">
                 <label for="other">Other / Prefer not to disclose</label>
                 </fieldset>
+            <p>
+                <fieldset>
+                    <label for="show_eeg">Group:</label>
+                    <input type="radio" required name="show_eeg" id="false" value="false">
+                    <label for="false">0</label>
+                    <input type="radio" required name="show_eeg" id="true" value="true">
+                    <label for="true">1</label>
                 
+                </fieldset>
+            </p>    
             </p>
                <input type="hidden" name = "eventTime" id="eventTime" value=1234>
             <p>
@@ -47,6 +70,16 @@
             </p>                
             </table>    
         </form>
+    </div>
+    <div id="link" >
+        {{id}}<br>
+        Now that you have completed the registration process,
+        please click on the links below in the order instructed
+        either by the assistant or the experiment sheet you have received.<br>
+
+        <a href="/experiment/2">Two pet condition</a> <br>
+        <a href="/experiment/4">Four pet condition</a> <br>
+        <a href="/experiment/6">Six pet condition</a> <br>
     </div>
     </body>
     </html>
