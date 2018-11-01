@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, escape, jsonify
 from tinydb import TinyDB
+import json
 import os.path
 nl = True
 
@@ -29,12 +30,14 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/987s'
 #setup the database connections
 dbEvents = TinyDB(os.path.join(basedir,'dbEvents.json'))
 EventsTable = dbEvents.table('Events')
+
 dbPeridic = TinyDB(os.path.join(basedir,'dbPeriodic.json'))
 PeriodicEventsTable = dbPeridic.table('Periodic')
 
 dbHighLevelResults = TinyDB(os.path.join(basedir,'dbHighLevel.json'))
 DemographicsTable = dbHighLevelResults.table('Demographics')
 SessionSummaryTable = dbHighLevelResults.table('SessionSummary')
+
 dbTLX = TinyDB(os.path.join(basedir,'dbTLX.json'))
 TLXTable = dbTLX.table('TLXQuestions')
 
@@ -97,9 +100,6 @@ def TLXquestions():
     else:
         return render_template("after_tlx.html")
 
-@app.route("/eegFeedback")
-def eegFeedback():
-    return render_template("neurofeedbackTest.html", creds=creds, bluetooth=bluetooth)
 
 @app.route("/logging", methods = ['POST'])
 def logging():
@@ -171,3 +171,28 @@ def ajax_route():
     except Exception as e:
         print("AJAX excepted " + str(e))
         return str(e)
+
+@app.route('/accessResults')
+def accessResults():
+    return render_template('resultsLinks.html')
+
+@app.route('/readEventsLog')
+def readEventsLog():
+    return json.dumps(EventsTable.all())
+
+@app.route('/readPeriodicLog')
+def readPeriodicLog():
+    return json.dumps(PeriodicEventsTable.all())
+
+@app.route('/readDemographics')
+def readDemographics():
+    return json.dumps(DemographicsTable.all())
+
+
+@app.route('/readSessionSummary')
+def readSessionSummary():
+    return json.dumps(SessionSummaryTable.all())
+
+@app.route('/readTLXResponses')
+def readTLXResponses():
+    return json.dumps(TLXTable.all())
