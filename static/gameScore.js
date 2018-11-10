@@ -170,7 +170,7 @@
             context.fillStyle    = textColor;
             context.font         = gameScoreText;
             //context.fillText("EEG: "+mentalDemand, 200, textTopOffset);
-            context.fillText("Workload: ", 160, textTopOffset);
+            context.fillText("Your activity ", 150, textTopOffset);
             context.fillRect(280,textTopOffset, bar_fill, textTopOffset+10);
             
             if ((t_remaining>0)&&(!learnMode)) {

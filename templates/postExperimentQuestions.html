@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Pethospital Post Questions</title>
+        <link rel="stylesheet" type="text/css" href="/static/pethospital.css"/>
+        
+        <script type="text/javascript">
+            window.onload = function(e){
+                document.getElementById('eventTime').value = Date.now()
+            }      
+        </script>
+        <style type="text/css">
+
+            form{
+                padding-left: 40mm;
+                padding-right: 40mm;
+            }
+            #header{                
+                padding-left: 40mm;
+                padding-right: 40mm;
+            }
+            #link{
+                padding-left: 40mm;
+                padding-right: 40mm;
+            }
+            fieldset{
+
+            border: 0;
+            }
+        </style>   
+    
+    </head>
+    <body>
+        <div id="header">
+            You have completed the experimental stage.<br>
+            Before we finish, please fill in the following questions:
+        </div>
+        <div id="form" >
+        <form id= "PostQuestions" name="PostQuestions" 
+                method="POST"  onsubmit="return" >
+            <p>
+                <h4>Briefly describe what you got out of the experiment?</h4></label>
+                <textarea name="gotOut" id="gotOut" rows="6" cols="100">
+                </textarea>
+
+                <fieldset>
+                <h4>These questions are related to a feedback representation of your current activity:</h4>
+                <label for="eeg_see">Did you see it:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" required name="eeg_see" id="yes" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" required name="eeg_see" id="no" value="no">
+                <label for="no">No</label>
+        
+                <br>
+
+                <label for="eeg_notice">Did you observe it regularly:  &nbsp;</label>
+                <input type="radio" required name="eeg_notice" id="yes" value="yes">
+                <label for="yes">Yes</label>
+                <input type="radio" required name="eeg_notice" id="no" value="no">
+                <label for="no">No</label>
+                
+                <br>
+                
+                <label for="eeg_value">Did you get value out of it: &nbsp;&nbsp;&nbsp;&nbsp; </label>
+                <input type="radio" required name="eeg_value" id="yes" value="no">
+                <label for="false">Yes</label>
+                <input type="radio" required name="eeg_value" id="no" value="no">
+                <label for="false">No</label>
+            
+                </fieldset>
+            </p>    
+            </p>
+               <input type="hidden" name = "eventTime" id="eventTime" value=1234>
+               <input type="hidden" name = "id" id="id" value={{id}}>
+           
+            </p>                
+            <p>        
+                <h4>Free text area to enter anything you want the experimenter to know:</h4></label>
+                <textarea name="freeText" id="freeText" rows="6" cols="100">
+                </textarea>
+            </p>
+            <p>
+                <button>Submit</button>
+            </p>
+
+        </form>
+    </div>
+    
+    </body>
+    </html>

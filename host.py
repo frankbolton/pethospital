@@ -5,7 +5,7 @@ import os.path
 nl = True
 
 if (nl):
-    import NeurosteerLogin as nl
+    import NeurosteerLogin as nlf
 
 app = Flask(__name__, static_url_path='/static')
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -37,6 +37,7 @@ PeriodicEventsTable = dbPeridic.table('Periodic')
 dbHighLevelResults = TinyDB(os.path.join(basedir,'dbHighLevel.json'))
 DemographicsTable = dbHighLevelResults.table('Demographics')
 SessionSummaryTable = dbHighLevelResults.table('SessionSummary')
+PostExperimentSurveyTable = dbHighLevelResults.table('PostExperiment')
 
 dbTLX = TinyDB(os.path.join(basedir,'dbTLX.json'))
 TLXTable = dbTLX.table('TLXQuestions')
@@ -44,7 +45,7 @@ TLXTable = dbTLX.table('TLXQuestions')
 creds =''
 bluetooth =''
 if (nl):
-    [creds, bluetooth] = nl.login()
+    [creds, bluetooth] = nlf.login()
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -63,6 +64,14 @@ def index():
         #return "hello world"
         return render_template("index.html", id=session['id'])
 
+@app.route("/postQuestions", methods=['GET', 'POST'])
+def postQuestions():
+    if request.method == 'POST':
+        PostExperimentSurveyTable.insert(request.form)
+        return redirect("/")
+    else:
+        return render_template("postExperimentQuestions.html", id=session['id'])
+
 @app.route("/experiment/<count>")
 def experiment(count=None):
     if 'id' in session:
@@ -72,7 +81,7 @@ def experiment(count=None):
         session['count'] = count
 
         if (nl):
-            nl.logEvent(creds, bluetooth, text)
+            nlf.logEvent(creds, bluetooth, text)
         return render_template("pethospital.html", count=count, id=uid,  creds=creds, bluetooth=bluetooth, show_eeg=session['show_eeg'])
     return redirect(url_for('index'))
 
@@ -107,7 +116,7 @@ def logging():
         print('logging request made')
         text = "End "+session['id']
         if (nl):
-            nl.logEvent(creds, bluetooth, text)
+            nlf.logEvent(creds, bluetooth, text)
         content = request.get_json()
         data = content['data']
         for s in data:
@@ -125,7 +134,7 @@ def loggingPeriodic():
             PeriodicEventsTable.insert(s)
         return ""
 
-        
+
 @app.route('/summary', methods = ['POST'])
 def summary():
     print ('Inside /summary')
@@ -155,7 +164,7 @@ def message():
 def logger():
     print(request.form['msg'])
     if (nl):
-            nl.logEvent(creds, bluetooth, request.form['msg'])
+            nlf.logEvent(creds, bluetooth, request.form['msg'])
     return(request.form)
 
 
@@ -196,3 +205,7 @@ def readSessionSummary():
 @app.route('/readTLXResponses')
 def readTLXResponses():
     return json.dumps(TLXTable.all())
+
+@app.route('/readPostQuestions')
+def readPostQuestions():
+    return json.dumps(PostExperimentSurveyTable.all())
