@@ -62,7 +62,11 @@ def index():
         return redirect("/")
     else:
         #return "hello world"
-        return render_template("index.html", id=session['id'])
+        if(session.get('id')):
+            return render_template("index.html", id=session['id'])
+        else:
+        #have an issue with the feedback of the user ID.
+            return render_template("index.html")
 
 @app.route("/postQuestions", methods=['GET', 'POST'])
 def postQuestions():
@@ -71,7 +75,7 @@ def postQuestions():
         return redirect("/")
     else:
         return render_template("postExperimentQuestions.html", id=session['id'])
-
+        
 @app.route("/experiment/<count>")
 def experiment(count=None):
     if 'id' in session:
@@ -105,7 +109,8 @@ def TLXquestions():
             #'stationSetup':session['stationSetup'], 'stationCount':session['stationCount'], \
             #'SessionStartTime':session['SessionStartTime'], 'gameDuration':exptime*60 \
         #    })
-        return jsonify(JSON_sent)
+        #return jsonify(JSON_sent)
+        return redirect('/')
     else:
         return render_template("after_tlx.html")
 

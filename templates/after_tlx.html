@@ -194,7 +194,9 @@ function buttonPart1(){
     //request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 	request.onload= function (e) {
 		if (request.readyState === 4 && request.status === 200) {
-			var JSON_received = JSON.parse(request.responseText);
+			//var JSON_received = JSON.parse(request.responseText);
+			//console.log(request.responseText);
+			document.getElementById('completed').hidden = false;
 			//handle received JSON here
 		} else {
 			console.log(request.responseText);
@@ -318,6 +320,11 @@ height: 40px;
   <br/>
   
   <button onclick="buttonPart1()">Submit TLX</button>
+  <div id="completed" hidden=true>
+	<h2>TLX Questionnaire results successfully recorded</h2>
+	Please press the link below to return to the 
+	<a href="/">main page</a>.
+  </div>
   
 </div>
 

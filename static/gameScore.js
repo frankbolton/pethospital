@@ -155,7 +155,7 @@
                 context.fillStyle    = textColor;
                 context.font         = "30px _sans";
                 context.textBaseline = "top";
-			    context.fillText  ("Score: "+score, 75, 10 );	
+			    context.fillText  ("Score: "+score, 15, 10 );	
   			}
 			
 			//time remaining text
@@ -178,7 +178,7 @@
                 	context.fillStyle    = textColor;
                 	context.font         = gameScoreText;
                 	context.textBaseline = "top";
-                    context.fillText  ("Score: "+score, 40, textTopOffset );	
+                    context.fillText  ("Score: "+score, 20, textTopOffset );	
                     //context.fillText ("In Experiment Mode",300,textTopOffset);
                     //context.fillText ("Time Remaining: "+ t_remaining,600,10);
                     context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
@@ -199,7 +199,7 @@
                     context.fillStyle    = textColor;
                     context.font         = gameScoreText;
                     context.textBaseline = "top";
-                    context.fillText  ("Score: "+score, 40, textTopOffset );
+                    context.fillText  ("Score: "+score, 20, textTopOffset );
                     //context.fillText ("In Training Mode",300,textTopOffset);
                     //context.fillText ("Time Remaining: "+ t_remaining,600,10);
                     context.fillText ("Time Remaining: "+ getMinSec(),600,textTopOffset);
