@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, e
 from tinydb import TinyDB
 import json
 import os.path
-nl = True
+nl = False
 
 if (nl):
     import NeurosteerLogin as nlf
@@ -170,7 +170,7 @@ def logger():
     print(request.form['msg'])
     if (nl):
             nlf.logEvent(creds, bluetooth, request.form['msg'])
-    return(request.form)
+    return('',204)
 
 
 @app.route('/ajax-route', methods=['POST'])
