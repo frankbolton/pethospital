@@ -17,6 +17,9 @@ def login():
     if 'eulaUpdateMsg' in r.json():
         raise ValueError('Neurosteer service needs you to update the EULA, with a browser login to the portal to accept it.', url_signin)
 
+    if 'status' in r.json():
+        if(r.json()['status']==401):
+            raise ValueError('Error', r.json()['message'])
     a = r.json()['url']
     start_of_token = a.find('access_token=')+len('access_token=')
     end_of_token = a.find('&user_data=')
