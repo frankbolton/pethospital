@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, e
 from tinydb import TinyDB
 import json
 import os.path
-nl = False
+nl = True
 
 if (nl):
     import NeurosteerLogin as nlf
@@ -24,7 +24,7 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/987s'
 # activate venv:    venv/scripts/activate
 # set up environment variable:  set FLASK_APP=host.py
 # optional debug:               set FLASK_DEBUG=1
-# run the application           flask.run
+# run the application           flask run
 
 
 #setup the database connections
