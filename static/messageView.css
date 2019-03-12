@@ -1,13 +1,13 @@
 #mV {
 
-    height: 14cm;
-    width: 20cm;
-    margin-left: 4cm;
-    margin-top: 0cm;
+    height: 10cm;
+    width: 8cm;
+    margin-left: 26cm;
+    margin-top: 10cm;
     background-color:wheat;
     outline: dotted thin;
     outline-color: steelblue;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
     position: absolute;
     z-index: 999;
     
