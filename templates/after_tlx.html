@@ -13,9 +13,9 @@
 
  Copyright 2011 by Keith Vertanen
  http://www.keithv.com/software/nasa_tlx
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
 -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script language="JavaScript" type="text/javascript">
 
 //var gameScore = {{ gameScore }};
@@ -151,12 +151,63 @@ function getScaleHTML(index)
 	return result;
 }
 
+function generate_q_html(index){
+	var result="";
+
+	// Outer table with a column for scale, column for definition
+	result += '<table><tr><td>';
+
+	// Table that generates the questions
+	result += '<table class="question">';
+
+	// Row 1, just the name of the question
+	result += '<tr><td colspan="20" class="heading">' + q_title[index] + '</td></tr>';
+
+	
+	// Row 2, the top half of the question increments,
+	result += '<tr>';
+	for (var i = 0; i <= 1; i += 1)
+	{
+		result += '<td id="qt_' + index + '_' + i + '"   class="top" onMouseUp="questionClick(' + index + ', ' + i + ');"></td>';
+	
+	}
+	result += '</tr>';
+
+	// Row 3, bottom half of the question increments
+	result += '<tr>';
+	for (var i = 0; i <= 1; i +=1 )
+	{
+		result += '<td id="qb_' + index + '_' + i + '"   class="bottom" onMouseUp="questionClick(' + index + ', ' + i + ');"></td>';
+	}
+	result += '</tr>';
+
+	// Row 4, left and right of range labels
+	result += '<tr>';
+	result += '<td colspan="10" class="left">' + q_left[index] + '</td><td colspan="10" class="right">' + q_right[index] + '</td>';
+	result += '</tr></table></td>';
+
+	// Now for the definition of the question
+	result += '<td class="def">';
+	result +=  q_defs[index] ;
+
+	result += '</td></tr></table>';
+
+	return result;
+	
+}
+
+
 function onLoad()
 {
 	// Get all the scales ready
 	for (var i = 0; i < NUM_SCALES; i++)
 	{
 		document.getElementById("scale" + i).innerHTML = getScaleHTML(i);
+	}
+	for (var j=0; j<NUM_QUESTIONS; j++)
+	{
+		document.getElementById("question" + j).innerHTML = generate_q_html(j);
+		console.log("question" + j)
 	}
 }
 
@@ -169,6 +220,13 @@ function buttonPart1(){
 			return false;
 		}
 	}
+	for (var j=0; j<NUM_QUESTIONS; j++)
+	{
+		if (qresults_rating[j]==null){
+			alert('A value must be selected for every question!');
+			return false;
+		}
+	}
 
 	// Bye bye part 1, hello part 2
     //document.getElementById('TLX').value = TLXObject;
@@ -176,7 +234,12 @@ function buttonPart1(){
     
     for (var i = 0; i < NUM_SCALES; i++) {
     	TLXObject[scale[i]] = results_rating[i];
-    }
+		}
+		for (var j=0; j<NUM_QUESTIONS; j++)
+		{
+			TLXObject[q_title[j]] = qresults_rating[j];
+		}
+
     var myStringOutput = JSON.stringify(TLXObject,null,3);
 	var request = new XMLHttpRequest();
     request.open('POST', '/TLXquestions');
@@ -202,6 +265,57 @@ function buttonPart1(){
 	
     return true;
 }
+
+
+//________________________________
+//This is the are where we'll put code to generate the post-experiment questions that need to be asked frequently
+//_________________________________Begin
+var NUM_QUESTIONS = 3
+var q_title      = new Array();
+var q_left       = new Array();
+var q_right      = new Array();
+var q_defs        = new Array();
+
+var qresults_rating = new Array();
+
+q_title[0]="Noticeable";
+q_left[0]="No";
+q_right[0]="Yes";
+q_defs[0]="Did you notice feedback presented of your measured workload? ";
+
+
+q_title[1]="Helpfulness";
+q_left[1]="No";
+q_right[1]="Yes";
+q_defs[1]="If you received feedback, did you feel that it was helpful?";
+
+q_title[2]="Accuracy";
+q_left[2]="No";
+q_right[2]="Yes";
+q_defs[2]="Do you feel that the feedback was accurate?";
+
+
+function questionClick(index, val)
+{
+	qresults_rating[index] = val;
+
+	// Turn background color to white for all cells
+	for (i = 0; i <= 1; i += 1)
+	{
+		var top = "qt_" + index + "_" + i;
+		var bottom = "qb_" + index + "_" + i;
+		document.getElementById(top).bgColor='#FFFFFF';
+		document.getElementById(bottom).bgColor='#FFFFFF';
+	}
+
+	var top = "qt_" + index + "_" + val;
+	var bottom = "qb_" + index + "_" + val;
+	document.getElementById(top).bgColor='#AAAAAA';
+	document.getElementById(bottom).bgColor='#AAAAAA';
+}
+
+
+//_________________________________End
 </script>
 
 <style>
@@ -284,6 +398,20 @@ height: 40px;
 
 }
 
+td.q_title
+{
+	margin: 0px;
+	padding: 0px 0px 0px 0px;
+      border-collapse: collapse
+}
+
+
+td.q_def
+{
+	width: 12cm;	
+	padding: 0px 0px 0px 20px;
+	font: 14px Arial, Helvetica, sans-serif;
+}
 
 </style>
 
@@ -304,14 +432,15 @@ height: 40px;
   <div id="scale1"></div>
   <div id="scale2"></div>
   <div id="scale3"></div>
-  <div id="scale4"></div>
-  <div id="scale5"></div>
 
-  <br/>
+	<br/>
+	<div id="question0"></div>
+	<div id="question1"></div>
+  <div id="question2"></div>
   
-  <button onclick="buttonPart1()">Submit TLX</button>
+  <button onclick="buttonPart1()">Submit Questions</button>
   <div id="completed" hidden=true>
-	<h2>TLX Questionnaire results successfully recorded</h2>
+	<h2>Questionnaire results successfully recorded</h2>
 	Please press the link below to return to the 
 	<a href="/">main page</a>.
   </div>

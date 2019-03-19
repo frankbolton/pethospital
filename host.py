@@ -24,7 +24,7 @@ app.secret_key = 'A0Zr98j/3yX R~XHH!jmN]LWX/987s'
 # activate venv:    venv/scripts/activate
 # set up environment variable:  set FLASK_APP=host.py
 # optional debug:               set FLASK_DEBUG=1
-# run the application           flask.run
+# run the application           flask run
 
 
 #setup the database connections
@@ -97,6 +97,7 @@ def TLXquestions():
         JSON_sent = request.get_json()
         JSON_sent['id']=session['id']
         JSON_sent['count']=session['count']
+        JSON_sent['show_eeg']=session['show_eeg'] 
         TLXTable.insert(JSON_sent)
         #if (a.get("Mental Demand")!=0):
         #    FeedbackTable.insert({'id':session['id'],  \
@@ -126,7 +127,7 @@ def logging():
         data = content['data']
         for s in data:
             EventsTable.insert(s)
-        return redirect('/')
+        return ""
 
 @app.route("/logPeriodic", methods = ['POST'])
 def loggingPeriodic():
@@ -170,20 +171,20 @@ def logger():
     return('',204)
 
 
-@app.route('/ajax-route', methods=['POST'])
-def ajax_route():
-    try:
-        JSON_sent = request.get_json()
-        print(JSON_sent)
-        # handle your JSON_sent here
-        # Pass JSON_received to the frontend
-        JSON_received = JSON_sent
-        return jsonify(JSON_received)
-    except Exception as e:
-        print("AJAX excepted " + str(e))
-        return str(e)
+#@app.route('/ajax-route', methods=['POST'])
+#def ajax_route():
+#    try:
+#        JSON_sent = request.get_json()
+#        print(JSON_sent)
+#        # handle your JSON_sent here
+#        # Pass JSON_received to the frontend
+#        JSON_received = JSON_sent
+#        return jsonify(JSON_received)
+#    except Exception as e:
+#        print("AJAX excepted " + str(e))
+#        return str(e)
 
-@app.route('/accessResults')
+@app.route('/results')
 def accessResults():
     return render_template('resultsLinks.html')
 
