@@ -59,6 +59,7 @@
         if (t_remaining<=0)
         {
             console.log("area pressed, time over");
+            window.location = '/';
         }
     }
     theCanvas.addEventListener("click", onMouseClick, false); 
@@ -220,7 +221,7 @@
                 context.font         = gameScoreText;
                 context.textBaseline = "top";
                 context.fillText  ("Score: "+score, 40, textTopOffset);
-                context.fillText ("This section time is up", 570, textTopOffset);
+                context.fillText ("Time up <press here>", 570, textTopOffset);
                 //document.getElementById("gameScores").hidden=true;
                 //document.getElementById("endsession").hidden = false;
                
