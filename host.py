@@ -68,7 +68,7 @@ def index():
         #have an issue with the feedback of the user ID.
             return render_template("index.html")
 
-@app.route("/postQuestions", methods=['GET', 'POST'])
+@app.route("/questions", methods=['GET', 'POST'])
 def postQuestions():
     if request.method == 'POST':
         PostExperimentSurveyTable.insert(request.form)
