@@ -22,6 +22,7 @@
             #header{                
                 padding-left: 40mm;
                 padding-right: 40mm;
+                font: 22px Arial, Helvetica, sans-serif;
             }
             #link{
                 padding-left: 40mm;
@@ -43,32 +44,44 @@
         <form id= "PostQuestions" name="PostQuestions" 
                 method="POST"  onsubmit="return" >
             <p>
+                
+                <h4>Please describe you experience with wearing the sensor?</h4></label>
+                <textarea name="ExperienceWearing" id="ExperienceWearing" rows="6" cols="100">
+                </textarea>
+
+                <h4>Please describe your experience with seeing a real time feedback of your mental state?</h4></label>
+                <textarea name="ExperienceSeeingMental" id="ExperienceSeeingMental" rows="6" cols="100">
+                </textarea>
+
                 <h4>Briefly describe what you got out of the experiment?</h4></label>
                 <textarea name="gotOut" id="gotOut" rows="6" cols="100">
                 </textarea>
 
                 <fieldset>
                 <h4>These questions are related to a feedback representation of your current activity:</h4>
-                <label for="eeg_see">Did you see it:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-                <input type="radio" required name="eeg_see" id="yes" value="yes">
-                <label for="yes">Yes</label>
-                <input type="radio" required name="eeg_see" id="no" value="no">
-                <label for="no">No</label>
+                <label for="Stressed">Do you feel that the presence of the feedback made you more or less stressed?&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                <input type="radio" required name="Stressed" id="more" value="more">
+                <label for="more">More Stressed</label>
+                <input type="radio" required name="Stressed" id="less" value="less">
+                <label for="less">Less Stressed</label>
+                <input type="radio" required name="Stressed" id="unchanged" value="unchanged">
+                <label for="unchanged">No change</label>
         
                 <br>
+                <br>
 
-                <label for="eeg_notice">Did you observe it regularly:  &nbsp;</label>
-                <input type="radio" required name="eeg_notice" id="yes" value="yes">
+                <label for="useforwork">Would you consider using such a system in your work?  &nbsp;</label>
+                <input type="radio" required name="useforwork" id="yes" value="yes">
                 <label for="yes">Yes</label>
-                <input type="radio" required name="eeg_notice" id="no" value="no">
+                <input type="radio" required name="useforwork" id="no" value="no">
                 <label for="no">No</label>
                 
                 <br>
                 
-                <label for="eeg_value">Did you get value out of it: &nbsp;&nbsp;&nbsp;&nbsp; </label>
-                <input type="radio" required name="eeg_value" id="yes" value="no">
+                <label for="useforstudies">Would you consider using such a system in your studying?</label>
+                <input type="radio" required name="useforstudies" id="yes" value="yes">
                 <label for="false">Yes</label>
-                <input type="radio" required name="eeg_value" id="no" value="no">
+                <input type="radio" required name="useforstudies" id="no" value="no">
                 <label for="false">No</label>
             
                 </fieldset>
@@ -78,6 +91,11 @@
                <input type="hidden" name = "id" id="id" value={{id}}>
            
             </p>                
+            <p>        
+                <h4>What you did differently when you saw or did not see the feedback in how you behaved towards the instant messages?</h4></label>
+                <textarea name="differentWithFeedback" id="differentWithFeedback" rows="6" cols="100">
+                </textarea>
+            </p>
             <p>        
                 <h4>Free text area to enter anything you want the experimenter to know:</h4></label>
                 <textarea name="freeText" id="freeText" rows="6" cols="100">
